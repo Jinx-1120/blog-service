@@ -1,5 +1,7 @@
-var express = require('express');
-var router = express.Router({
+import express from 'express';
+import userControll from '../controller/user.controll';
+
+let router = express.Router({
   mergeParams: true
 });
 router.get('/list', function (req, res, next) {
@@ -9,4 +11,14 @@ router.get('/list', function (req, res, next) {
     'errorMsg': 'ddddd'
   }))
 })
+/**
+ * 用户注册
+ */
+router.post('/register', userControll.Register);
+/**
+ * 用户登录
+ */
+router.post('/login', userControll.Login);
+
+
 module.exports = router;

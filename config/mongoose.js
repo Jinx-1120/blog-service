@@ -16,10 +16,7 @@ mongoose.connection.on('error', (err) => {
  */
 exports.connect = () => {
   console.log(`Connecting to mongo @: ${config.uri}`);
-  mongoose.connect(config.uri, {
-    keepAlive: 1,
-    useMongoClient: true,
-  });
+  mongoose.connect(config.uri);
   return mongoose.connection;
 };
 
