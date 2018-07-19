@@ -1,3 +1,4 @@
+require('babel-register');
 const { port } = require('./config/config');
 const app = require('./config/express');
 const mongoose = require('./config/mongoose');
