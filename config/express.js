@@ -1,16 +1,18 @@
-const express = require('express');
-const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const compress = require('compression');
-const methodOverride = require('method-override');
-const cors = require('cors');
-const helmet = require('helmet');
-const passport = require('passport');
+import express from 'express';
+import morgan from 'morgan';
+import bodyParser from 'body-parser';
+import compress from 'compression';
+import methodOverride from 'method-override';
+import cors from 'cors';
+import helmet from 'helmet';
+import passport from 'passport';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
 
-const routes = require('../api/route');
-const { logs } = require('./config');
+import routes from '../api/route';
+import { logs } from './config';
 
-const app = express();
+const app = new express();
 
 // dev 显示console | pro 显示: file
 app.use(morgan(logs));
@@ -22,6 +24,16 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+app.use(cookieParser('express_cookie'));
+app.use(session({
+  secret: 'express_cookie',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 60 * 1000 * 30
+  } //过期时间
+}));
+
 // gzip compression
 app.use(compress());
 
@@ -31,6 +43,7 @@ app.use(methodOverride());
 
 // secure apps by setting various HTTP headers
 app.use(helmet());
+
 
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors());

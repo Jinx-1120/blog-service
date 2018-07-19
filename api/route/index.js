@@ -19,6 +19,14 @@ router.post('/register', userControll.Register);
  * 用户登录
  */
 router.post('/login', userControll.Login);
+/**
+ * 退出登陆
+ */
+router.post('/logout', userControll.Logout);
+/**
+ * 用户验证
+ */
+router.get('/userInfo', userControll.userInfo);
 
 
 module.exports = router;
