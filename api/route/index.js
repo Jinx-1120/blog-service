@@ -1,6 +1,7 @@
 import express from 'express';
 import userControll from '../controller/user.controll';
 import tagControll from '../controller/tags.controll';
+import articleControll from '../controller/article.controll';
 
 let router = express.Router({
   mergeParams: true
@@ -40,5 +41,21 @@ router.get('/tagList', tagControll.tagList);
  * 删除标签
  */
 router.delete('/delTag', tagControll.delTag);
+/**
+ * 添加文章
+ */
+router.post('/addArticle', articleControll.addArticle);
+/**
+ * 获取文章列表
+ */
+router.get('/articleList', articleControll.articleList);
+/**
+ * 获取文章详情
+ */
+router.get('/article/:articleID', articleControll.getArticle);
+/**
+ * 删除文章
+ */
+router.delete('/delArticle/:articleID', articleControll.delArticle);
 
 module.exports = router;

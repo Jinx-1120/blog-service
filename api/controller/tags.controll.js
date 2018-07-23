@@ -11,7 +11,7 @@ exports.addTag = async (req, res, next) => {
   if (!tagName) {
     responseClient(res, 400, 1, '标签名不可为空');
     next();
-  }
+  };
   try {
     tagsModel.findOne({
       tagName: tagName
@@ -22,21 +22,27 @@ exports.addTag = async (req, res, next) => {
       } else {
         let tag = new tagsModel({
           tagName: tagName
-        })
+        });
         tag.save().then(saveInfo => {
           responseClient(res, 200, 0, '标签保存成功', saveInfo);
           next();
         }).catch(err => {
-          responseClient(res, 400, 1, '标签保存失败', err);
+          responseClient(res, 500, 1, '系统异常', err);
           next();
         });
       };
     });
   } catch (err) {
-    responseClient(res, 500, 1, '系统异常', err);
+    responseClient(res, 400, 1, '标签保存失败', err);
     next();
   };
 };
+/**
+ * 标签列表
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.tagList = async (req, res, next) => {
   try {
     tagsModel.find({}).then(data => {
@@ -44,7 +50,7 @@ exports.tagList = async (req, res, next) => {
       responseClient(res, 200, 1, '成功', data);
       next();
     }).catch(err => {
-      responseClient(res, 400, 1, '查询失败', err);
+      responseClient(res, 500, 1, '服务器异常！', err);
       next();
     });
   } catch (err) {
@@ -74,11 +80,11 @@ exports.delTag = async (req, res, next) => {
           next();
         };
       }).catch(err => {
-        responseClient(res, 500, 1, '删除失败！', err);
+        responseClient(res, 500, 1, '服务器异常！', err);
         next();
       });
     } catch (err) {
-      responseClient(res, 500, 1, '删除失败！', err);
+      responseClient(res, 400, 1, '删除失败！', err);
       next();
     };
   };

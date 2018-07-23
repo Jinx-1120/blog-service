@@ -34,6 +34,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
     "cookie-parser": "^1.4.3",
-    "express-session": "^1.15.6"
+    "express-session": "^1.15.6",
+    "mongoose-paginate": "^5.0.3"
   }
 }
