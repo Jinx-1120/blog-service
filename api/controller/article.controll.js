@@ -1,6 +1,11 @@
 import articleModel from '../models/article.model';
 import { responseClient } from '../util';
-
+/**
+ * 添加文章
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.addArticle = async (req, res, next) => {
   let {
     title,
@@ -13,7 +18,7 @@ exports.addArticle = async (req, res, next) => {
   try {
     let article = new articleModel({
       title,
-      tags,
+      tags: tags.split(','),
       content,
       coverImg,
       author,
@@ -61,7 +66,12 @@ exports.articleList = async (req, res, next) => {
     next(err);
   }
 };
-
+/**
+ * 获取文章详情
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.getArticle = async (req, res, next) => {
   let { articleID } = req.params;
   articleModel.findOne({
@@ -78,8 +88,41 @@ exports.getArticle = async (req, res, next) => {
   }).catch(err => {
     responseClient(res, 400, 1, '查询失败', err);
     next();
+  });
+};
+/**
+ * 文章更新
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+exports.updateArticle = async (req, res, next) => {
+  let { articleID } = req.params;
+  console.log(req.body);
+  let {
+    title,
+    tags,
+    content,
+    coverImg,
+    status
+  } = req.body;
+  let updateTime = new Date().getTime();
+  articleModel.update({
+    _id: articleID
+  }, {
+    title,
+    tags: tags.split(','),
+    content,
+    coverImg,
+    status,
+    updateTime
+  }).then(updateInfo => {
+    responseClient(res, 200, 0, '更新成功!', updateInfo);
+  }).catch(err => {
+    responseClient(res, 500, 1, '更新失败！', err)
   })
-}
+};
+
 /**
  * 删除文章
  * @param {*} req 

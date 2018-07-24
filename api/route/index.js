@@ -53,6 +53,8 @@ router.get('/articleList', articleControll.articleList);
  * 获取文章详情
  */
 router.get('/article/:articleID', articleControll.getArticle);
+
+router.put('/article/:articleID', articleControll.updateArticle);
 /**
  * 删除文章
  */
