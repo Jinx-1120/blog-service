@@ -32,6 +32,8 @@ vim .bash_profile
 保存退出
 ```shell
 source ~/.bash_profile
+echo $PATH
+## 输出的路径显示/usr/local/Cellar/mongodb表示配置成功
 mongod
 ```
 启动成功后新开一个终端
