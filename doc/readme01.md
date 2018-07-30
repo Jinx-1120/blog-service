@@ -1,10 +1,12 @@
-## 项目介绍
+# 项目介绍
+
   这是一个本人开源的自建的博客系统，本项目主要是博客系统的service，通过使用Express+Mongoose搭建的。
   在了解、学习项目之前，建议先了解一下[Express](http://www.expressjs.com.cn/)、[Mongoose](https://mongoose.shujuwajue.com)
 
-### 关于mongo的相关配置以及连接问题（这里主要介绍的是Mac环境下的mongo的安装以及使用）
+## 关于mongo的相关配置以及连接问题（这里主要介绍的是Mac环境下的mongo的安装以及使用）
 
-#### · 通过brew安装mongodb
+### · 通过brew安装mongodb
+
 ```shell
 brew list   #查看brew已安装软件
 brew install mongodb  #安装mongodb
@@ -19,25 +21,38 @@ Or, if you don't want/need a background service you can just run:
 
 #出现上面的提示信息表示安装成功
 ```
-#### · 将mongodb配置到环境变量里面
-```shell
-cd ~
-vim .bash_profile
-```
-  然后将下面的命令放到.bash_profile文件中
+
+### · 将mongodb配置到环境变量里面
+
+>再.bash_profile文件中配置mongodb
+
+  ```shell
+  cd ~
+  vim .bash_profile
+  #然后将下面的命令放到.bash_profile文件中
+  ```
+
   ```js
   export MONGO_PATH=/usr/local/Cellar/mongodb
   export PATH=$PATH:$MONGO_PATH/bin
   ```
-保存退出
+
+>使配置生效
+
 ```shell
+
 source ~/.bash_profile
 echo $PATH
 ## 输出的路径显示/usr/local/Cellar/mongodb表示配置成功
+#启动mongod
 mongod
+
 ```
+
 启动成功后新开一个终端
+
 ```shell
+#启动mongo
 mongo
 
 MongoDB shell version v3.6.3
@@ -60,21 +75,21 @@ Server has startup warnings:
 ##显示上面的内容表示安装启动成功
 ```
 
-**service**
+***service***
+
 - 本地启动mongo
 - 在service中配置mongoose以及experss
 - 配置路由，添加项目中需要的表，以及controller
 
-
-
-**相关表结构介绍**
+***相关表结构介绍***
 
 - [用户User表结构](https://github.com/Jhaidi/blog_server/blob/master/api/models/users.model.js)
 - [标签Tag表结构](https://github.com/Jhaidi/blog_server/blob/master/api/models/tags.model.js)
 - [文章Article表结构](https://github.com/Jhaidi/blog_server/blob/master/api/models/article.model.js)
 
-**相关controller介绍**
-* 建议大家将router的方法写在controller里面，这样会让你的整合项目的结构更清晰一些
+***相关controller介绍***
+
+>建议大家将router的方法写在controller里面，这样会让你的整合项目的结构更清晰一些
 
 - [用户User的相关操作](https://github.com/Jhaidi/blog_server/blob/master/api/controller/user.controll.js)
 - [标签Tag的相关操作](https://github.com/Jhaidi/blog_server/blob/master/api/controller/tags.controll.js)
