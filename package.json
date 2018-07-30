@@ -1,20 +1,30 @@
 {
-  "name": "server",
+  "name": "blog",
   "version": "1.0.0",
-  "description": "blog server",
-  "main": "app.js",
+  "description": "JHaidi's personal blog",
+  "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon app.js",
-    "start": "NODE_ENV=production node --harmony app.js"
+    "dev": "NODE_ENV=development nodemon ./blog_server/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jhaidi/blog.git"
   },
   "keywords": [
     "blog",
-    "express",
+    "vue",
+    "ssr",
     "node",
-    "javascript"
+    "express",
+    "mongodb"
   ],
-  "author": "Jhaidi",
+  "author": "JHaidi",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jhaidi/blog/issues"
+  },
+  "homepage": "https://github.com/Jhaidi/blog#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
