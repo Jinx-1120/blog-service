@@ -1,4 +1,4 @@
-# 项目介绍
+﻿# 项目介绍
 
   这是一个本人开源的自建的博客系统，本项目主要是博客系统的service，通过使用Express+Mongoose搭建的。
   在了解、学习项目之前，建议先了解一下[Express](http://www.expressjs.com.cn/)、[Mongoose](https://mongoose.shujuwajue.com)
