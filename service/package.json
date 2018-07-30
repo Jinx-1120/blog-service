@@ -1,0 +1,17 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "blog server",
+  "main": "app.js",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon app.js",
+    "start": "NODE_ENV=production node --harmony app.js"
+  },
+  "keywords": [
+    "blog",
+    "express",
+    "node",
+    "javascript"
+  ],
+  "author": "Jhaidi"
+}
