@@ -1,14 +1,14 @@
 ﻿# 项目介绍
 
-  这是一个本人开源的自建的博客系统，本项目主要是博客系统的service，通过使用Express+Mongoose搭建的。
-  在了解、学习项目之前，建议先了解一下[Express](http://www.expressjs.com.cn/)、[Mongoose](https://mongoose.shujuwajue.com)
+  这是一个本人开源的自建的博客系统，本项目主要是博客系统的service，通过使用Express+Mongoose搭建的。
+  在了解、学习项目之前，建议先了解一下[Express](http://www.expressjs.com.cn/)、[Mongoose](https://mongoose.shujuwajue.com)
 
 ## 关于mongo的相关配置以及连接问题（这里主要介绍的是Mac环境下的mongo的安装以及使用）
 
 ### · 通过brew安装mongodb
 
 ```shell
-brew list   #查看brew已安装软件
+brew list   #查看brew已安装软件
 brew install mongodb  #安装mongodb
 
 ==> Caveats
@@ -29,7 +29,7 @@ Or, if you don't want/need a background service you can just run:
   ```shell
   cd ~
   vim .bash_profile
-  #然后将下面的命令放到.bash_profile文件中
+  #然后将下面的命令放到.bash_profile文件中
   ```
 
   ```js
@@ -43,13 +43,13 @@ Or, if you don't want/need a background service you can just run:
 
 source ~/.bash_profile
 echo $PATH
-## 输出的路径显示/usr/local/Cellar/mongodb表示配置成功
+## 输出的路径显示/usr/local/Cellar/mongodb表示配置成功
 #启动mongod
 mongod
 
 ```
 
-启动成功后新开一个终端
+启动成功后新开一个终端
 
 ```shell
 #启动mongo
@@ -78,8 +78,8 @@ Server has startup warnings:
 ***service***
 
 - 本地启动mongo
-- 在service中配置mongoose以及experss
-- 配置路由，添加项目中需要的表，以及controller
+- 在service中配置mongoose以及experss
+- 配置路由，添加项目中需要的表，以及controller
 
 ***相关表结构介绍***
 
@@ -89,8 +89,8 @@ Server has startup warnings:
 
 ***相关controller介绍***
 
->建议大家将router的方法写在controller里面，这样会让你的整合项目的结构更清晰一些
+>建议大家将router的方法写在controller里面，这样会让你的整合项目的结构更清晰一些
 
-- [用户User的相关操作](https://github.com/Jhaidi/blog_server/blob/master/api/controller/user.controll.js)
+- [用户User的相关操作](https://github.com/Jhaidi/blog_server/blob/master/api/controller/user.controll.js)
 - [标签Tag的相关操作](https://github.com/Jhaidi/blog_server/blob/master/api/controller/tags.controll.js)
 - [文章Article的相关操作](https://github.com/Jhaidi/blog_server/blob/master/api/controller/article.controll.js)
