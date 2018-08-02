@@ -35,7 +35,7 @@ exports.addArticle = async (req, res, next) => {
       next();
     })
   } catch (err) {
-    responseClient(res, 400, 1, '保存失败！', err);
+    responseClient(res, 200, 1, '保存失败！', err);
     next();
   };
 };
@@ -86,7 +86,7 @@ exports.getArticle = async (req, res, next) => {
     responseClient(res, 200, 0, '', info);
     next();
   }).catch(err => {
-    responseClient(res, 400, 1, '查询失败', err);
+    responseClient(res, 200, 1, '查询失败', err);
     next();
   });
 };
@@ -134,7 +134,7 @@ exports.delArticle = async (req, res, next) => {
   let { articleID } = req.params;
   try {
     if (!articleID) {
-      responseClient(res, 400, 1, '请输入正确的ID');
+      responseClient(res, 200, 1, '请输入正确的ID');
       next();
     } else {
       articleModel.remove({ 
@@ -143,7 +143,7 @@ exports.delArticle = async (req, res, next) => {
         if (result.n === 1) {
           responseClient(res, 200, 0, '删除成功!')
         } else {
-          responseClient(res, 400, 1, '文章不存在！!')
+          responseClient(res, 200, 1, '文章不存在！!')
         }
       }).catch(err => {
         responseClient(res, 500, 1, '服务器异常', err)

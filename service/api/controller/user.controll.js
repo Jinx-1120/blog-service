@@ -13,9 +13,9 @@ exports.Register = async (req, res, next) => {
     type
   } = req.body;
   if (!userName) {
-    responseClient(res, 400, 2, '用户名不为空')
+    responseClient(res, 200, 2, '用户名不为空')
   } else if (!passWord) {
-    responseClient(res, 400, 2, '密码不可为空')
+    responseClient(res, 200, 2, '密码不可为空')
   }
   UserModel.findOne({
     userName: userName
@@ -54,6 +54,7 @@ exports.Register = async (req, res, next) => {
  * @param {*} next 
  */
 exports.Login = async (req, res, next) => {
+  console.log(req.body);
   let { userName, passWord } = req.body;
   UserModel.findOne({
     userName,
@@ -74,7 +75,7 @@ exports.Login = async (req, res, next) => {
       responseClient(res, 200, 0, '登陆成功', data);
       next();
     } else {
-      responseClient(res, 400, 1, '用户名与密码不匹配');
+      responseClient(res, 200, 1, '用户名与密码不匹配');
       next();
     };
   }).catch(err => {
@@ -111,7 +112,7 @@ exports.userInfo = async (req, res, next) => {
       responseClient(res, 200, 0, '验证成功', req.session.userInfo);
       next();
     } else {
-      responseClient(res, 400, 1, '登陆超时，请重新登陆', req.session.userInfo);
+      responseClient(res, 200, 1, '登陆超时，请重新登陆', req.session.userInfo);
       next();
     }
   } catch (err) {

@@ -9,7 +9,7 @@ import { responseClient } from '../util';
 exports.addTag = async (req, res, next) => {
   let { tagName } = req.body;
   if (!tagName) {
-    responseClient(res, 400, 1, '标签名不可为空');
+    responseClient(res, 200, 1, '标签名不可为空');
     next();
   };
   try {
@@ -33,7 +33,7 @@ exports.addTag = async (req, res, next) => {
       };
     });
   } catch (err) {
-    responseClient(res, 400, 1, '标签保存失败', err);
+    responseClient(res, 200, 1, '标签保存失败', err);
     next();
   };
 };
@@ -54,7 +54,7 @@ exports.tagList = async (req, res, next) => {
       next();
     });
   } catch (err) {
-    responseClient(res, 400, 1, '查询失败', err);
+    responseClient(res, 200, 1, '查询失败', err);
     next();
   };
 };
@@ -67,7 +67,7 @@ exports.tagList = async (req, res, next) => {
 exports.delTag = async (req, res, next) => {
   let { tagName } = req.body;
   if (!tagName) {
-    responseClient(res, 400, 1, '标签名不可为空');
+    responseClient(res, 200, 1, '标签名不可为空');
     next();
   } else {
     try {
@@ -76,7 +76,7 @@ exports.delTag = async (req, res, next) => {
           responseClient(res, 200, 0, '删除标签成功！');
           next();
         } else {
-          responseClient(res, 400, 1, '标签不存在！');
+          responseClient(res, 200, 1, '标签不存在！');
           next();
         };
       }).catch(err => {
@@ -84,7 +84,7 @@ exports.delTag = async (req, res, next) => {
         next();
       });
     } catch (err) {
-      responseClient(res, 400, 1, '删除失败！', err);
+      responseClient(res, 200, 1, '删除失败！', err);
       next();
     };
   };
