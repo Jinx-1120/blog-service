@@ -1,0 +1,161 @@
+body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, li, a, p, h1, h2, h3, h4, h5, h6, i, b, textarea, button, input, select, figure, figcaption {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-style: normal;
+    text-decoration: none;
+    border: none;
+    font-family: "Microsoft Yahei", sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    &:focus {
+        outline: none;
+    }
+}
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: #bbbec4;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #555;
+}
+
+input[type="button"], input[type="submit"], input[type="search"], input[type="reset"] {
+    -webkit-appearance: none;
+}
+
+textarea {
+    -webkit-appearance: none;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    // background-color: #F5F5F5;
+}
+
+.fillcontain {
+    height: 100%;
+    width: 100%;
+}
+
+.clear:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.clear {
+    zoom: 1;
+}
+
+.back_img {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.margin {
+    margin: 0 auto;
+}
+
+.left {
+    float: left;
+}
+
+.el-date-picker.has-time {
+    max-width: 370px !important;
+}
+
+.right {
+    float: right;
+}
+
+.el-form-item {
+    margin-bottom: 10px;
+}
+
+.hide {
+    display: none;
+}
+
+.el-pagination__editor {
+    .el-input__inner {
+        height: 20px;
+    }
+}
+
+.show {
+    display: block;
+}
+
+.ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.el-dialog__header {
+    text-align: center;
+}
+
+.moudle-wrap {
+    border-radius: 5px;
+    padding: 5px;
+    // box-shadow: 1px 1px 1px 3px #888888;
+    min-height: 100%;
+    background: #ffffff;
+}
+
+.clearfix:after {
+    content: " ";
+    display: block;
+    clear: both;
+    height: 0;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.search-from {
+    padding-top: 5px;
+    background: #eeeeee;
+    margin: 10px 0;
+    border-radius: 5px;
+    .el-col {
+        padding: 0 5px;
+    }
+    .el-form-item {
+        margin-bottom: 5px;
+    }
+}
+
+.search-btn {
+    margin-left: 15px
+}
+
+.el-message-box__status + .el-message-box__message {
+    padding-left: 36px;
+    padding-right: 12px;
+}
+
+.el-dialog .header {
+    height: 30px;
+    font-size: 18px;
+    color: #373d41;
+    cursor: move;
+    text-align: left;
+}
