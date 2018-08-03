@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-
+// 设置全局session
 app.use(cookieParser('express_cookie'));
 app.use(session({
   secret: 'express_cookie',
@@ -34,6 +34,8 @@ app.use(session({
     maxAge: 60 * 1000 * 30
   } //过期时间
 }));
+
+// 设置全局登陆验证
 app.use((req, res, next) => {
   if (req.session.userInfo) {
     next();
@@ -41,7 +43,7 @@ app.use((req, res, next) => {
     if (req.originalUrl.indexOf('login') > 0 || req.originalUrl.indexOf('logout') > 0) {
       next();
     } else {
-      responseClient(res, 200, 1, '登陆超时，请重新登陆', req.session.userInfo);
+      responseClient(res, 200, -1, '登陆超时，请重新登陆', req.session.userInfo);
     }
   }
 })
@@ -64,16 +66,8 @@ app.use(cors());
 app.use(passport.initialize());
 // passport.use('jwt', strategies.jwt);
 
-// mount api v1 routes
+// mount api /api routes
 app.use('/api', routes);
 
-// if error is not an instanceOf APIError, convert it.
-// app.use(error.converter);
-
-// catch 404 and forward to error handler
-// app.use(error.notFound);
-
-// error handler, send stacktrace only during development
-// app.use(error.handler);
 
 module.exports = app;

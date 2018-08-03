@@ -1,39 +1,44 @@
-import axios from 'axios'
-const config = {
-  // 基础url前缀
-  baseURL: '/api',
-  //设置超时时间
-  timeout: 300000,
-  //返回数据类型
-  responseType: 'json', // default
-  //请求的接口，在请求的时候，如axios.get(url,config);这里的url会覆盖掉config中的url
-  // url: '/',
-  // 请求方法同上
-  method: 'get', // default
-  // transformResponse: [function (data) {
-  //   // 这里提前处理返回的数据
-  //   if (typeof data == "string") {
-  //     data = JSON.parse(data)
-  //   }
-  //   return data
-  // }],
-  // 请求头信息
-  headers: {
-    'Content-Type': 'application/json', //application/json application/x-www-form-urlencoded
-    "Token": ""
-  },
-  //parameter参数
-  // params: {},
-  //post参数，使用axios.post(url,{},config);如果没有额外的也必须要用一个空对象，否则会报错
-  // data: {},
-  //当我们把此配置项设置成默认配置项并且设置成true的时候，axios就可以设置cookies了。
-  withCredentials: true
-}
-let instance = axios.create(config)
-console.log(instance)
+import axios from 'axios';
+import {Loading, Message} from 'element-ui';
+import _ from 'lodash';
+import router from '../router/index';
+
+// axios 配置
+axios.defaults.timeout = 5000;
+axios.defaults.baseURL = '/api/';
+//用来处理刷新token后重新请求的自定义变量
+axios.defaults.isRetryRequest = false;
+let loadinginstace;
+axios.interceptors.request.use(function (config) {
+  // 在发送请求显示加载动画
+  loadinginstace = Loading.service({
+    lock: true,
+    text: 'Loading',
+    spinner: 'el-icon-loading',
+    background: 'rgba(0, 0, 0, 0.5)'
+  });
+  return config;
+}, function (error) {
+  // 取消加载动画 并提示消息
+  loadinginstace.close();
+  Message.error({
+    message: '加载超时'
+  });
+  return Promise.reject(error);
+});
+axios.interceptors.response.use(config => {
+  // 取消加载动画 并判断当前是否是登陆过期情况，为登陆过期，跳转到登陆页
+  loadinginstace.close();
+  if (config.data.code === -1) {
+    router.replace('/login');
+  } else {
+    return config;
+  };
+});
+
 export default {
   install(Vue) {
-    Vue.prototype.http = instance
-    Vue.http = instance
+    Vue.prototype.http = axios
+    Vue.http = axios
   }
-}
+};
