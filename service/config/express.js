@@ -11,6 +11,7 @@ import session from 'express-session';
 
 import routes from '../api/route';
 import { logs } from './config';
+import { responseClient } from '../api/util';
 
 const app = new express();
 
@@ -33,6 +34,17 @@ app.use(session({
     maxAge: 60 * 1000 * 30
   } //过期时间
 }));
+app.use((req, res, next) => {
+  if (req.session.userInfo) {
+    next();
+  } else {
+    if (req.originalUrl.indexOf('login') > 0 || req.originalUrl.indexOf('logout') > 0) {
+      next();
+    } else {
+      responseClient(res, 200, 1, '登陆超时，请重新登陆', req.session.userInfo);
+    }
+  }
+})
 
 // gzip compression
 app.use(compress());

@@ -91,15 +91,9 @@ exports.Login = async (req, res, next) => {
  */
 exports.Logout = async (req, res, next) => {
   try {
-    if (req.body.userName === req.session.userInfo.userName) {
-      req.session.userInfo = null;
+    req.session.userInfo = null;
       responseClient(res, 200, 0, '退出成功', req.session.userInfo)
       next();
-    } else {
-      req.session.userInfo = null;
-      responseClient(res, 200, 0, '退出成功', req.session.userInfo)
-      next();
-    }
   } catch (err) {
     responseClient(res, 400, 1, '退出失败', err);
     next();
