@@ -3,9 +3,13 @@
 import Vue from 'vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import '@/style/index.scss';
 import App from './App';
 import router from './router';
 import Ajax from './lib/ajax';
+import store from './store';
+import './icons/index';
+
 
 Vue.use(ElementUI);
 Vue.use(Ajax);
@@ -15,6 +19,7 @@ Vue.config.productionTip = false;
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
