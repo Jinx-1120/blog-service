@@ -37,12 +37,14 @@ export default {
     }
   },
   created() {
+    this.http({method:'get',url:'/tagList'}).then(info => {
+      // console.log(info)
+    })
   },
   methods: {
     submit () {
       this.http.post('/login', this.loginForm).then(info => {
         this.$router.push('/')
-        console.log(info)
       }).catch(err => {
         console.error(err)
       })

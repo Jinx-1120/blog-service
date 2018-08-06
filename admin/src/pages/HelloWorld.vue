@@ -90,6 +90,11 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  created() {
+    this.http({method:'get',url:'/tagList'}).then(info => {
+      // console.log(info)
+    })
   }
 }
 </script>
