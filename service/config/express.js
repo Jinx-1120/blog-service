@@ -8,6 +8,7 @@ import helmet from 'helmet';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import mutipart from 'connect-multiparty';
 
 import routes from '../api/route';
 import { logs } from './config';
@@ -18,12 +19,15 @@ const app = new express();
 // dev 显示console | pro 显示: file
 app.use(morgan(logs));
 
+app.use(express.static('public'));
 // json
 // parse body params and attache them to req.body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+// app.use(mutipart({uploadDir: '../upload_tmp'}));
 // 设置全局session
 app.use(cookieParser('express_cookie'));
 app.use(session({
@@ -40,10 +44,14 @@ app.use((req, res, next) => {
   if (req.session.userInfo) {
     next();
   } else {
-    if (req.originalUrl.indexOf('login') > 0 || req.originalUrl.indexOf('logout') > 0) {
-      next();
+    if (req.originalUrl.indexOf('api') > 0) {
+      if (req.originalUrl.indexOf('login') > 0 || req.originalUrl.indexOf('logout') > 0) {
+        next();
+      } else {
+        responseClient(res, 200, -1, '登陆超时，请重新登陆', req.session.userInfo);
+      }
     } else {
-      responseClient(res, 200, -1, '登陆超时，请重新登陆', req.session.userInfo);
+      next()
     }
   }
 })

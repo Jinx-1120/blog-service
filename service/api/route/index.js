@@ -2,6 +2,11 @@ import express from 'express';
 import userControll from '../controller/user.controll';
 import tagControll from '../controller/tags.controll';
 import articleControll from '../controller/article.controll';
+import uploadControll from '../controller/upload.controll';
+
+import mutipart from 'connect-multiparty';
+
+const mutipartMiddeware = mutipart();
 
 let router = express.Router({
   mergeParams: true
@@ -60,4 +65,6 @@ router.put('/article/:articleID', articleControll.updateArticle);
  */
 router.delete('/delArticle/:articleID', articleControll.delArticle);
 
+// uploadControll.upload.single('file')
+router.post('/uploadImg', uploadControll.upload.single('file'), uploadControll.uploadImg);
 module.exports = router;
