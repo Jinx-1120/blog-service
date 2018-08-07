@@ -34,11 +34,11 @@
     cat id.pub >> authorized_keys
     chmod 600 authorized_keys
     ```
-    ![ssh1](./img/ssh1.png)
+    ![ssh1](../img/ssh1.png)
   > 新打开一个终端输入
     ```shell
       ssh root@xxx.xxx.xx.xx
     ```
-    ![ss2](./img/ssh2.png)
+    ![ss2](../img/ssh2.png)
 
 ### 搞定✌️✌️perfect✌️✌️！！

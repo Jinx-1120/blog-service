@@ -4,20 +4,10 @@ import tagControll from '../controller/tags.controll';
 import articleControll from '../controller/article.controll';
 import uploadControll from '../controller/upload.controll';
 
-import mutipart from 'connect-multiparty';
-
-const mutipartMiddeware = mutipart();
 
 let router = express.Router({
   mergeParams: true
 });
-router.get('/list', function (req, res, next) {
-  res.status(200);
-  res.send(JSON.stringify({
-    'timeData': 'aaaaaaa',
-    'errorMsg': 'ddddd'
-  }))
-})
 /**
  * 用户注册
  */

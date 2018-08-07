@@ -1,7 +1,6 @@
-var fs = require('fs');
 import { responseClient } from '../util';
 import config from '../../config/config';
-var multer = require('multer');
+import multer from 'multer';
 
 var storage = multer.diskStorage({
   //设置上传文件路径,以后可以扩展成上传至七牛,文件服务器等等
