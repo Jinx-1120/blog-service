@@ -13,15 +13,15 @@ exports.Register = async (req, res, next) => {
     type
   } = req.body;
   if (!userName) {
-    responseClient(res, 200, 2, '用户名不为空')
+    responseClient(res, 200, 202, '用户名不为空')
   } else if (!passWord) {
-    responseClient(res, 200, 2, '密码不可为空')
+    responseClient(res, 200, 202, '密码不可为空')
   }
   UserModel.findOne({
     userName: userName
   }).then(data => {
     if (data) {
-      responseClient(res, 200, 1, '用户名已存在');
+      responseClient(res, 200, 202, '用户名已存在');
       next();
     }
     let user = new UserModel({
@@ -38,20 +38,20 @@ exports.Register = async (req, res, next) => {
           userType: userInfo.type,
           userId: userInfo._id
         }
-        responseClient(res, 200, 0, '注册成功', data);
+        responseClient(res, 200, 201, '注册成功', data);
         next();
       })
     }).catch(err => {
-      responseClient(res, 500, 1, '注册失败,请重新注册', err);
+      responseClient(res, 500, 202, '注册失败,请重新注册', err);
       next();
     });
   });
 };
 /**
  * 登陆
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
  */
 exports.Login = async (req, res, next) => {
   console.log(req.body);
@@ -72,30 +72,30 @@ exports.Login = async (req, res, next) => {
       // });
       req.session.userInfo = data;
 
-      responseClient(res, 200, 0, '登陆成功', data);
+      responseClient(res, 200, 200, '登陆成功', data);
       next();
     } else {
-      responseClient(res, 200, 1, '用户名与密码不匹配');
+      responseClient(res, 200, 202, '用户名与密码不匹配');
       next();
     };
   }).catch(err => {
-    responseClient(res, 500, 1, '服务器异常，请稍后再试', err);
+    responseClient(res, 500, 500, '服务器异常，请稍后再试', err);
     next();
   });
 };
 /**
- * 
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ *
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
  */
 exports.Logout = async (req, res, next) => {
   try {
     req.session.userInfo = null;
-      responseClient(res, 200, 0, '退出成功', req.session.userInfo)
+      responseClient(res, 200, 201, '退出成功', req.session.userInfo)
       next();
   } catch (err) {
-    responseClient(res, 400, 1, '退出失败', err);
+    responseClient(res, 400, 500, '退出失败', err);
     next();
   }
 }
@@ -103,14 +103,14 @@ exports.Logout = async (req, res, next) => {
 exports.userInfo = async (req, res, next) => {
   try {
     if (req.query.userName === req.session.userInfo.userName) {
-      responseClient(res, 200, 0, '验证成功', req.session.userInfo);
+      responseClient(res, 200, 200, '验证成功', req.session.userInfo);
       next();
     } else {
-      responseClient(res, 200, 1, '登陆超时，请重新登陆', req.session.userInfo);
+      responseClient(res, 200, 202, '登陆超时，请重新登陆', req.session.userInfo);
       next();
     }
   } catch (err) {
-    responseClient(res, 400, 1, '登陆超时，请重新登陆', err);
+    responseClient(res, 400, 202, '登陆超时，请重新登陆', err);
     next();
   }
 }

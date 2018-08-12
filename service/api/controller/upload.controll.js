@@ -23,13 +23,13 @@ var upload = multer({
 exports.upload = upload;
 
 exports.uploadImg = (req, res, next) => {
-  console.log(req.file);
-  console.log(req);
+  // console.log(req.file);
+  // console.log(req);
   let data = {
     path: '/uploads/' + req.file.path.split('/uploads/')[1],
     baseImgUrl: config.baseImgUrl
   }
-  responseClient(res, 200, 0, 'success', data);
+  responseClient(res, 200, 201, 'success', data);
 
   // var _files = req.files[0];
   // var item, _name, _tmp;

@@ -7,7 +7,8 @@ const tag = new mongoose.Schema({
     type: String,
     trim: true,
     required: true
-  }
+  },
+  time: Date
 });
 const tagModel = mongoose.model('tags', tag);
 module.exports = tagModel;

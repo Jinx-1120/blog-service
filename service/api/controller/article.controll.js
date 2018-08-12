@@ -2,9 +2,9 @@ import articleModel from '../models/article.model';
 import { responseClient } from '../util';
 /**
  * 添加文章
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
  */
 exports.addArticle = async (req, res, next) => {
   let {
@@ -28,10 +28,10 @@ exports.addArticle = async (req, res, next) => {
       reviewArea: []
     })
     article.save().then(data => {
-      responseClient(res, 200, 0, '保存成功！');
+      responseClient(res, 200, 201, '保存成功！');
       next();
     }).catch(err => {
-      responseClient(res, 500, 1, '系统异常！', err);
+      responseClient(res, 500, 500, '系统异常！', err);
       next();
     })
   } catch (err) {
@@ -41,9 +41,9 @@ exports.addArticle = async (req, res, next) => {
 };
 /**
  * 文章列表
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
  */
 exports.articleList = async (req, res, next) => {
   try {
@@ -59,7 +59,7 @@ exports.articleList = async (req, res, next) => {
         data.pageTotal = pageTotal;
         data.more = more;
         data.totalNum = num;
-        responseClient(res, 200, 0, errmsg, data);
+        responseClient(res, 200, 200, errmsg, data);
       })
     })
   } catch (err) {
@@ -68,9 +68,9 @@ exports.articleList = async (req, res, next) => {
 };
 /**
  * 获取文章详情
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
  */
 exports.getArticle = async (req, res, next) => {
   let { articleID } = req.params;
@@ -83,18 +83,18 @@ exports.getArticle = async (req, res, next) => {
     }, { viewCount }).then(result => {
       console.log(result);
     });
-    responseClient(res, 200, 0, '', info);
+    responseClient(res, 200, 200, '', info);
     next();
   }).catch(err => {
-    responseClient(res, 200, 1, '查询失败', err);
+    responseClient(res, 200, 202, '查询失败', err);
     next();
   });
 };
 /**
  * 文章更新
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
  */
 exports.updateArticle = async (req, res, next) => {
   let { articleID } = req.params;
@@ -117,39 +117,39 @@ exports.updateArticle = async (req, res, next) => {
     status,
     updateTime
   }).then(updateInfo => {
-    responseClient(res, 200, 0, '更新成功!', updateInfo);
+    responseClient(res, 200, 201, '更新成功!', updateInfo);
   }).catch(err => {
-    responseClient(res, 500, 1, '更新失败！', err)
+    responseClient(res, 500, 202, '更新失败！', err)
   })
 };
 
 /**
  * 删除文章
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
  */
 exports.delArticle = async (req, res, next) => {
   console.log(req.params);
   let { articleID } = req.params;
   try {
     if (!articleID) {
-      responseClient(res, 200, 1, '请输入正确的ID');
+      responseClient(res, 200, 202, '请输入正确的ID');
       next();
     } else {
-      articleModel.remove({ 
+      articleModel.remove({
         _id: articleID
       }).then(result => {
         if (result.n === 1) {
-          responseClient(res, 200, 0, '删除成功!')
+          responseClient(res, 200, 201, '删除成功!')
         } else {
-          responseClient(res, 200, 1, '文章不存在！!')
+          responseClient(res, 200, 202, '文章不存在！!')
         }
       }).catch(err => {
-        responseClient(res, 500, 1, '服务器异常', err)
+        responseClient(res, 500, 500, '服务器异常', err)
       })
     }
   } catch (err) {
-    responseClient(res, 500, 1, '服务器异常', err)
+    responseClient(res, 500, 500, '服务器异常', err)
   };
 };
