@@ -2,21 +2,24 @@ import axios from 'axios';
 import {Loading, Message} from 'element-ui';
 import _ from 'lodash';
 import router from '../router/index';
-
+// import Vue from 'vue';
+// Vue.component(Message);
+// Vue.component(Loading);
 // axios 配置
-axios.defaults.timeout = 5000;
-axios.defaults.baseURL = '/api/';
-//用来处理刷新token后重新请求的自定义变量
-axios.defaults.isRetryRequest = false;
-let loadinginstace;
+const ajaxconfig = {
+  baseURL: '/api/',
+  timeout: 5000,
+  isRetryRequest: false
+}
+// let loadinginstace = Loading.service({
+//   lock: true,
+//   text: 'Loading',
+//   spinner: 'el-icon-loading',
+//   background: 'rgba(0, 0, 0, 0.5)'
+// });
 axios.interceptors.request.use(function (config) {
   // 在发送请求显示加载动画
-  loadinginstace = Loading.service({
-    lock: true,
-    text: 'Loading',
-    spinner: 'el-icon-loading',
-    background: 'rgba(0, 0, 0, 0.5)'
-  });
+  // loadinginstace
   return config;
 }, function (error) {
   // 取消加载动画 并提示消息
@@ -26,19 +29,49 @@ axios.interceptors.request.use(function (config) {
   });
   return Promise.reject(error);
 });
-axios.interceptors.response.use(config => {
-  // 取消加载动画 并判断当前是否是登陆过期情况，为登陆过期，跳转到登陆页
-  loadinginstace.close();
-  if (config.data.code === -1) {
-    router.replace('/login');
-  } else {
-    return config;
-  };
-});
+let instance = axios.create(ajaxconfig);
+
 
 export default {
   install(Vue) {
-    Vue.prototype.http = axios
-    Vue.http = axios
+    Vue.mixin({
+      methods: {
+        http(params) {
+          let myPromise = instance(params).then(info => {
+            const code = info.data.code;
+            // loadinginstace.close();
+            switch (code) {
+              case -1:
+                router.replace('/login');
+                break;
+              case 201:
+                this.$message({
+                  message: info.data.message,
+                  type: 'success'
+                });
+                break;
+              case 202:
+                this.$message({
+                  message: info.data.message,
+                  type: 'warning'
+                });
+                break;
+              case 500:
+                this.$message({
+                  message: info.data.message,
+                  type: 'error'
+                });
+                break;
+              default:
+                break;
+            }
+            return info;
+          }).catch(err => {
+            // loadinginstace.close();
+          })
+          return myPromise
+        }
+      }
+    })
   }
 };
