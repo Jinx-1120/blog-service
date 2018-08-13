@@ -39,7 +39,18 @@ export default new Router({
             name: '文章管理'
           },
           component: () =>
-            import ('../pages/article.vue')
+            import ('../pages/article/article.vue')
+        },
+        {
+          path: '/addArticle',
+          name: 'addArticle',
+          meta: {
+            // 添加该字段，表示进入这个路由是需要登录的
+            requireAuth: true,
+            name: '添加文章'
+          },
+          component: () =>
+            import ('../pages/article/addArticle.vue')
         },
         {
           path: '/user/admin',
