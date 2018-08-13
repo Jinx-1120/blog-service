@@ -9,12 +9,21 @@ import router from './router';
 import Ajax from './lib/ajax';
 import store from './store';
 import './icons/index';
+import Moment from 'vue-moment';
+import elDragDialog from './directive/dialog/index';
 
-
+import * as filters from './filters' // global filters
+Vue.use(Moment);
 Vue.use(ElementUI);
+
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 Vue.use(Ajax);
 
+Vue.directive('elDragDialog', elDragDialog);
 Vue.config.productionTip = false;
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

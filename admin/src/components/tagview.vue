@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     visitedViews() {
-      console.log(this.$store.state.tagsView.visitedViews[0])
+      // console.log(this.$store.state.tagsView.visitedViews[0])
       return this.$store.state.tagsView.visitedViews
     }
   },

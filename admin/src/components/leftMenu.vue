@@ -52,7 +52,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$store.state)
+    // console.log(this.$store.state)
   },
   components: {
     MenuItem
@@ -72,5 +72,5 @@ export default {
 
 <style>
 
- 
+
 </style>
