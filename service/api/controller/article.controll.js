@@ -12,16 +12,15 @@ exports.addArticle = async (req, res, next) => {
     tags,
     content,
     coverImg,
-    author,
     status
   } = req.body;
   try {
     let article = new articleModel({
       title,
-      tags: tags.split(','),
+      tags,
       content,
       coverImg,
-      author,
+      author: req.session.userInfo.userName,
       status,
       createTime: new Date().getTime(),
       viewCount: 0,
