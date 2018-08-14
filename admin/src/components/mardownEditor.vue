@@ -1,116 +1,88 @@
 <template>
-  <div class="simplemde-container" :style="{height:height+'px',zIndex:zIndex}">
-    <textarea :id="id">
-    </textarea>
+  <div class="editor-container" >
+    <div v-if="type" id="editor" style="height:600px">
+        <mavon-editor :ishljs="true" ref=md @imgAdd="$imgAdd" :value="value" @change="editChange" style="height: 100%"></mavon-editor>
+    </div>
+    <div v-else>
+        <mavon-editor  defaultOpen="preview" :toolbarsFlag="false" :subfield="false" ref=md :value="value" style="height: 100%"></mavon-editor>
+    </div>
   </div>
 </template>
 
 <script>
-import 'font-awesome/css/font-awesome.min.css'
-import 'simplemde/dist/simplemde.min.css'
-import SimpleMDE from 'simplemde'
+
+import { mavonEditor } from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 
 export default {
-  name: 'simplemde-md',
+  components: {
+    mavonEditor
+  },
+  name: 'md',
   props: {
     value: String,
-    id: {
-      type: String
-    },
-    autofocus: {
+    type: {
       type: Boolean,
-      default: false
-    },
-    placeholder: {
-      type: String,
-      default: ''
-    },
-    height: {
-      type: Number,
-      default: 150
-    },
-    zIndex: {
-      type: Number,
-      default: 10
-    },
-    toolbar: {
-      type: Array
+      default: true
     }
+    // id: {
+    //   type: String
+    // },
+    // autofocus: {
+    //   type: Boolean,
+    //   default: false
+    // },
+    // placeholder: {
+    //   type: String,
+    //   default: ''
+    // },
+    // height: {
+    //   type: Number,
+    //   default: 150
+    // },
+    // zIndex: {
+    //   type: Number,
+    //   default: 10
+    // },
+    // toolbar: {
+    //   type: Array
+    // }
   },
   data() {
     return {
-      simplemde: null,
-      hasChange: false
     }
   },
   watch: {
     value(val) {
-      if (val === this.simplemde.value() && !this.hasChange) return
-      this.simplemde.value(val)
+
     }
   },
-  mounted() {
-    this.simplemde = new SimpleMDE({
-      element: document.getElementById(this.id || 'markdown-editor-' + +new Date()),
-      autoDownloadFontAwesome: false,
-      autofocus: this.autofocus,
-      toolbar: this.toolbar,
-      spellChecker: false,
-      insertTexts: {
-        link: ['[', ']( )']
-      },
-      // hideIcons: ['guide', 'heading', 'quote', 'image', 'preview', 'side-by-side', 'fullscreen'],
-      placeholder: this.placeholder
-    })
-    if (this.value) {
-      this.simplemde.value(this.value)
-    }
-    this.simplemde.codemirror.on('change', () => {
-      if (this.hasChange) {
-        this.hasChange = true
-      }
-      this.$emit('input', this.simplemde.value())
-    })
+  methods: {
+    editChange(val,render) {
+      this.$emit('getContent', val)
+    },
+    $imgAdd(pos, $file){
+      // 第一步.将图片上传到服务器.
+      var formdata = new FormData();
+      formdata.append('image', $file);
+      this.http({
+        url: '/uploadImg',
+        method: 'post',
+        data: formdata,
+        headers: { 'Content-Type': 'multipart/form-data' },
+      }).then((info) => {
+        // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
+        // $vm.$img2Url 详情见本页末尾
+        let url = info.data.data.baseImgUrl + info.data.data.path
+        this.$refs.md.$img2Url(pos, url);
+      })
+    },
   },
   destroyed() {
-    this.simplemde.toTextArea()
-    this.simplemde = null
   }
 }
 </script>
 
 <style scoped>
-.simplemde-container>>>.CodeMirror {
-  min-height: 500px;
-  line-height: 20px;
-}
 
-.simplemde-container>>>.CodeMirror-scroll {
-  min-height: 500px;
-}
-
-.simplemde-container>>>.CodeMirror-code {
-  padding-bottom: 40px;
-}
-
-.simplemde-container>>>.editor-statusbar {
-  display: none;
-}
-
-.simplemde-container>>>.CodeMirror .CodeMirror-code .cm-link {
-  color: #1890ff;
-}
-
-.simplemde-container>>>.CodeMirror .CodeMirror-code .cm-string.cm-url {
-  color: #2d3b4d;
-}
-
-.simplemde-container>>>.CodeMirror .CodeMirror-code .cm-formatting-link-string.cm-url {
-  padding: 0 2px;
-  color: #E61E1E;
-}
-.simplemde-container >>> .editor-toolbar.fullscreen,
-.simplemde-container >>> .CodeMirror-fullscreen {
-  z-index: 1003;
-}
 </style>

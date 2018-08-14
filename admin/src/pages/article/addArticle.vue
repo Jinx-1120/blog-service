@@ -37,7 +37,7 @@
       </el-form-item>
       <el-form-item label="内容" prop="content">
         <div class="editor-container">
-          <markdown-editor id="contentEditor" ref="contentEditor" v-model="content" :height="600" :zIndex="20"></markdown-editor>
+          <markdown-editor id="contentEditor" @getContent="getContent" ref="contentEditor" :value="content" :zIndex="20"></markdown-editor>
         </div>
       </el-form-item>
       <el-form-item label="状态" prop="status" style="margin-top:30px">
@@ -47,7 +47,7 @@
         </el-radio-group>
       </el-form-item>
     </el-form>
-    <el-button :disabled="articleData.title === ''" @click="markdown2Html" style="margin-top:80px;" type="primary" icon="el-icon-document">确定</el-button>
+    <el-button :disabled="articleData.title === ''" @click="addArticle" style="margin-top:80px;" type="primary" icon="el-icon-document">确定</el-button>
   </div>
 </template>
 
@@ -55,7 +55,7 @@
 import MarkdownEditor from '../../components/mardownEditor'
 import articleVue from './article.vue';
 
-const content = ``
+const content = ''
 
 export default {
   name: 'markdown-demo',
@@ -93,15 +93,13 @@ export default {
     })
   },
   methods: {
-    markdown2Html() {
-      import('showdown').then(showdown => {
-        const converter = new showdown.Converter()
-        this.html = converter.makeHtml(this.content)
-        this.articleData.content = this.html
-        this.articleData.tags = this.choiceTags
-        this.http({method:'post',url:'/addArticle', data: this.articleData}).then(info => {
-          console.log(info)
-        })
+    getContent(val) {
+      console.log(val)
+      this.articleData.content = val
+    },
+    addArticle() {
+      this.http({method:'post',url:'/addArticle', data: this.articleData}).then(info => {
+        console.log(info)
       })
     },
     removeTag(tag) {

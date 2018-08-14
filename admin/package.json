@@ -1,7 +1,7 @@
 {
   "name": "admin",
   "version": "1.0.0",
-  "description": "A blog-admin project",
+  "description": "Blog-admin",
   "author": "JHaidi",
   "private": true,
   "scripts": {
@@ -17,6 +17,7 @@
     "js-cookie": "^2.2.0",
     "less": "^3.8.0",
     "less-loader": "^4.1.0",
+    "mavon-editor": "^2.6.15",
     "node-sass": "^4.9.2",
     "screenfull": "^3.3.2",
     "showdown": "^1.8.6",

@@ -26,7 +26,7 @@ export default new Router({
             meta: {
               // 添加该字段，表示进入这个路由是需要登录的
               requireAuth: true,
-              name: '标签管理'
+              name: 'tag'
             },
             component: () => import('../pages/tag.vue')
         },
@@ -36,7 +36,7 @@ export default new Router({
           meta: {
             // 添加该字段，表示进入这个路由是需要登录的
             requireAuth: true,
-            name: '文章管理'
+            name: 'article'
           },
           component: () =>
             import ('../pages/article/article.vue')
@@ -47,10 +47,21 @@ export default new Router({
           meta: {
             // 添加该字段，表示进入这个路由是需要登录的
             requireAuth: true,
-            name: '添加文章'
+            name: 'addArticle'
           },
           component: () =>
             import ('../pages/article/addArticle.vue')
+        },
+        {
+          path: '/showArticle/:id',
+          name: 'showArticle',
+          meta: {
+            // 添加该字段，表示进入这个路由是需要登录的
+            requireAuth: true,
+            name: 'showArticle'
+          },
+          component: () =>
+            import ('../pages/article/showArticle.vue')
         },
         {
           path: '/user/admin',
@@ -58,7 +69,7 @@ export default new Router({
           meta: {
             // 添加该字段，表示进入这个路由是需要登录的
             requireAuth: true,
-            name: '超级用户'
+            name: 'admin'
           },
           component: () =>
             import ('../pages/user/admin.vue')
@@ -69,7 +80,7 @@ export default new Router({
           meta: {
             // 添加该字段，表示进入这个路由是需要登录的
             requireAuth: true,
-            name: '普通用户'
+            name: 'common'
           },
           component: () =>
             import ('../pages/user/common.vue')
