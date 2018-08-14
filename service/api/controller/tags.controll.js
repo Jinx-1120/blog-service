@@ -22,7 +22,7 @@ exports.addTag = async (req, res, next) => {
       } else {
         let tag = new tagsModel({
           tagName: tagName,
-          time: new Date().getTime()
+          time: new Date()
         });
         console.log(tag)
         tag.save().then(saveInfo => {

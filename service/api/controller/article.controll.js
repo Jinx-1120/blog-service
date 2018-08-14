@@ -22,7 +22,7 @@ exports.addArticle = async (req, res, next) => {
       coverImg,
       author: req.session.userInfo.userName,
       status,
-      createTime: new Date().getTime(),
+      createTime: new Date(),
       viewCount: 0,
       reviewArea: []
     })
@@ -105,12 +105,12 @@ exports.updateArticle = async (req, res, next) => {
     coverImg,
     status
   } = req.body;
-  let updateTime = new Date().getTime();
+  let updateTime = new Date();
   articleModel.update({
     _id: articleID
   }, {
     title,
-    tags: tags.split(','),
+    tags,
     content,
     coverImg,
     status,

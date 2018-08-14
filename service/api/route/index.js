@@ -56,5 +56,5 @@ router.put('/article/:articleID', articleControll.updateArticle);
 router.delete('/delArticle/:articleID', articleControll.delArticle);
 
 // uploadControll.upload.single('file')
-router.post('/uploadImg', uploadControll.upload.single('file'), uploadControll.uploadImg);
+router.post('/uploadImg', uploadControll.upload.single('image'), uploadControll.uploadImg);
 module.exports = router;
