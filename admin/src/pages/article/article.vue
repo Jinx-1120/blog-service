@@ -65,7 +65,9 @@
           <router-link :to="{name:'showArticle', params: {id : scope.row._id } }">
             <el-button type="info" icon="el-icon-search" circle></el-button>
           </router-link>
-          <el-button type="primary" icon="el-icon-edit" circle></el-button>
+          <router-link :to="{name:'editArticle', params: {id : scope.row._id } }">
+            <el-button type="primary" icon="el-icon-edit" circle></el-button>
+          </router-link>
           <el-button type="danger" icon="el-icon-delete" circle @click="removeTag(scope.row)"></el-button>
         </template>
       </el-table-column>

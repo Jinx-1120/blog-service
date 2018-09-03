@@ -94,7 +94,6 @@ export default {
   },
   methods: {
     getContent(val) {
-      console.log(val)
       this.articleData.content = val
     },
     addArticle() {

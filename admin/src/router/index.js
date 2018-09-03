@@ -16,7 +16,8 @@ export default new Router({
       name: 'index',
       meta: {
         // 添加该字段，表示进入这个路由是需要登录的
-        requireAuth: true
+        requireAuth: true,
+        name: '首页'
       },
       component: () => import('../pages/layout/index.vue'),
       children: [
@@ -51,6 +52,17 @@ export default new Router({
           },
           component: () =>
             import ('../pages/article/addArticle.vue')
+        },
+        {
+          path: '/editArticle/:id',
+          name: 'editArticle',
+          meta: {
+            // 添加该字段，表示进入这个路由是需要登录的
+            requireAuth: true,
+            name: 'editArticle'
+          },
+          component: () =>
+            import ('../pages/article/editArticle.vue')
         },
         {
           path: '/showArticle/:id',

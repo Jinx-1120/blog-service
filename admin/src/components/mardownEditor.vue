@@ -4,7 +4,8 @@
         <mavon-editor :ishljs="true" ref=md @imgAdd="$imgAdd" :value="value" @change="editChange" style="height: 100%"></mavon-editor>
     </div>
     <div v-else>
-        <mavon-editor  defaultOpen="preview" :toolbarsFlag="false" :subfield="false" ref=md :value="value" style="height: 100%"></mavon-editor>
+        <mavon-editor :navigation="true"  defaultOpen="preview" codeStyle="paraiso-light" :toolbarsFlag="false" :subfield="false" ref=md :value="value" style="height: 100%"></mavon-editor>
+        <!-- <vue-markdown :source="value" :anchor-attributes="anchorAttrs"></vue-markdown> -->
     </div>
   </div>
 </template>
@@ -50,6 +51,10 @@ export default {
   },
   data() {
     return {
+      anchorAttrs: {
+        target: '_blank',
+        rel: 'noopener noreferrer nofollow'
+      }
     }
   },
   watch: {
