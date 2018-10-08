@@ -6,13 +6,13 @@
       <navbar></navbar>
       <tags-view></tags-view>
       <div>
-        <section class="app-main">
+        <div class="app-main" :style="{maxHeight: maxStyle.maxHeight}">
           <transition name="fade-transform" mode="out-in">
             <keep-alive :include="cachedViews">
               <router-view :key="key"></router-view>
             </keep-alive>
           </transition>
-        </section>
+        </div>
       </div>
     </div>
   </div>
@@ -27,7 +27,9 @@ export default {
   mixins: [ResizeHandle],
   data () {
     return {
-
+      maxStyle: {
+          'maxHeight': document.documentElement.clientHeight - 80 + 'px'
+      }
     }
   },
   components: {
@@ -96,8 +98,10 @@ export default {
 }
 .app-main {
   /*84 = navbar + tags-view = 50 +34 */
-  min-height: calc(100vh - 84px);
+  // min-height: calc(100vh - 84px);
   position: relative;
-  overflow: hidden;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-bottom: 30px;
 }
 </style>

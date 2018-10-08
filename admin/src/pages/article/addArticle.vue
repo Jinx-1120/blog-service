@@ -1,13 +1,13 @@
 <template>
   <div class="components-container">
-    <!-- <code>Markdown is based on
-      <a href="https://github.com/sparksuite/simplemde-markdown-editor" target="_blank">simplemde-markdown-editor</a> ，Simply encapsulated in Vue.
-      <a target="_blank" href="https://segmentfault.com/a/1190000009762198#articleHeader14">
-        相关文章 </a>
-    </code> -->
     <el-form :model="articleData" :rules="rules" ref="articleData" label-width="100px" class="demo-articleData">
       <el-form-item label="文章名称" prop="title" >
         <el-input style="width:50%" v-model="articleData.title" clearable></el-input>
+      </el-form-item>
+      <el-form-item label="内容" prop="content">
+        <div class="editor-container" style="margin: 0 2px">
+          <markdown-editor id="contentEditor" @getContent="getContent" ref="contentEditor" :value="content" :zIndex="20"></markdown-editor>
+        </div>
       </el-form-item>
       <el-form-item label="所属标签" prop="tags">
         <el-select v-model="articleData.tags" placeholder="请选择活动区域" @change="choiceTag">
@@ -34,11 +34,6 @@
           <img v-if="imageUrl" :src="imageUrl" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
-      </el-form-item>
-      <el-form-item label="内容" prop="content">
-        <div class="editor-container">
-          <markdown-editor id="contentEditor" @getContent="getContent" ref="contentEditor" :value="content" :zIndex="20"></markdown-editor>
-        </div>
       </el-form-item>
       <el-form-item label="状态" prop="status" style="margin-top:30px">
         <el-radio-group v-model="articleData.status">
@@ -130,6 +125,9 @@ export default {
 </script>
 
 <style>
+  .components-container {
+    overflow-y: auto
+  }
   .el-form-item{
     margin-bottom: 25px;
   }

@@ -94,22 +94,21 @@ div:focus {
   }
 }
 
-code {
-  background: #eef1f6;
-  padding: 15px 16px;
-  margin-bottom: 20px;
-  display: block;
-  line-height: 36px;
-  font-size: 15px;
-  font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
-  a {
-    color: #337ab7;
-    cursor: pointer;
-    &:hover {
-      color: rgb(32, 160, 255);
-    }
-  }
-}
+// code {
+//   background: #eef1f6;
+//   padding: 15px 16px;
+//   margin-bottom: 20px;
+//   line-height: 36px;
+//   font-size: 15px;
+//   font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+//   a {
+//     color: #337ab7;
+//     cursor: pointer;
+//     &:hover {
+//       color: rgb(32, 160, 255);
+//     }
+//   }
+// }
 
 .warn-content {
   background: rgba(66, 185, 131, .1);

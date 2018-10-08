@@ -1,10 +1,10 @@
 <template>
   <div class="editor-container" >
-    <div v-if="type" id="editor" style="height:600px">
-        <mavon-editor :ishljs="true" ref=md @imgAdd="$imgAdd" :value="value" @change="editChange" style="height: 100%"></mavon-editor>
+    <div v-if="type" id="editor">
+        <mavon-editor :ishljs="true" ref=md @imgAdd="$imgAdd" :subfield="false" :value="value" @change="editChange"></mavon-editor>
     </div>
-    <div v-else>
-        <mavon-editor :navigation="true"  defaultOpen="preview" codeStyle="paraiso-light" :toolbarsFlag="false" :subfield="false" ref=md :value="value" style="height: 100%"></mavon-editor>
+    <div v-else class="showview">
+        <mavon-editor  :navigation="true"  defaultOpen="preview" codeStyle="paraiso-light" :toolbarsFlag="false" :subfield="false" ref=md :value="value" :style="markdownStyle"></mavon-editor>
         <!-- <vue-markdown :source="value" :anchor-attributes="anchorAttrs"></vue-markdown> -->
     </div>
   </div>
@@ -26,34 +26,15 @@ export default {
       type: Boolean,
       default: true
     }
-    // id: {
-    //   type: String
-    // },
-    // autofocus: {
-    //   type: Boolean,
-    //   default: false
-    // },
-    // placeholder: {
-    //   type: String,
-    //   default: ''
-    // },
-    // height: {
-    //   type: Number,
-    //   default: 150
-    // },
-    // zIndex: {
-    //   type: Number,
-    //   default: 10
-    // },
-    // toolbar: {
-    //   type: Array
-    // }
   },
   data() {
     return {
       anchorAttrs: {
         target: '_blank',
-        rel: 'noopener noreferrer nofollow'
+        rel: 'noopener noreferrer nofollow',
+      },
+      markdownStyle: {
+          'height': document.documentElement.clientHeight - 60 + 'px'
       }
     }
   },
@@ -89,5 +70,10 @@ export default {
 </script>
 
 <style scoped>
-
+.showview>>>.v-note-show.single-show{
+  flex: 4!important;
+}
+.showview>>>.v-note-navigation-wrapper{
+  position: initial!important;
+}
 </style>

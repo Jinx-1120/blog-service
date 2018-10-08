@@ -37,6 +37,14 @@ export default {
     }
   },
   created() {
+    this.http({method:'post',url:'/login', data: {
+        userName: 'admin',
+        passWord: 'admin'
+      }}).then(info => {
+        this.$router.push('/')
+      }).catch(err => {
+        console.error(err)
+      })
   },
   methods: {
     submit () {
