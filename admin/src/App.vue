@@ -10,8 +10,8 @@ export default {
 }
 </script>
 
-<style lang="less">
-@import './style/common.less';
+<style lang="scss">
+@import './style/common.scss';
 #app {
   overflow: hidden;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

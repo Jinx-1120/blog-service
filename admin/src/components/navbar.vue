@@ -39,15 +39,17 @@ export default {
       this.$store.dispatch('toggleSideBar')
     },
     logout() {
-      this.$store.dispatch('LogOut').then(() => {
-        location.reload()// In order to re-instantiate the vue-router object to avoid bugs
+      this.http({method:'post',url:'/logout'}).then(info => {
+        if(info.data.code == 201) {
+          this.$router.push('/login')
+        }
       })
     }
   }
 }
 </script>
 
-<style rel="stylesheet/less" lang="less" scoped>
+<style rel="stylesheet/scss" lang="scss" scoped>
 .navbar {
   height: 50px;
   line-height: 50px;

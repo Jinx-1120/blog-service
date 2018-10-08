@@ -91,6 +91,6 @@ Server has startup warnings:
 
 >建议大家将router的方法写在controller里面，这样会让你的整合项目的结构更清晰一些
 
-- [用户User的相关操作](https://github.com/Jhaidi/blog_server/blob/master/api/controller/user.controll.js)
-- [标签Tag的相关操作](https://github.com/Jhaidi/blog_server/blob/master/api/controller/tags.controll.js)
-- [文章Article的相关操作](https://github.com/Jhaidi/blog_server/blob/master/api/controller/article.controll.js)
+- [User](https://github.com/Jhaidi/blog_server/blob/master/api/controller/user.controll.js)
+- [Tag](https://github.com/Jhaidi/blog_server/blob/master/api/controller/tags.controll.js)
+- [Article](https://github.com/Jhaidi/blog_server/blob/master/api/controller/article.controll.js)

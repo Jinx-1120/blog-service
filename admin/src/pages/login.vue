@@ -4,20 +4,20 @@
             <section class="form_contianer" v-show="showLogin">
                 <div class="manage_tip">
                     <!-- <p>管理系统</p> -->
+                    <el-form :model="loginForm" ref="loginForm">
+                      <el-form-item prop="username">
+                          <el-input size="small" type="text" v-model="loginForm.userName"
+                                    placeholder="用户名"></el-input>
+                      </el-form-item>
+                      <el-form-item prop="password">
+                          <el-input size="small" type="password" placeholder="密码"
+                                    v-model="loginForm.passWord"></el-input>
+                      </el-form-item>
+                      <el-form-item>
+                          <el-button @click="submit" type="primary" :disabled="!(loginForm.userName && loginForm.passWord)" class="submit_btn">登陆</el-button>
+                      </el-form-item>
+                  </el-form>
                 </div>
-                <el-form :model="loginForm" ref="loginForm">
-                    <el-form-item prop="username">
-                        <el-input size="small" type="text" v-model="loginForm.userName"
-                                  placeholder="用户名"></el-input>
-                    </el-form-item>
-                    <el-form-item prop="password">
-                        <el-input size="small" type="password" placeholder="密码"
-                                  v-model="loginForm.passWord"></el-input>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button @click="submit" type="primary" :disabled="!(loginForm.userName && loginForm.passWord)" class="submit_btn">登陆</el-button>
-                    </el-form-item>
-                </el-form>
             </section>
         </transition>
     </div>
@@ -37,14 +37,7 @@ export default {
     }
   },
   created() {
-    this.http({method:'post',url:'/login', data: {
-        userName: 'admin',
-        passWord: 'admin'
-      }}).then(info => {
-        this.$router.push('/')
-      }).catch(err => {
-        console.error(err)
-      })
+
   },
   methods: {
     submit () {
@@ -59,39 +52,21 @@ export default {
 }
 </script>
 
-<style lang="less">
-.ctp(@width, @height) {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -@height/2;
-  margin-left: -@width/2;
-}
+<style lang="scss">
 .loginLoding {
   .el-loading-text, i {
     color: #fff;
   }
 }
 .login_page {
-  background-color: #11a63f;
-  .manage_tip {
-    position: absolute;
-    width: 100%;
-    top: -100px;
-    left: 0;
-    p {
-      font-size: 32px;
-      color: #ffffff;
-    }
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .form_contianer {
-    width: 320px;
-    height: 210px;
-    .ctp(320px, 210px);
-    padding: 25px;
+    padding: 45px;
     border-radius: 5px;
+    background: #695f5fb5;
     text-align: center;
-    background-color: #fff;
     .submit_btn {
       width: 100%;
       font-size: 16px;

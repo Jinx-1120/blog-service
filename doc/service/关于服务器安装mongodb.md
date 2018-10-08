@@ -2,7 +2,7 @@
 
 ## 这里用的服务器是[阿里云](https://common-buy.aliyun.com/?spm=5176.8142029.735711.10.3dbd6d3eBFK0G4&commodityCode=swas&request=%7B%22region%22:%22cn-beijing%22,%22image_type%22:%22appimage%22,%22app_image%22:%22b2542b3988834a378c67a8d7f11ad4de%22,%22version_type%22:%22version_2%22,%22order_num%22:1,%22ord_time%22:%2212:Month%22,%22auto_renew%22:false%7D#/buy)的服务器
 
-（本教程适用于Linux环境或者Mac os系统）
+（本教程适用于Linux环境或者Mac OS系统）
 
 ### 配置ssh免密码登陆
 
@@ -41,4 +41,4 @@
     ```
     ![ss2](../img/ssh2.png)
 
-### 搞定✌️✌️perfect✌️✌️！！
+### 搞定！！
