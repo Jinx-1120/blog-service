@@ -1,7 +1,7 @@
 <template>
   <div class="tags-view-container">
     <scroll-pane class='tags-view-wrapper' ref='scrollPane'>
-      <router-link ref='tag' class="tags-view-item" :class="isActive(tag)?'active':''" v-for="tag in Array.from(visitedViews)"
+      <router-link ref='tag' class="tags-view-item" :class="isActive(tag)?'active':''" v-for="tag in visitedViews"
         :to="tag" :key="tag.path" @contextmenu.prevent.native="openMenu(tag,$event)">
         {{tag.meta.name}}
         <span class='el-icon-close' @click.prevent.stop='closeSelectedTag(tag)'></span>
@@ -17,6 +17,7 @@
 
 <script>
 import ScrollPane from './ScrollPane'
+import { mapState } from 'vuex'
 export default {
   components: { ScrollPane },
   data() {
@@ -28,10 +29,9 @@ export default {
     }
   },
   computed: {
-    visitedViews() {
-      // console.log(this.$store.state.tagsView.visitedViews[0])
-      return this.$store.state.tagsView.visitedViews
-    }
+    ...mapState({
+      visitedViews: state => state.tagsView.visitedViews
+    })
   },
   watch: {
     $route() {
@@ -57,14 +57,15 @@ export default {
       return false
     },
     isActive(route) {
-      return route.path === this.$route.path
+      return route.name === this.$route.name
     },
     addViewTags() {
       const route = this.generateRoute()
-      if (!route) {
+      if (this.visitedViews.indexOf(route) === -1) {
+        this.$store.dispatch('addVisitedViews', route)
+      } else {
         return false
       }
-      this.$store.dispatch('addVisitedViews', route)
     },
     moveToCurrentTag() {
       const tags = this.$refs.tag

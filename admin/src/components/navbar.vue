@@ -1,13 +1,11 @@
 <template>
   <el-menu class="navbar" mode="horizontal">
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="true"></hamburger>
-    <breadcrumb class="breadcrumb-container"></breadcrumb>
     <div class="right-menu">
-      
+
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
           <img class="user-avatar" :src="'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80'">
-          <i class="el-icon-caret-bottom"></i>
         </div>
         <el-dropdown-menu slot="dropdown">
           <router-link to="/">
@@ -31,12 +29,10 @@
 
 <script>
 import Hamburger from './hamburger.vue'
-import Breadcrumb from './breadcrumb.vue'
 
 export default {
   components: {
-    Hamburger,
-    Breadcrumb
+    Hamburger
   },
   methods: {
     toggleSideBar() {

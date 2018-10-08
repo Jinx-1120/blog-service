@@ -22,23 +22,23 @@ export default {
       routers:[
         {
           title: '主页',
-          path: '/',
+          path: '/home',
           icon: 'home'
         },
-        {
-          title: '用户管理',
-          path: '/user',
-          icon: 'usermanager',
-          children: [{
-            title: '系统用户',
-            path: '/user/admin',
-            icon: 'superuser'
-          },{
-            title: '普通用户',
-            path: '/user/common',
-            icon: 'common'
-          }]
-        },
+        // {
+        //   title: '用户管理',
+        //   path: '/user',
+        //   icon: 'usermanager',
+        //   children: [{
+        //     title: '系统用户',
+        //     path: '/user/admin',
+        //     icon: 'superuser'
+        //   },{
+        //     title: '普通用户',
+        //     path: '/user/common',
+        //     icon: 'common'
+        //   }]
+        // },
         {
           title: '分类标签',
           path: '/tag',
