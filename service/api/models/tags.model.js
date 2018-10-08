@@ -8,6 +8,9 @@ const tag = new mongoose.Schema({
     trim: true,
     required: true
   },
+  description: {
+    type: String
+  },
   time: Date
 });
 const tagModel = mongoose.model('tags', tag);

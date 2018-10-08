@@ -122,20 +122,17 @@ export default {
     },
     // 删除文章
     removeTag(item) {
-      this.$confirm(`是否确定删除${item.article}标签`, '提示', {
+      this.$confirm(`是否确定删除${item.title}`, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        // this.http({
-        //   method: 'delete',
-        //   url: '/delTag',
-        //   data: {
-        //     article:item.article
-        //   }
-        // }).then(info => {
-        //   this.getTaglist()
-        // })
+        this.http({
+          method: 'delete',
+          url: `/delArticle/${item._id}`,
+        }).then(info => {
+          this.getArticlelist()
+        })
       }).catch(() => {
         this.$message({
           type: 'info',

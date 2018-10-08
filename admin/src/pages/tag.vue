@@ -1,12 +1,6 @@
 <template>
   <div style="margin-top:10px">
     <el-form left :inline="true" class="demo-form-inline">
-      <!-- <el-form-item label="标签名">
-        <el-input v-model="formInline.tagName" placeholder="标签名"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
-      </el-form-item> -->
       <el-form-item>
         <el-button type="primary" @click="dialogAddTag = true">添加标签</el-button>
       </el-form-item>
@@ -29,8 +23,13 @@
       </el-table-column>
       <el-table-column
         prop="tagName"
-        label="名称"
+        label="标签"
         width="180">
+      </el-table-column>
+      <el-table-column
+        prop="description"
+        label="标签描述"
+        show-overflow-tooltip>
       </el-table-column>
       <el-table-column
         prop="btn"
@@ -42,8 +41,11 @@
     </el-table>
     <el-dialog v-el-drag-dialog title="添加标签" :visible.sync="dialogAddTag">
       <el-form :model="addTagForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="活动名称" prop="tagName">
+        <el-form-item label="标签名" prop="tagName">
           <el-input v-model="addTagForm.tagName"></el-input>
+        </el-form-item>
+        <el-form-item label="标签描述" prop="description">
+          <el-input v-model="addTagForm.description"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button :disabled="addTagForm.tagName === ''" type="primary" @click="submitForm()">立即创建</el-button>
@@ -59,7 +61,8 @@ export default {
   data () {
     return {
       addTagForm: {
-        tagName: ''
+        tagName: '',
+        description: ''
       },
       tagData:[],
       dialogAddTag: false,
@@ -78,12 +81,14 @@ export default {
     // 添加标签
     submitForm() {
       this.http({method:'post',url:'/addTag',data:this.addTagForm}).then(info => {
-        if (info.data.code === 0) {
+        if (info.data.code === 201) {
           this.dialogAddTag = false
           this.getTaglist()
         } else {
           this.dialogAddTag = false
         }
+        this.addTagForm.tagName = ''
+        this.addTagForm.description = ''
       })
     },
     // 获取列表数据

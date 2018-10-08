@@ -7,7 +7,10 @@ import { responseClient } from '../util';
  * @param {*} next
  */
 exports.addTag = async (req, res, next) => {
-  let { tagName } = req.body;
+  let {
+    tagName,
+    description
+  } = req.body;
   if (!tagName) {
     responseClient(res, 200, 202, '标签名不可为空');
     next();
@@ -22,9 +25,9 @@ exports.addTag = async (req, res, next) => {
       } else {
         let tag = new tagsModel({
           tagName: tagName,
+          description: description,
           time: new Date()
         });
-        console.log(tag)
         tag.save().then(saveInfo => {
           responseClient(res, 200, 201, '标签保存成功', saveInfo);
           next();
