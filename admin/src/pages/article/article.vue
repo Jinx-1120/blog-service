@@ -23,6 +23,15 @@
       </el-table-column>
       <el-table-column
         prop="title"
+        label="封面"
+        align="center">
+        <template slot-scope="scope">
+          <img width="70" height="45" v-if="scope.row.coverImg" :src="scope.row.coverImg" alt="">
+          <span v-else> - </span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="title"
         label="文章标题"
         align="center"
         show-overflow-tooltip>
@@ -41,7 +50,8 @@
       <el-table-column
         prop="updateTime"
         label="更新时间"
-        align="center">
+        align="center"
+        width="260">
         <template slot-scope="scope">
           <span v-if="scope.row.updateTime">{{scope.row.updateTime | moment("YYYY-MM-DD hh:mm:ss A")}}</span>
           <span v-else>{{scope.row.createTime | moment("YYYY-MM-DD hh:mm:ss A")}}</span>
@@ -63,7 +73,7 @@
         align="center">
         <template slot-scope="scope">
           <router-link :to="{name:'showArticle', params: {id : scope.row._id } }">
-            <el-button type="info" icon="el-icon-search" circle></el-button>
+            <el-button type="success" icon="el-icon-search" circle></el-button>
           </router-link>
           <router-link :to="{name:'editArticle', params: {id : scope.row._id } }">
             <el-button type="primary" icon="el-icon-edit" circle></el-button>
@@ -72,9 +82,6 @@
         </template>
       </el-table-column>
     </el-table>
-    <!-- <el-dialog v-el-drag-dialog title="添加文章" :visible.sync="dialogAddArticle">
-      <AddArticle></AddArticle>
-    </el-dialog> -->
   </div>
 </template>
 
@@ -122,7 +129,7 @@ export default {
     },
     // 删除文章
     removeTag(item) {
-      this.$confirm(`是否确定删除${item.title}`, '提示', {
+      this.$confirm(`是否确定删除：${item.title}`, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'

@@ -10,7 +10,7 @@
         </div>
       </el-form-item>
       <el-form-item label="所属标签" prop="tags">
-        <el-select v-model="articleData.tags" placeholder="请选择活动区域" @change="choiceTag">
+        <el-select v-model="onTag" placeholder="请选择文章标签" @change="choiceTag">
           <el-option v-for="item in tagData" :key="item._id" :label="item.tagName" :value="item.tagName"></el-option>
           <!-- <el-option label="区域二" value="beijing"></el-option> -->
         </el-select>
@@ -25,15 +25,13 @@
         </div>
       </el-form-item>
       <el-form-item label="文章封面">
-        <el-upload
-          class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload">
-          <img v-if="imageUrl" :src="imageUrl" class="avatar">
+        <div class="add">
+          <img v-if="articleData.coverImg" :src="articleData.coverImg" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+          <input type="file" multiple accept="image/*"
+            @change="uploadCoverImg" ref="file"
+          >
+        </div>
       </el-form-item>
       <el-form-item label="状态" prop="status" style="margin-top:30px">
         <el-radio-group v-model="articleData.status">
@@ -58,6 +56,7 @@ export default {
   data() {
     return {
       content: content,
+      uploadHeaders: { 'Content-Type': 'multipart/form-data' },
       html: '',
       rules: {
         title: [
@@ -71,9 +70,10 @@ export default {
         title: '',
         tags: [],
         status: 0,
-        content: ''
+        content: '',
+        coverImg: ''
       },
-      imageUrl: '',
+      onTag: '',
       tagData: [],
       choiceTags: []
     }
@@ -94,6 +94,7 @@ export default {
     addArticle() {
       this.http({method:'post',url:'/addArticle', data: this.articleData}).then(info => {
         console.log(info)
+        this.$router.push('/article')
       })
     },
     removeTag(tag) {
@@ -103,22 +104,23 @@ export default {
       if (this.choiceTags.indexOf(val) < 0) {
         this.choiceTags.push(val)
       }
-      console.log(this.choiceTags)
+      this.articleData.tags = this.choiceTags
     },
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === 'image/jpeg';
-      const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!');
-      }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
-      }
-      return isJPG && isLt2M;
+    uploadCoverImg() {
+      let files = this.$refs.file.files[0]
+      var formdata = new FormData();
+      formdata.append('image', files);
+      this.http({
+        url: '/uploadImg',
+        method: 'post',
+        data: formdata,
+        headers: { 'Content-Type': 'multipart/form-data' },
+      }).then((info) => {
+        let data = info.data
+        if(data.code == 201) {
+          this.articleData.coverImg = data.data.baseImgUrl + data.data.path
+        }
+      })
     }
   }
 }
@@ -151,11 +153,23 @@ export default {
     height: 178px;
     line-height: 178px;
     text-align: center;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    cursor: pointer;
   }
   .avatar {
     width: 178px;
     height: 178px;
     display: block;
+  }
+  input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 178px;
+    height: 178px;
+    opacity: 0;
+    cursor: pointer;
   }
 </style>
 
