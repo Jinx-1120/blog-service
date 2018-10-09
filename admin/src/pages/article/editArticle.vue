@@ -94,7 +94,6 @@ export default {
         method: 'get',
         url: `/article/${this.$route.params.id}`
       }).then(info => {
-        console.log(info)
         this.articleData = info.data.data
         this.choiceTags = this.articleData.tags
       })
@@ -104,7 +103,6 @@ export default {
     },
     updateArticle() {
       this.http({method:'put',url:`/article/${this.$route.params.id}`, data: this.articleData}).then(info => {
-        console.log(info)
         this.$router.push('/article')
       })
     },
