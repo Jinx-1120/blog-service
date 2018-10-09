@@ -16,6 +16,13 @@ import { responseClient } from '../api/util';
 
 const app = new express();
 
+var allowCrossDomain = function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*'); //自定义中间件，设置跨域需要的响应头。
+  next();
+};
+
+app.use(allowCrossDomain); //运用跨域的中间件
+
 // dev 显示console | pro 显示: file
 app.use(morgan(logs));
 
@@ -44,14 +51,10 @@ app.use((req, res, next) => {
   if (req.session.userInfo) {
     next();
   } else {
-    if (req.originalUrl.indexOf('api') > 0) {
-      if (req.originalUrl.indexOf('login') > 0 || req.originalUrl.indexOf('logout') > 0) {
-        next();
-      } else {
-        responseClient(res, 200, -1, '登陆超时，请重新登陆', req.session.userInfo);
-      }
+    if (req.method === 'GET') {
+      next();
     } else {
-      next()
+      responseClient(res, 200, -1, '登陆超时，请重新登陆', req.session.userInfo);
     }
   }
 })
