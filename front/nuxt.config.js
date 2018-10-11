@@ -27,12 +27,20 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    {
+      src: '~/assets/scss/index.scss',
+      lang: 'scss'
+    }
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    {
+      src: '~/plugins/clickOutside.js',
+      ssr: false
+    },
   ],
 
   /*
@@ -57,7 +65,17 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
-      
+
+    },
+    // postcss
+    postcss: [
+      require('postcss-nested')(),
+      require('postcss-responsive-type')(),
+      require('postcss-hexrgba')()
+    ],
+    styleResources: {
+      scss: ['./assets/scss/variable.scss', './assets/scss/mixin.scss'],
+      options: {}
     }
   }
 }
