@@ -11,8 +11,6 @@ export const state = () => {
     // 是否为移动端
     isMobile: false,
 
-    artList: [],
-
     // 错误页面
     isError: false,
 
@@ -36,10 +34,8 @@ export const mutations = {
   // 设置是否移动端状态
   setMobileSidebar (state, flag) {
     state.mobileSidebar = flag
-  },
-  setArtList (state, data) {
-    state.artList = data
   }
+  
 }
 
 

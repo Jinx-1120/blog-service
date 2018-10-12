@@ -15,6 +15,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-addition_fill:before {
+  content: "\e6e0";
+}
+
 .icon-comments:before { content: "\e6e4"; }
 
 .icon-time:before { content: "\e631"; }

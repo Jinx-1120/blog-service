@@ -41,6 +41,9 @@ module.exports = {
       src: '~/plugins/clickOutside.js',
       ssr: false
     },
+    {
+      src: './plugins/filters.js'
+    }
   ],
 
   /*

@@ -144,10 +144,10 @@ export default {
 
   >.app-main {
     @include transition(all .3s ease-out);
-
+    background: #cccccc3d;
     >.main-container {
-      min-height: calc(100vh - 156px);
-      margin-top: $normal-pad;
+      min-height: calc(100vh - 140px);
+      padding-top: $normal-pad;
     }
 
     >.main-container.mobile {

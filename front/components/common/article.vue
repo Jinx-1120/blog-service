@@ -2,35 +2,39 @@
     <transition-group tag="div" name="slide-down" class="article-box" :class="{'mobile': mobileLayout}">
       <div
         class="article-item"
-        v-for="item in articleList"
+        v-for="item in articleList.data"
         :key="item._id"
         :class="{'mobile-article': mobileLayout}">
         <div class="content">
+          <!-- tags:{{item}}
+          viewCount:{{item.viewCount}}
+          {{item.title}} -->
+          <!-- <img :src="item.coverImg" /> -->
           <p class="title"><nuxt-link :to="`/article/${item._id}`">{{ item.title }}</nuxt-link></p>
-          <nuxt-link :to="`/article/${item._id}`" v-if="mobileLayout">
-            <img :src="item.thumb + '?imageView2/1/w/350/h/180/watermark/2/text/amtjaGFvLmNu/font/Y2FuZGFyYQ==/fontsize/400/fill/I0ZGRkZGRg=='"
+          <nuxt-link :to="`/article/${item._id}`" v-if="!mobileLayout">
+            <img :src="item.coverImg"
             alt=""
             width="100%"
             class="mobil-img"/>
           </nuxt-link>
-          <p class="abstrack">{{ item.descript | text(200)}}</p>
+          <p class="abstrack">{{ item.content | text(200)}}</p>
           <div class="meta">
             <span class="time" v-if="!mobileLayout">
-              {{ 
-                item.create_at | dateFormat('yyyy.MM.dd')
+              {{
+                item.createTime | dateFormat('yyyy.MM.dd hh:mm')
               }}
             </span>
             <span class="time" v-else>
-              {{ 
-                item.create_at | dateFormat('yyyy.MM.dd')
+              {{
+                item.createTime | dateFormat('yyyy.MM.dd hh:mm')
               }}
             </span>
             <span class="hr"></span>
-            <span class="read"> {{ item.meta.views }} 次阅读</span>
-            <span class="hr"></span>
+            <span class="read"> {{ item.viewCount }} 次阅读</span>
+            <!-- <span class="hr"></span>
             <span class="comments"> {{ item.meta.comments }} 条评论</span>
             <span class="hr"></span>
-            <span class="like"> {{ item.meta.likes }} 人喜欢</span>
+            <span class="like"> {{ item.meta.likes }} 人喜欢</span> -->
           </div>
         </div>
         <span class="article-line"></span>
@@ -48,7 +52,7 @@
 
 <script>
 export default {
-  name: 'article-box',
+  name: 'article-view',
 
   props: ['articleList', 'haveMoreArt'],
 
@@ -60,7 +64,10 @@ export default {
     mobileLayout () {
       return this.$store.state.options.mobileLayout
     }
-  }
+  },
+  mounted() {
+    console.log(this.articleList)
+  },
 }
 </script>
 
@@ -75,9 +82,10 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: $lg-pad 0 $normal-pad;
+    padding: 0.5rem;
     margin-bottom: $xlg-pad;
     color: $black;
+    background: #cccccc;
 
     .title {
       margin-bottom: $sm-pad;
@@ -101,7 +109,7 @@ export default {
           width: 100%;
         }
 
-        .meta {      
+        .meta {
           color: $descript;
         }
 

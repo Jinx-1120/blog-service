@@ -2,7 +2,7 @@
   <div class="mobile-aside">
     <div class="user-head">
       <img src="https://avatars1.githubusercontent.com/u/26374251?v=3" />
-      <p>三毛</p>
+      <p>五角六芒星</p>
 
         <p
           @click="toogleTheme"
@@ -31,13 +31,13 @@
       </nav>
       <div class="aside-foot">
         <p class="mune">
-          <nuxt-link to="/about">我</nuxt-link>
+          <nuxt-link to="/">我</nuxt-link>
           <span class="hr"></span>
-          <nuxt-link to="/about">朋友</nuxt-link>
+          <nuxt-link to="/">朋友</nuxt-link>
           <span class="hr"></span>
-          <nuxt-link to="/wall">留言墙</nuxt-link>
+          <nuxt-link to="/">留言墙</nuxt-link>
           <span class="hr"></span>
-          <nuxt-link to="/sitemap">归档</nuxt-link>
+          <nuxt-link to="/">归档</nuxt-link>
         </p>
       </div>
   </div>
@@ -50,9 +50,9 @@ export default {
     return {
       nav: [
         // { path: '/', name: '首 页', icon: 'iconfont icon-home'},
-        { path: '/code', name: '码 农', icon: 'iconfont icon-home'},
-        { path: '/think', name: '读 书', icon: 'iconfont icon-read'},
-        { path: '/fuck', name: '民 谣', icon: 'iconfont icon-read'}
+        { path: '/', name: '秃 头', icon: 'iconfont icon-home'},
+        { path: '/', name: '了 解', icon: 'iconfont icon-read'},
+        { path: '/', name: '归 档', icon: 'iconfont icon-read'}
       ],
       theme: 'light'
     }
@@ -87,7 +87,7 @@ export default {
 .mobile-aside {
   position: relative;
   height: 100%;
-
+  background: #ccc;
   >.user-head {
     padding: 3.5rem 1rem 1rem 1rem;
     text-align: center;

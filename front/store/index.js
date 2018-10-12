@@ -16,7 +16,8 @@ export const actions = {
   },
   async getArtList ({commit}) {
     const res = await http.getArtList().catch(err => console.error(err))
-    commit('options/setArtList', res.data)
+    console.log(res)
+    commit('article/setArtList', res.data)
   }
 }
 

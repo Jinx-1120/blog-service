@@ -72,8 +72,8 @@ export default {
 <style scoped lang="scss">
 
 footer {
-  margin-top: $normal-pad;
-  padding: $normal-pad 0;
+  // margin-top: $normal-pad;
+  padding: 0.5rem 0;
   background: $white;
   border-top: 1px solid $border-color;
   color: $text;
