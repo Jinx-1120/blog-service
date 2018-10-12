@@ -51,7 +51,7 @@ app.use((req, res, next) => {
   if (req.session.userInfo) {
     next();
   } else {
-    if (req.method === 'GET') {
+    if (req.originalUrl.indexOf('login') > 0 || req.originalUrl.indexOf('logout') > 0  || req.method === 'GET') {
       next();
     } else {
       responseClient(res, 200, -1, '登陆超时，请重新登陆', req.session.userInfo);
@@ -71,7 +71,7 @@ app.use(helmet());
 
 
 // enable CORS - Cross Origin Resource Sharing
-app.use(cors());
+// app.use(cors());
 
 // enable authentication
 app.use(passport.initialize());

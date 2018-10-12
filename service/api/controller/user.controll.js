@@ -54,7 +54,6 @@ exports.Register = async (req, res, next) => {
  * @param {*} next
  */
 exports.Login = async (req, res, next) => {
-  console.log(req.body);
   let { userName, passWord } = req.body;
   UserModel.findOne({
     userName,
@@ -70,6 +69,8 @@ exports.Login = async (req, res, next) => {
       //   maxAge: 9000000,
       //   httpOnly: false
       // });
+      console.log(data);
+
       req.session.userInfo = data;
 
       responseClient(res, 200, 200, '登陆成功', data);
