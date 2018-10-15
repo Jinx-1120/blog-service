@@ -4,6 +4,9 @@
       <el-form-item label="文章名称" prop="title" >
         <el-input style="width:50%" v-model="articleData.title" clearable></el-input>
       </el-form-item>
+      <el-form-item label="描述" prop="description" >
+        <el-input v-model="articleData.description" clearable></el-input>
+      </el-form-item>
       <el-form-item label="内容" prop="content">
         <div class="editor-container" style="margin: 0 2px">
           <markdown-editor id="contentEditor" @getContent="getContent" ref="contentEditor" :value="articleData.content" :zIndex="20"></markdown-editor>
@@ -62,12 +65,16 @@ export default {
         title: [
           { required: true, message: '请输入文章标题', trigger: 'blur' }
         ],
+        description: [
+          { required: true, message: '请输入文章描述', trigger: 'blur' }
+        ],
         content:[
           { required: true, message: '请输入文章内容' }
         ]
       },
       articleData: {
         title: '',
+        description: '',
         tags: [],
         status: 0,
         content: '',
@@ -103,7 +110,12 @@ export default {
     },
     updateArticle() {
       this.http({method:'put',url:`/article/${this.$route.params.id}`, data: this.articleData}).then(info => {
-        this.$router.push('/article')
+        // debugger
+        if (info.data.code === -1) {
+          this.$router.push('/login')
+        } else {
+          this.$router.push('/article')
+        }
       })
     },
     removeTag(tag) {

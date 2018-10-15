@@ -40,8 +40,14 @@ export default {
           let myPromise = instance(params).then(info => {
             const code = info.data.code;
             // loadinginstace.close();
+
             switch (code) {
               case -1:
+                // console.log(code === -1);
+                this.$message({
+                  message: info.data.message,
+                  type: 'warning'
+                });
                 router.replace('/login');
                 break;
               case 201:

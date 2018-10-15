@@ -11,20 +11,28 @@
           {{item.title}} -->
           <!-- <img :src="item.coverImg" /> -->
           <p class="title"><nuxt-link :to="`/article/${item._id}`">{{ item.title }}</nuxt-link></p>
-          <nuxt-link :to="`/article/${item._id}`" v-if="!mobileLayout">
+          <div class="artview-wrap">
+            <div class="artview-img" v-if="!mobileLayout">
+              <nuxt-link :to="`/article/${item._id}`">
+                <img :src="item.coverImg"
+                alt=""
+                width="100%"
+                class="mobil-img"/>
+              </nuxt-link>
+            </div>
+            <div class="artview-contant">
+              <p class="abstrack">{{ item.content | text(200)}}</p>
+            </div>
+          </div>
+          <!-- <nuxt-link :to="`/article/${item._id}`" v-if="!mobileLayout">
             <img :src="item.coverImg"
             alt=""
             width="100%"
             class="mobil-img"/>
           </nuxt-link>
-          <p class="abstrack">{{ item.content | text(200)}}</p>
+          <p class="abstrack">{{ item.content | text(200)}}</p> -->
           <div class="meta">
-            <span class="time" v-if="!mobileLayout">
-              {{
-                item.createTime | dateFormat('yyyy.MM.dd hh:mm')
-              }}
-            </span>
-            <span class="time" v-else>
+            <span class="time">
               {{
                 item.createTime | dateFormat('yyyy.MM.dd hh:mm')
               }}
@@ -85,7 +93,7 @@ export default {
     padding: 0.5rem;
     margin-bottom: $xlg-pad;
     color: $black;
-    background: #cccccc;
+    background: #fff;
 
     .title {
       margin-bottom: $sm-pad;
@@ -121,6 +129,25 @@ export default {
     }
 
     >.content {
+
+      >.artview-wrap{
+        display: flex;
+        >.artview-img{
+          flex: 1;
+          display: flex;
+          // justify-content: center;
+          align-items: center;
+          margin-right: 10px;
+          overflow: hidden;
+          img {
+            width: calc(100% + .5em);
+            // height:100%;
+          }
+        }
+        >.artview-contant{
+          flex: 4
+        }
+      }
 
       >.title {
         @include content-overflow(1);
@@ -167,7 +194,12 @@ export default {
       background: $border-color;
     }
   }
-
+  >.article-item:hover {
+    background: #cccccc;
+    img {
+      transform: translateX(-.5em);
+    }
+  }
   .end-article {
     padding: $md-pad 0;
     color: $black;
@@ -182,5 +214,6 @@ export default {
     }
   }
 }
+
 
 </style>

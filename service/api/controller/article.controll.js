@@ -12,19 +12,22 @@ exports.addArticle = async (req, res, next) => {
     tags,
     content,
     coverImg,
-    status
+    status,
+    description
   } = req.body;
   try {
     let article = new articleModel({
       title,
       tags,
       content,
+      description,
       coverImg,
       author: req.session.userInfo.userName,
       status,
       createTime: new Date(),
       viewCount: 0,
-      reviewArea: []
+      reviewArea: [],
+      fabulous: 0
     })
     article.save().then(data => {
       responseClient(res, 200, 201, '保存成功！');
@@ -101,6 +104,7 @@ exports.updateArticle = async (req, res, next) => {
   let {
     title,
     tags,
+    description,
     content,
     coverImg,
     status
@@ -112,6 +116,7 @@ exports.updateArticle = async (req, res, next) => {
     title,
     tags,
     content,
+    description,
     coverImg,
     status,
     updateTime
@@ -152,3 +157,40 @@ exports.delArticle = async (req, res, next) => {
     responseClient(res, 500, 500, '服务器异常', err)
   };
 };
+
+/**
+ * 喜欢art
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+exports.likeArticle = async (req, res, next) => {
+  let {
+    articleID
+  } = req.params;
+  try {
+    if (!articleID) {
+      responseClient(res, 200, 202, '请输入正确的ID');
+      next();
+    } else {
+      articleModel.findOne({
+        _id: articleID
+      }).then(result => {
+        let fabulous = result.fabulous + 1 || 1;
+        articleModel.update({
+          _id: articleID
+        },{ fabulous }).then(info => {
+          responseClient(res, 200, 200, '成功', info);
+          next();
+        }).catch(err => {
+          console.log(err)
+          responseClient(res, 500, 500, '服务器异常', err)
+        })
+      }).catch(err => {
+        responseClient(res, 500, 500, '服务器异常', err)
+      })
+    }
+  } catch (err) {
+    responseClient(res, 500, 500, '服务器异常', err)
+  };
+}

@@ -3,7 +3,7 @@ const config = {
   port:'3000',
   logs: process.env.NODE_ENV === 'prd' ? 'combined' : 'dev',
   uploadPath: process.cwd() + '/public/uploads',
-  baseImgUrl: process.env.NODE_ENV === 'prd' ? '45.32.103.162:8393' : `http://${getIPAdress()}:3000`
+  baseImgUrl: process.env.NODE_ENV === 'prd' ? '45.32.103.162:8393' : `http://localhost:3000`
 };
 
 function getIPAdress() {

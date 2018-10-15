@@ -48,6 +48,10 @@ router.get('/articleList', articleControll.articleList);
  * 获取文章详情
  */
 router.get('/article/:articleID', articleControll.getArticle);
+/**
+ * 点赞
+ */
+router.post('/article/likeArticle/:articleID', articleControll.likeArticle);
 
 router.put('/article/:articleID', articleControll.updateArticle);
 /**

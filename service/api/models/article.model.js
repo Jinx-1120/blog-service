@@ -9,6 +9,12 @@ const article = new mongoose.Schema({
     trim: true,
     required: true
   },
+  description: {
+    // 描述
+    type: String,
+    trim: true,
+    required: true
+  },
   tags: {
     // 文章所属标签
     type: Array,
@@ -57,6 +63,9 @@ const article = new mongoose.Schema({
   reviewArea: {
     // 评论区
     type: Array
+  },
+  fabulous: {
+    type: Number
   }
 });
 article.plugin(mongoosePaginate);
