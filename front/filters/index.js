@@ -42,7 +42,7 @@ function pluralize(time, label) {
 }
 
 // 文字长度
-export function text(text, length = text.lenth) {
+export function text(text, length ) {
   const cansub = text && text.length > length
   return cansub ? text.substr(0, length) + '...' : text
 }

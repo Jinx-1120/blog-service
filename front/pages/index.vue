@@ -1,9 +1,11 @@
 <template>
   <section  class="clearfix main">
     <div class="article">
-
+      <div class="tag-list">
+        
+      </div>
       <articleView
-        :articleList = "list"
+        :articleList="list"
         :haveMoreArt="haveMoreArt"
         @loadMore="loadMore"></articleView>
 

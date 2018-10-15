@@ -10,40 +10,38 @@
           viewCount:{{item.viewCount}}
           {{item.title}} -->
           <!-- <img :src="item.coverImg" /> -->
-          <p class="title"><nuxt-link :to="`/article/${item._id}`">{{ item.title }}</nuxt-link></p>
           <div class="artview-wrap">
             <div class="artview-img" v-if="!mobileLayout">
-              <nuxt-link :to="`/article/${item._id}`">
+              <span class="type">原创</span>
+              <nuxt-link class="image-wrap" :to="`/article/${item._id}`">
                 <img :src="item.coverImg"
-                alt=""
+                :alt="item.title"
                 width="100%"
                 class="mobil-img"/>
               </nuxt-link>
             </div>
             <div class="artview-contant">
-              <p class="abstrack">{{ item.content | text(200)}}</p>
+              <p class="title"><nuxt-link :to="`/article/${item._id}`">{{ item.title }}</nuxt-link></p>
+              <p class="abstrack">{{ item.description | text(50)}}</p>
+              <div class="meta">
+                <span class="time">
+                  <i class="iconfont icon-date"></i>
+                  {{
+                    item.createTime | dateFormat('yyyy.MM.dd hh:mm')
+                  }}
+                </span>
+                <span class="read">
+                  <i class="iconfont icon-eye"></i>
+                   {{ item.viewCount }}
+                </span>
+                <span class="zan">
+                  <i class="iconfont icon-zan"></i>
+                   {{ item.fabulous || 0 }}
+                </span>
+              </div>
             </div>
           </div>
-          <!-- <nuxt-link :to="`/article/${item._id}`" v-if="!mobileLayout">
-            <img :src="item.coverImg"
-            alt=""
-            width="100%"
-            class="mobil-img"/>
-          </nuxt-link>
-          <p class="abstrack">{{ item.content | text(200)}}</p> -->
-          <div class="meta">
-            <span class="time">
-              {{
-                item.createTime | dateFormat('yyyy.MM.dd hh:mm')
-              }}
-            </span>
-            <span class="hr"></span>
-            <span class="read"> {{ item.viewCount }} 次阅读</span>
-            <!-- <span class="hr"></span>
-            <span class="comments"> {{ item.meta.comments }} 条评论</span>
-            <span class="hr"></span>
-            <span class="like"> {{ item.meta.likes }} 人喜欢</span> -->
-          </div>
+
         </div>
         <span class="article-line"></span>
       </div>
@@ -87,6 +85,7 @@ export default {
 
   >.article-item {
     position: relative;
+    border-radius: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -96,9 +95,10 @@ export default {
     background: #fff;
 
     .title {
-      margin-bottom: $sm-pad;
+      // margin-bottom: $sm-pad;
       font-size: $font-size-large;
       font-weight: 700;
+      margin-top: 8px;
     }
 
     &.mobile-article {
@@ -137,15 +137,53 @@ export default {
           display: flex;
           // justify-content: center;
           align-items: center;
-          margin-right: 10px;
+          margin-right: 15px;
           overflow: hidden;
+          >.type{
+            position: absolute;
+            top: 18px;
+            left: 7px;
+            padding:0 5px ;
+            color: #fff;
+            background: rgba(76,175,80,.5);
+            z-index: 1;
+          }
+
+          >.image-wrap {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            padding: 11px 0;
+          }
           img {
             width: calc(100% + .5em);
-            // height:100%;
+            height:110px;
           }
         }
         >.artview-contant{
-          flex: 4
+          flex: 4;
+          display: flex;
+          flex-direction: column;
+          >div{
+            margin-bottom: 5px;
+          }
+          >.title{
+            flex:2
+          }
+          >.abstrack {
+            flex:4;
+            font-size: $font-size-middle;
+          }
+          >.meta{
+            flex:1;
+            color:#767676;
+            >span{
+              margin-right: 2.142857rem
+            }
+            .icon-zan:hover{
+              color:red
+            }
+          }
         }
       }
 
@@ -195,10 +233,20 @@ export default {
     }
   }
   >.article-item:hover {
-    background: #cccccc;
+    position: relative;
+    background: #c5c5c580;
     img {
       transform: translateX(-.5em);
     }
+    // >.type{
+    //   position: absolute;
+    //   top: 18px;
+    //   left: 7px;
+    //   padding:0 5px ;
+    //   color: #fff;
+    //   background: #f10;
+    //   z-index: 1;
+    // }
   }
   .end-article {
     padding: $md-pad 0;
