@@ -50,8 +50,16 @@ exports.addArticle = async (req, res, next) => {
 exports.articleList = async (req, res, next) => {
   try {
     articleModel.count({}, (errmsg, num) => {
-      let { pageNum = 1, tag } = req.query;
-      let articles = articleModel.find({}).limit(10).skip((pageNum - 1) * 10);
+
+      let { pageNum = 1, tag, isAll = false } = req.query;
+      let option = {};
+      tag ? option = {tags: tag} : option = {};
+      let articles;
+      if (isAll) {
+        articles = articleModel.find(option);
+      } else {
+        articles = articleModel.find(option).limit(10).skip((pageNum - 1) * 10);
+      }
       let pageTotal;
       let data = {};
       pageTotal = Math.ceil(num / 10);

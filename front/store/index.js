@@ -9,16 +9,36 @@ export const actions = {
     store.commit('options/setMobileLayout', isMobile)
 
     const initAppData = [
-      store.dispatch('getArtList')
+      // store.dispatch('getArtList')
+      store.dispatch('getTagList')
     ]
 
     return Promise.all(initAppData)
   },
-  async getArtList ({commit}) {
-    const res = await http.getArtList().catch(err => console.error(err))
-    console.log(res)
-    commit('article/setArtList', res.data)
+  async getArtList ({commit}, payload) {
+    // console.log('payload====' + JSON.stringify(payload))
+    const res = await http.getArtList(payload).catch(err => console.error(err))
+    // console.log(res)
+    commit('article/setArtList', res.data.data)
+    if(payload.isAll) {
+      let artList = []
+      res.data.data.map(item => {
+        
+      })
+    }
+  },
+  async getArts ({commit}) {
+
+    const res = await http.getArtList({isAll: true}).catch(err => console.error(err))
+    commit('article/setArts', res.data)
+  },
+  async getTagList ({commit}) {
+    const res = await http.getTagList().catch(err => console.error(err))
+    console.log(res.data)
+    commit('tag/setTagList', res.data)
   }
 }
+
+
 
 
