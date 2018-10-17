@@ -15,7 +15,7 @@
           </p>
         </transition-group>
       </div>
-  
+
       <div class="aside-item aside-tag " key="2">
         <h3 class="title">
           <span class="title-name">标签</span>
@@ -23,7 +23,7 @@
         </h3>
         <ul class="tag clearfix">
           <li class="tag-item" v-for="item in tag" :key="item.id">
-            <nuxt-link :to="`/tag/${item._id}`">
+            <nuxt-link :to="`/record/${item._id}`">
               {{ item.name }}
               <span>({{ item.count }})</span>
             </nuxt-link>
@@ -42,7 +42,7 @@
         <ul class="friends clearfix">
             <a
               v-for="(friend,index) in friends"
-              :key="index" 
+              :key="index"
               :href="friend.url" target="_blank">
                 {{ friend.name }}
             </a>
@@ -50,12 +50,12 @@
       </div>
 
       <div
-        class="aside-item aside-tag aside-fix"  
+        class="aside-item aside-tag aside-fix"
         key="5"
         v-fix>
         <ul class="tag clearfix">
           <li class="tag-item" v-for="item in tag" :key="item.id">
-            <nuxt-link :to="`/tag/${item._id}`">
+            <nuxt-link :to="`/record/${item._id}`">
               {{ item.name }}
               <span>({{ item.count }})</span>
             </nuxt-link>
@@ -72,11 +72,11 @@
             <span class="hr"></span>
             <nuxt-link to="/wall">留言墙</nuxt-link>
             <span class="hr"></span>
-            <nuxt-link to="/sitemap">归档</nuxt-link>
+            <nuxt-link to="/record">归档</nuxt-link>
           </p>
         </div>
       </div>
-  
+
       <div class="aside-item link">
         <h3 class="title">
           <span class="line"></span>
@@ -88,7 +88,7 @@
           <span class="hr"></span>
           <nuxt-link to="/wall">留言墙</nuxt-link>
           <span class="hr"></span>
-          <nuxt-link to="/sitemap">归档</nuxt-link>
+          <nuxt-link to="/record">归档</nuxt-link>
         </p>
       </div>
     </div>
@@ -192,7 +192,7 @@ export default {
         position: relative;
         padding-right: $lg-pad;
         background: $white;
-        z-index: 99;      
+        z-index: 99;
       }
 
       > .line {
@@ -266,7 +266,7 @@ export default {
   }
 
   .aside-friends {}
-  
+
   .friends {
     display: flex;
     flex-wrap: wrap;

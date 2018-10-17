@@ -8,4 +8,8 @@ export function getTagList() {
   return ajax.get('tagList').then(res => res.data)
 }
 
+export function getArt(params) {
+  return ajax.get(`article/${params.id}`).then(res => res.data)
+}
+
 

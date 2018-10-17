@@ -2,7 +2,7 @@
     <transition-group tag="div" name="slide-down" class="article-box" :class="{'mobile': mobileLayout}">
       <div
         class="article-item"
-        v-for="item in articleList.data"
+        v-for="item in articleList"
         :key="item._id"
         :class="{'mobile-article': mobileLayout}">
         <div class="content">

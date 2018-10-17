@@ -1,11 +1,11 @@
 <template>
-  <transition-group 
-    tag="div" 
-    name="fade" 
-    class="scoll-aside" 
+  <transition-group
+    tag="div"
+    name="fade"
+    class="scoll-aside"
     :class="{ mobile: mobileLayout }"
     v-if="$route.path !== '/'">
-    <a 
+    <!-- <a
       href="javascript:;"
       @click="toogleTheme"
       class="scoll-btn theme"
@@ -18,10 +18,10 @@
             'icon-light': theme === 'dark'
           }"
           ></i>
-      </a>
+      </a> -->
 
     <a class="scoll-btn" @click="scrollTop" v-if="showScroll" key="1">
-      <i class="iconfont icon-arrow-up"></i>
+      <i class="iconfont icon-top"></i>
     </a>
   </transition-group>
 </template>

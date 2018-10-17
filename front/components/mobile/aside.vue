@@ -1,7 +1,7 @@
 <template>
   <div class="mobile-aside">
     <div class="user-head">
-      <img src="https://avatars1.githubusercontent.com/u/26374251?v=3" />
+      <!-- <img src="https://avatars1.githubusercontent.com/u/26374251?v=3" /> -->
       <p>五角六芒星</p>
 
         <p
@@ -37,7 +37,7 @@
           <span class="hr"></span>
           <nuxt-link to="/">留言墙</nuxt-link>
           <span class="hr"></span>
-          <nuxt-link to="/">归档</nuxt-link>
+          <nuxt-link to="/record">归档</nuxt-link>
         </p>
       </div>
   </div>

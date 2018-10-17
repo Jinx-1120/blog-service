@@ -24,7 +24,7 @@
       </div>
       <div class="name">
         <nuxt-link to="/">
-          <img src="https://avatars1.githubusercontent.com/u/26374251?v=3" alt="" width="30">
+          <!-- <img src="https://avatars1.githubusercontent.com/u/26374251?v=3" alt="" width="30"> -->
         </nuxt-link>
       </div>
       <div>

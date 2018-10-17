@@ -2,7 +2,7 @@
   <section  class="clearfix main">
     <div class="article">
       <div class="tag-list">
-        
+
       </div>
       <articleView
         :articleList="list"
@@ -23,7 +23,7 @@ export default {
   transition: 'fade',
 
   fetch ({ store }) {
-    return store.dispatch('getArtList')
+    return store.dispatch('getArtList',{'isAll': false})
   },
 
   data () {

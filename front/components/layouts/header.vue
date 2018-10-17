@@ -4,7 +4,7 @@
         <div class="header-left">
           <div class="logo">
             <nuxt-link to="/">
-              <img src="https://avatars1.githubusercontent.com/u/26374251?v=3" alt="" width="36">
+              <!-- <img src="https://avatars1.githubusercontent.com/u/26374251?v=3" alt="" width="36"> -->
             </nuxt-link>
           </div>
           <nav>

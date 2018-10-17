@@ -2,7 +2,8 @@
 export const state = () => ({
   // 文章
   artList: [],
-  arts: []
+  arts: [],
+  details: {}
 })
 
 export const mutations = {
@@ -11,6 +12,9 @@ export const mutations = {
    },
    setArts (state, data) {
      state.arts = data
-   }
+   },
+   setDetails (state, data) {
+     state.details = data
+   },
 }
 
