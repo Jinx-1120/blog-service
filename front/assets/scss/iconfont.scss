@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'iconfont';
   /* project id 873884 */
-  src: url('//at.alicdn.com/t/font_873884_53595u1otm.eot');
-  src: url('//at.alicdn.com/t/font_873884_53595u1otm.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_873884_53595u1otm.woff') format('woff'),
-    url('//at.alicdn.com/t/font_873884_53595u1otm.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_873884_53595u1otm.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_873884_ry3jcgjpvmn.eot');
+  src: url('//at.alicdn.com/t/font_873884_ry3jcgjpvmn.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_873884_ry3jcgjpvmn.woff') format('woff'),
+    url('//at.alicdn.com/t/font_873884_ry3jcgjpvmn.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_873884_ry3jcgjpvmn.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -43,6 +43,39 @@
 .icon-tag:before {
   content: "\e618";
 }
+.icon-github:before {
+  content: "\e603";
+}
+.icon-user:before {
+  content: "\e61a";
+}
+.icon-juejin:before {
+  content: "\e601";
+}
+.icon-weibo:before {
+  content: "\e620";
+}
+.icon-game:before {
+  content: "\e602";
+}
+.icon-coffee:before {
+  content: "\e663";
+}
+.icon-wechat:before {
+  content: "\e608";
+}
+.icon-email:before {
+  content: "\e643";
+}
+.icon-twitter:before {
+  content: "\e60f";
+}
+.icon-comments:before {
+  content: "\e6fc";
+}
+
+
+
 
 
 
@@ -52,7 +85,6 @@
   content: "\e6e0";
 }
 
-.icon-comments:before { content: "\e6e4"; }
 
 .icon-time:before { content: "\e631"; }
 
@@ -60,24 +92,19 @@
 
 .icon-icon:before { content: "\e608"; }
 
-.icon-github:before { content: "\e824"; }
 
 .icon-boke:before { content: "\e63e"; }
 
 
 .icon-close:before { content: "\e63c"; }
 
-.icon-user:before { content: "\e600"; }
 
 .icon-music:before { content: "\e6f6"; }
 
-.icon-juejin:before { content: "\e601"; }
 
-.icon-weibo:before { content: "\e627"; }
 
 .icon-zhihu:before { content: "\e634"; }
 
-.icon-twitter:before { content: "\ec9c"; }
 
 .icon-sf:before { content: "\e602"; }
 
@@ -85,7 +112,6 @@
 
 .icon-stackoverflow:before { content: "\e825"; }
 
-.icon-coffee:before { content: "\e64f"; }
 
 
 .icon-home:before { content: "\e603"; }
@@ -124,7 +150,6 @@
 
 .icon-unix:before { content: "\e607"; }
 
-.icon-wechat:before { content: "\e694"; }
 
 .icon-phone:before { content: "\e621"; }
 
@@ -150,7 +175,6 @@
 
 .icon-facebook:before { content: "\e6e2"; }
 
-.icon-email:before { content: "\e63d"; }
 
 .icon-arrow-up:before { content: "\e611"; }
 

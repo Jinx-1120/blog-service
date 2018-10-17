@@ -1,5 +1,5 @@
 <template>
-  <div class="tag-main main">
+  <div class="tag-main " :class="{'main' : !mobileLayout}">
     <div class="tag-wrap">
       <div class="title">
         <p>标签</p>
@@ -55,7 +55,8 @@ export default {
   computed: {
     ...mapState({
       tagList: state => state.tag.tagList,
-      artList: state => state.article.arts
+      artList: state => state.article.arts,
+      mobileLayout: state => state.options.mobileLayout
     })
   },
   methods: {

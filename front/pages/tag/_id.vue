@@ -1,5 +1,5 @@
 <template>
-  <div class="tag main">
+  <div class="tag" :class="{'main' : !mobileLayout}">
     <p class="title">
       <span class="title-name"><i class="iconfont icon-tag"></i> {{tag.tagName}} </span>
       <span class="line"></span>

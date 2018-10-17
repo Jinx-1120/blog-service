@@ -91,6 +91,7 @@ import dialogCom from '~/components/common/dialog'
 // import comments from '~/components/common/comments'
 // import { scrollTo } from '~/utils/scroll'
 // import lazyImg from '../../utils/lazyImg'
+import {mapState} from 'vuex'
 export default {
   name: 'MArticle',
 
@@ -118,13 +119,10 @@ export default {
   components: { dialogCom },
 
   computed: {
-    mobileLayout () {
-      return this.$store.state.options.mobileLayout
-    },
-
-    article () {
-      return this.$store.state.article.details
-    },
+    ...mapState({
+      article: state => state.article.details,
+      mobileLayout: state => state.options.mobileLayout
+    }),
 
     articleContent () {
       return markdown(this.article.content, false, true).html
