@@ -8,14 +8,13 @@
             </nuxt-link>
           </div>
           <nav>
-            <nuxt-link
+            <!-- <nuxt-link
               v-for="(list, index) in nav"
               :key="index"
               :to="list.path"
               exact>
-                <!-- <i :class="list.icon"></i> -->
                 <span>{{ list.name }}</span>
-            </nuxt-link>
+            </nuxt-link> -->
           </nav>
         </div>
 

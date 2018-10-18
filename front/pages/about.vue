@@ -1,4 +1,9 @@
-<template>
+/*
+ * @Author: jhd
+ * @Date: 2018-10-18 10:06:36
+ * @Description: file content
+ */
+ <template>
   <div class="about" :class="{'mobile': mobileLayout}">
     <div class="title" >
       <span class="title-name">关于我</span>
@@ -46,7 +51,7 @@
             @mouseover="showBox = true"
             @mouseleave="showBox = false">
               <img src="../static/code.png" alt="code" width="150px">
-              <span class="arrow"></span>
+              <!-- <span class="arrow"></span> -->
             </div>
           </transition>
         </div>
