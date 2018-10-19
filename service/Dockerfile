@@ -10,4 +10,4 @@ ADD . /app
 WORKDIR /app
 RUN yarn
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]
