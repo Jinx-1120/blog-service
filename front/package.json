@@ -22,14 +22,16 @@
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
+    "@gauseen/nuxt-proxy": "^1.0.1",
+    "@nuxtjs/proxy": "^1.2.4",
     "css-loader": "^1.0.0",
     "node-sass": "^4.9.3",
     "nodemon": "^1.11.0",
-    "sass-loader": "^7.1.0",
-    "scss-loader": "^0.0.1",
-    "style-loader": "^0.23.1",
     "postcss-hexrgba": "^0.2.1",
     "postcss-nested": "^2.1.0",
-    "postcss-responsive-type": "^1.0.0"
+    "postcss-responsive-type": "^1.0.0",
+    "sass-loader": "^7.1.0",
+    "scss-loader": "^0.0.1",
+    "style-loader": "^0.23.1"
   }
 }
