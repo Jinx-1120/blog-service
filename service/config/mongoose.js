@@ -16,7 +16,9 @@ mongoose.connection.on('error', (err) => {
  */
 exports.connect = () => {
   console.log(`Connecting to mongo @: ${config.uri}`);
-  mongoose.connect(config.uri);
+  mongoose.connect(config.uri, {
+    useNewUrlParser: true
+  });
   return mongoose.connection;
 };
 

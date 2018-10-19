@@ -16,12 +16,21 @@ import { responseClient } from '../api/util';
 
 const app = new express();
 
-var allowCrossDomain = function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*'); //自定义中间件，设置跨域需要的响应头。
-  next();
-};
+// var allowCrossDomain = function (req, res, next) {
+//   res.header('Access-Control-Allow-Origin', '*'); //自定义中间件，设置跨域需要的响应头。
+//   next();
+// };
+// app.use(allowCrossDomain); //运用跨域的中间件
 
-app.use(allowCrossDomain); //运用跨域的中间件
+
+
+// app.all('*', function (req, res, next) {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Headers', 'Content-Type');
+//   res.header('Access-Control-Allow-Methods', '*');
+//   res.header('Content-Type', 'application/json;charset=utf-8');
+//   next();
+// });
 
 // dev 显示console | pro 显示: file
 app.use(morgan(logs));
@@ -48,10 +57,11 @@ app.use(session({
 
 // 设置全局登陆验证
 app.use((req, res, next) => {
+  console.log(req.session.userInfo)
   if (req.session.userInfo) {
     next();
   } else {
-    if (req.originalUrl.indexOf('login') > 0 || req.originalUrl.indexOf('logout') > 0  || req.method === 'GET') {
+    if (req.originalUrl.indexOf('login') > 0 || req.originalUrl.indexOf('register') > 0 ) {
       next();
     } else {
       responseClient(res, 200, -1, '登陆超时，请重新登陆', req.session.userInfo);

@@ -1,9 +1,9 @@
 const config = {
-  uri: 'mongodb://blog_admin:blog_admin@127.0.0.1:27017/my_blog',
+  uri: process.env.NODE_ENV === 'production' ? 'mongodb://jinhaidi:jinhaidi@mongodb/blog' : 'mongodb://blog_admin:blog_admin@127.0.0.1:27017/my_blog',
   port:'3000',
-  logs: process.env.NODE_ENV === 'prd' ? 'combined' : 'dev',
+  logs: process.env.NODE_ENV === 'production' ? 'combined' : 'dev',
   uploadPath: process.cwd() + '/public/uploads',
-  baseImgUrl: process.env.NODE_ENV === 'prd' ? '45.32.103.162:8393' : `http://localhost:3000`
+  baseImgUrl: `http://${getIPAdress()}:3000`
 };
 
 function getIPAdress() {

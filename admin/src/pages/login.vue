@@ -16,11 +16,26 @@
                       </el-form-item>
                       <el-form-item>
                           <el-button @click="submit" type="primary" :disabled="!(loginForm.userName && loginForm.passWord)" class="submit_btn">登陆</el-button>
+                          <span @click="dialogFormVisible = true">注册</span>
                       </el-form-item>
                   </el-form>
                 </div>
             </section>
         </transition>
+        <el-dialog title="创建账号" :visible.sync="dialogFormVisible">
+          <el-form :model="form">
+            <el-form-item label="名称" :label-width="formLabelWidth">
+              <el-input type="text" v-model="form.userName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" :label-width="formLabelWidth">
+              <el-input type="password" v-model="form.passWord" autocomplete="off"></el-input>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="createAccount">确 定</el-button>
+          </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -34,7 +49,13 @@ export default {
       loginForm: {
         userName: '',
         passWord: ''
-      }
+      },
+      form: {
+        userName: '',
+        passWord: ''
+      },
+      formLabelWidth: '120px',
+      dialogFormVisible: false
     }
   },
   mounted() {
@@ -90,6 +111,12 @@ export default {
         this.$router.push('/')
       }).catch(err => {
         console.error(err)
+      })
+    },
+    createAccount () {
+      this.http({method: 'post', url: '/register',data: this.form}).then(info => {
+        console.log(info)
+        this.dialogFormVisible = false
       })
     }
   },

@@ -7,7 +7,7 @@ import router from '../router/index';
 // Vue.component(Loading);
 // axios 配置
 const ajaxconfig = {
-  baseURL: '/api/',
+  baseURL: 'http://localhost:3000/api/',
   timeout: 5000,
   isRetryRequest: false
 }
