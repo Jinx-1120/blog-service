@@ -21,7 +21,7 @@ export default {
       url: `/article/${this.$route.params.id}`
     }).then(info => {
       console.log(info)
-      this.articleDate = info.data.data
+      this.articleDate = info.data
     })
   },
   components: {

@@ -50,8 +50,13 @@ exports.addTag = async (req, res, next) => {
  * @param {*} next
  */
 exports.tagList = async (req, res, next) => {
+  let {
+    author = req.session.userInfo.userName
+  } = req.query
   try {
-    tagsModel.find({}).then(data => {
+    tagsModel.find({
+        author
+      }).then(data => {
       responseClient(res, 200, 200, '成功', data);
       next();
     }).catch(err => {

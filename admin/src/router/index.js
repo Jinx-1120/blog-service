@@ -10,7 +10,12 @@ const router = new Router({
         import ('../pages/login.vue')
     },
     {
-      path: '/home',
+      path: '/404',
+      name: '404',
+      component: () => import ('../pages/404.vue')
+    },
+    {
+      path: '/',
       name: 'index',
       meta: {
         // 添加该字段，表示进入这个路由是需要登录的
@@ -20,6 +25,17 @@ const router = new Router({
       component: () =>
         import('../pages/layout/index.vue'),
       children: [{
+            path: '/home',
+            name: 'home',
+            meta: {
+              // 添加该字段，表示进入这个路由是需要登录的
+              requireAuth: true,
+              name: 'home'
+            },
+            component: () =>
+              import('../pages/home.vue')
+          },
+          {
           path: '/tag',
           name: 'tag',
           meta: {

@@ -25,6 +25,25 @@ const User = new mongoose.Schema({
   },
   type: {
     type: Boolean
+  },
+  headImg: {
+    type: String
+  },
+  description: {
+    // 描述
+    type: String,
+  },
+  likes: {
+    type: Array
+  },
+  friends: {
+    type: Array
+  },
+  name: {
+    type: String
+  },
+  link: {
+    type: Array
   }
 });
 

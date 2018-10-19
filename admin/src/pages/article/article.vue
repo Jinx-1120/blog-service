@@ -120,8 +120,8 @@ export default {
     // 获取列表数据
     getArticlelist() {
       this.http({method:'get',url:'/articleList'}).then(info => {
-        if (info.data.code === 200) {
-          this.tagData = info.data.data.data
+        if (info.code === 200) {
+          this.tagData = info.data.data
         } else {
           this.tagData = []
         }

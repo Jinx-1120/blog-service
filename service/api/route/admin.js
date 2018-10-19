@@ -9,17 +9,6 @@ import { responseClient } from '../util';
 let adminRouter = express.Router({
   mergeParams: true
 });
-// adminRouter.use((req, res, next) => {
-//   if (req.session.userInfo) {
-//     next();
-//   } else {
-//     if (req.originalUrl.indexOf('login') > 0 || req.originalUrl.indexOf('register') > 0) {
-//       next();
-//     } else {
-//       responseClient(res, 200, -1, '登陆超时，请重新登陆', req.session.userInfo);
-//     }
-//   }
-// });
 /**
  * 用户注册
  */
@@ -36,6 +25,10 @@ adminRouter.post('/logout', userControll.Logout);
  * 用户验证
  */
 adminRouter.get('/userInfo', userControll.userInfo);
+/**
+ * 更新用户信息
+ */
+adminRouter.put('/updateInfo', userControll.updateInfo);
 /**
  * 添加标签
  */

@@ -91,8 +91,8 @@ export default {
   methods: {
     init() {
       this.http({method:'get',url:'/tagList'}).then(info => {
-        if (info.data.code === 200) {
-          this.tagData = info.data.data
+        if (info.code === 200) {
+          this.tagData = info.data
         } else {
           this.tagData = []
         }
@@ -101,7 +101,7 @@ export default {
         method: 'get',
         url: `/article/${this.$route.params.id}`
       }).then(info => {
-        this.articleData = info.data.data
+        this.articleData = info.data
         this.choiceTags = this.articleData.tags
       })
     },
@@ -138,8 +138,8 @@ export default {
         headers: { 'Content-Type': 'multipart/form-data' },
       }).then((info) => {
         let data = info.data
-        if(data.code == 201) {
-          this.articleData.coverImg = data.data.baseImgUrl + data.data.path
+        if(info.code == 201) {
+          this.articleData.coverImg = data.baseImgUrl + data.path
         }
       })
     }

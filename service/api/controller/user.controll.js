@@ -27,7 +27,13 @@ exports.Register = async (req, res, next) => {
     let user = new UserModel({
       userName: userName,
       passWord: md5(passWord + MD5_SUFFIXSTR),
-      type: type
+      type: type,
+      headImg: '',
+      description: '',
+      likes: [],
+      friends: [],
+      name: '',
+      link: []
     });
     user.save().then(() => {
       UserModel.findOne({
@@ -102,16 +108,46 @@ exports.Logout = async (req, res, next) => {
 }
 
 exports.userInfo = async (req, res, next) => {
-  try {
-    if (req.query.userName === req.session.userInfo.userName) {
-      responseClient(res, 200, 200, '验证成功', req.session.userInfo);
+  let userName = req.session.userInfo.userName
+  if (userName) {
+    UserModel.findOne({
+      userName
+    }).then(userInfo => {
+      userInfo.passWord = ''
+      responseClient(res, 200, 200, 'success', userInfo);
       next();
-    } else {
-      responseClient(res, 200, 202, '登陆超时，请重新登陆', req.session.userInfo);
+    }).catch(err => {
+      responseClient(res, 400, 500, 'error', err);
       next();
-    }
-  } catch (err) {
-    responseClient(res, 400, 202, '登陆超时，请重新登陆', err);
+    })
+  } else {
+    responseClient(res, 200, -1, '登陆超时，请重新登陆', req.session.userInfo);
     next();
   }
+}
+exports.updateInfo = async (req, res, next) => {
+  let {
+    userName,
+    headImg,
+    description,
+    likes,
+    friends,
+    name,
+    link
+  } = req.body;
+  UserModel.update({
+    userName: userName
+  }, {
+    userName,
+    headImg,
+    description,
+    likes,
+    friends,
+    name,
+    link
+  }).then(updateInfo => {
+    responseClient(res, 200, 201, '更新成功!', updateInfo);
+  }).catch(err => {
+    responseClient(res, 500, 202, '更新失败！', err)
+  })
 }

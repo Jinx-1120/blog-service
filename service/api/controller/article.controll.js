@@ -51,9 +51,15 @@ exports.articleList = async (req, res, next) => {
   try {
     articleModel.count({}, (errmsg, num) => {
 
-      let { pageNum = 1, tag, isAll = false } = req.query;
-      let option = {};
-      tag ? option = {tags: tag} : option = {};
+      let {
+        pageNum = 1, tag, isAll = false, author = req.session.userInfo.userName
+      } = req.query;
+      let option = {
+        author: req.session.userInfo.userName
+      };
+      tag ? option.tags=  tag : '';
+      console.log(option)
+
       let articles;
       if (isAll) {
         articles = articleModel.find(option);
@@ -108,7 +114,6 @@ exports.getArticle = async (req, res, next) => {
  */
 exports.updateArticle = async (req, res, next) => {
   let { articleID } = req.params;
-  console.log(req.body);
   let {
     title,
     tags,

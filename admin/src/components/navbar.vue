@@ -40,7 +40,7 @@ export default {
     },
     logout() {
       this.http({method:'post',url:'/logout'}).then(info => {
-        if(info.data.code == 201) {
+        if(info.code == 201) {
           this.$router.push('/login')
         }
       })

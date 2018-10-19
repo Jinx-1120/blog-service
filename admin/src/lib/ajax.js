@@ -7,7 +7,7 @@ import router from '../router/index';
 // Vue.component(Loading);
 // axios 配置
 const ajaxconfig = {
-  baseURL: 'http://localhost:3000/api/',
+  baseURL: '/admin/',
   timeout: 5000,
   isRetryRequest: false
 }
@@ -71,9 +71,9 @@ export default {
               default:
                 break;
             }
-            return info;
+            return info.data;
           }).catch(err => {
-            // loadinginstace.close();
+            router.replace('/404');
           })
           return myPromise
         }

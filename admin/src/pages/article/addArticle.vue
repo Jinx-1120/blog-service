@@ -127,8 +127,8 @@ export default {
         headers: { 'Content-Type': 'multipart/form-data' },
       }).then((info) => {
         let data = info.data
-        if(data.code == 201) {
-          this.articleData.coverImg = data.data.baseImgUrl + data.data.path
+        if(info.code == 201) {
+          this.articleData.coverImg = data.baseImgUrl + data.path
         }
       })
     }

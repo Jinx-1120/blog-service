@@ -25,10 +25,10 @@
         <el-dialog title="创建账号" :visible.sync="dialogFormVisible">
           <el-form :model="form">
             <el-form-item label="名称" :label-width="formLabelWidth">
-              <el-input type="text" v-model="form.userName" autocomplete="off"></el-input>
+              <el-input type="text" v-model="form.userName" ></el-input>
             </el-form-item>
             <el-form-item label="密码" :label-width="formLabelWidth">
-              <el-input type="password" v-model="form.passWord" autocomplete="off"></el-input>
+              <el-input type="password" v-model="form.passWord" ></el-input>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">

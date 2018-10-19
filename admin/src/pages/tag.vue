@@ -81,7 +81,7 @@ export default {
     // 添加标签
     submitForm() {
       this.http({method:'post',url:'/addTag',data:this.addTagForm}).then(info => {
-        if (info.data.code === 201) {
+        if (info.code === 201) {
           this.dialogAddTag = false
           this.getTaglist()
         } else {
@@ -94,8 +94,8 @@ export default {
     // 获取列表数据
     getTaglist() {
       this.http({method:'get',url:'/tagList'}).then(info => {
-        if (info.data.code === 200) {
-          this.tagData = info.data.data
+        if (info.code === 200) {
+          this.tagData = info.data
         } else {
           this.tagData = []
         }
