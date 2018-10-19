@@ -10,7 +10,8 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import mutipart from 'connect-multiparty';
 
-import routes from '../api/route';
+import adminRouter from '../api/route/admin';
+import clientRouter from '../api/route/client';
 import { logs } from './config';
 import { responseClient } from '../api/util';
 
@@ -57,15 +58,18 @@ app.use(session({
 
 // 设置全局登陆验证
 app.use((req, res, next) => {
-  console.log(req.session.userInfo)
-  if (req.session.userInfo) {
-    next();
-  } else {
-    if (req.originalUrl.indexOf('login') > 0 || req.originalUrl.indexOf('register') > 0 ) {
+  if(req.originalUrl.indexOf('/admin/') === 0) {
+    if (req.session.userInfo) {
       next();
     } else {
-      responseClient(res, 200, -1, '登陆超时，请重新登陆', req.session.userInfo);
+      if (req.originalUrl.indexOf('login') > 0 || req.originalUrl.indexOf('register') > 0 ) {
+        next();
+      } else {
+        responseClient(res, 200, -1, '登陆超时，请重新登陆', req.session.userInfo);
+      }
     }
+  } else {
+    next();
   }
 })
 
@@ -88,7 +92,8 @@ app.use(passport.initialize());
 // passport.use('jwt', strategies.jwt);
 
 // mount api /api routes
-app.use('/api', routes);
+app.use('/admin', adminRouter);
 
+app.use('/client', clientRouter);
 
 module.exports = app;

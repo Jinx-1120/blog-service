@@ -11,7 +11,13 @@ const tag = new mongoose.Schema({
   description: {
     type: String
   },
-  time: Date
+  time: Date,
+  author: {
+    type: String,
+    trim: true,
+    required: true
+  },
+
 });
 const tagModel = mongoose.model('tags', tag);
 module.exports = tagModel;

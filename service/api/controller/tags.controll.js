@@ -26,7 +26,8 @@ exports.addTag = async (req, res, next) => {
         let tag = new tagsModel({
           tagName: tagName,
           description: description,
-          time: new Date()
+          time: new Date(),
+          author: req.session.userInfo.userName,
         });
         tag.save().then(saveInfo => {
           responseClient(res, 200, 201, '标签保存成功', saveInfo);
