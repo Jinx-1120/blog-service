@@ -75,9 +75,9 @@ exports.Login = async (req, res, next) => {
       //   maxAge: 9000000,
       //   httpOnly: false
       // });
-      console.log(data);
 
       req.session.userInfo = data;
+      console.log(req.session.userInfo);
 
       responseClient(res, 200, 200, '登陆成功', data);
       next();
@@ -108,6 +108,8 @@ exports.Logout = async (req, res, next) => {
 }
 
 exports.userInfo = async (req, res, next) => {
+  console.log(req.session.userInfo);
+
   let userName = req.session.userInfo.userName
   if (userName) {
     UserModel.findOne({

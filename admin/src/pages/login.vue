@@ -108,7 +108,9 @@ export default {
   methods: {
     submit () {
       this.http({method:'post',url:'/login', data: this.loginForm}).then(info => {
-        this.$router.push('/')
+        if(info.code === 200) {
+          this.$router.push('/')
+        }
       }).catch(err => {
         console.error(err)
       })

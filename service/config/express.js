@@ -46,18 +46,27 @@ app.use(bodyParser.urlencoded({
 
 // app.use(mutipart({uploadDir: '../upload_tmp'}));
 // 设置全局session
-app.use(cookieParser('express_cookie'));
+// app.use(cookieParser('express_cookie'));
 app.use(session({
-  secret: 'express_cookie',
+  secret: 'secret', // 对session id 相关的cookie 进行签名
   resave: true,
-  saveUninitialized: true,
+  saveUninitialized: false, // 是否保存未初始化的会话
   cookie: {
-    maxAge: 60 * 1000 * 30
-  } //过期时间
+    maxAge: 1000 * 60 * 3, // 设置 session 的有效时间，单位毫秒
+  },
 }));
+// app.use(session({
+//   secret: 'express_cookie',
+//   resave: true,
+//   saveUninitialized: true,
+//   cookie: {
+//     maxAge: 60 * 1000 * 30
+//   } //过期时间
+// }));
 
 // 设置全局登陆验证
 app.use((req, res, next) => {
+  console.log(req.session.userInfo)
   if(req.originalUrl.indexOf('/admin/') === 0) {
     if (req.session.userInfo) {
       next();
@@ -85,7 +94,7 @@ app.use(helmet());
 
 
 // enable CORS - Cross Origin Resource Sharing
-// app.use(cors());
+app.use(cors());
 
 // enable authentication
 app.use(passport.initialize());
