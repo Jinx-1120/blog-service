@@ -66,6 +66,7 @@ adminRouter.delete('/delArticle/:articleID', articleControll.delArticle);
 
 // uploadControll.upload.single('file')
 adminRouter.post('/uploadImg', uploadControll.upload.single('image'), uploadControll.uploadImg);
+
 module.exports = adminRouter;
 
 

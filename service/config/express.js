@@ -52,21 +52,12 @@ app.use(session({
   resave: true,
   saveUninitialized: false, // 是否保存未初始化的会话
   cookie: {
-    maxAge: 1000 * 60 * 3, // 设置 session 的有效时间，单位毫秒
+    maxAge: 1000 * 60 * 30, // 设置 session 的有效时间，单位毫秒
   },
 }));
-// app.use(session({
-//   secret: 'express_cookie',
-//   resave: true,
-//   saveUninitialized: true,
-//   cookie: {
-//     maxAge: 60 * 1000 * 30
-//   } //过期时间
-// }));
 
 // 设置全局登陆验证
 app.use((req, res, next) => {
-  console.log(req.session.userInfo)
   if(req.originalUrl.indexOf('/admin/') === 0) {
     if (req.session.userInfo) {
       next();

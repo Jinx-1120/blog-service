@@ -48,18 +48,18 @@ exports.addArticle = async (req, res, next) => {
  * @param {*} next
  */
 exports.articleList = async (req, res, next) => {
+  let userName = ''
+  req.originalUrl.indexOf('/admin/') === 0 ? userName = req.session.userInfo.userName : userName = 'admin'
+  let {
+    pageNum = 1, tag, isAll = false
+  } = req.query;
+  let option = {
+    author: userName
+  };
+  tag ? option.tags = tag : '';
+
   try {
     articleModel.count({}, (errmsg, num) => {
-
-      let {
-        pageNum = 1, tag, isAll = false, author = req.session.userInfo.userName
-      } = req.query;
-      let option = {
-        author: req.session.userInfo.userName
-      };
-      tag ? option.tags=  tag : '';
-      console.log(option)
-
       let articles;
       if (isAll) {
         articles = articleModel.find(option);

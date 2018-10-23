@@ -87,8 +87,8 @@ export default {
   },
   created() {
     this.http({method:'get',url:'/tagList'}).then(info => {
-      if (info.data.code === 200) {
-        this.tagData = info.data.data
+      if (info.code === 200) {
+        this.tagData = info.data
       } else {
         this.tagData = []
       }
