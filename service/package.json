@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "dev": "NODE_ENV=development nodemon app.js",
-    "start": "pm2 start processes.json"
+    "start": "NODE_ENV=production forever start -l /var/log/node-service/node-service.out.log -e /var/log/node-service/node-service.err.log -w -a app.js",
+    "pm2": "pm2 start processes.json"
   },
   "keywords": [
     "blog",
