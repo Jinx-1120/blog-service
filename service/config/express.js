@@ -33,6 +33,10 @@ const app = new express();
 //   next();
 // });
 
+// enable CORS - Cross Origin Resource Sharing
+app.use(cors());
+
+
 // dev 显示console | pro 显示: file
 app.use(morgan(logs));
 
@@ -46,14 +50,14 @@ app.use(bodyParser.urlencoded({
 
 // app.use(mutipart({uploadDir: '../upload_tmp'}));
 // 设置全局session
-// app.use(cookieParser('express_cookie'));
+app.use(cookieParser('express_cookie'));
 app.use(session({
-  secret: 'secret', // 对session id 相关的cookie 进行签名
+  secret: 'express_cookie',
   resave: true,
-  saveUninitialized: false, // 是否保存未初始化的会话
+  saveUninitialized: true,
   cookie: {
-    maxAge: 1000 * 60 * 30, // 设置 session 的有效时间，单位毫秒
-  },
+    maxAge: 60 * 1000 * 30
+  } //过期时间
 }));
 
 // 设置全局登陆验证
@@ -84,8 +88,7 @@ app.use(methodOverride());
 app.use(helmet());
 
 
-// enable CORS - Cross Origin Resource Sharing
-app.use(cors());
+
 
 // enable authentication
 app.use(passport.initialize());

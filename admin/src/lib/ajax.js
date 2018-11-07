@@ -7,7 +7,7 @@ import router from '../router/index';
 // Vue.component(Loading);
 // axios 配置
 const ajaxconfig = {
-  baseURL: process.env.NODE_ENV === 'production' ? '/api/' : '/admin/',
+  baseURL: process.env.NODE_ENV === 'production' ? '/admin/' : '/admin/',
   timeout: 5000,
   isRetryRequest: false
 }
