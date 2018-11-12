@@ -207,3 +207,29 @@ exports.likeArticle = async (req, res, next) => {
     responseClient(res, 500, 500, '服务器异常', err)
   };
 }
+
+/**
+ * search
+ * 搜索
+ */
+
+exports.searchArticle = async (req, res, next)=> {
+  const {
+    keyword
+  } = req.query;
+  const keywordReg = new RegExp(keyword);
+  const query = {};
+  query.$or = [
+    { 'title': keywordReg },
+    { 'description': keywordReg },
+    { 'content': keywordReg },
+  ];
+
+  articleModel.paginate(query, {}).then(info => {
+    responseClient(res, 200, 200, '成功', info);
+    next();
+  }).catch(err => {
+    console.log(err)
+    responseClient(res, 500, 500, '服务器异常', err)
+  })
+}

@@ -5,6 +5,6 @@
     "log_date_format": "YYYY-MM-DD HH:mm Z",
     "error_file": "./node-service.err.log",
     "out_file": "./node-service.out.log",
-    "instances": 3
+    "instances": 1
   }]
 }

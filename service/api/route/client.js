@@ -31,6 +31,11 @@ clientRouter.get('/article/:articleID', articleControll.getArticle);
  */
 clientRouter.post('/article/likeArticle/:articleID', articleControll.likeArticle);
 
+/**
+ * 搜索
+ */
+clientRouter.get('/search', articleControll.searchArticle);
+
 // uploadControll.upload.single('file')
 clientRouter.post('/uploadImg', uploadControll.upload.single('image'), uploadControll.uploadImg);
 

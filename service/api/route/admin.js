@@ -64,6 +64,11 @@ adminRouter.put('/article/:articleID', articleControll.updateArticle);
  */
 adminRouter.delete('/delArticle/:articleID', articleControll.delArticle);
 
+/**
+ * 搜索
+ */
+adminRouter.get('/search', articleControll.searchArticle);
+
 // uploadControll.upload.single('file')
 adminRouter.post('/uploadImg', uploadControll.upload.single('image'), uploadControll.uploadImg);
 
