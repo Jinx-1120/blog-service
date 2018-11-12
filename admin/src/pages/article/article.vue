@@ -1,8 +1,8 @@
 <template>
   <div style="margin-top:10px" class="article-list">
     <el-form :model="formInline" :inline="true" class="demo-form-inline">
-      <el-form-item label="标签名">
-        <el-input v-model="formInline.article" placeholder="标签名"></el-input>
+      <el-form-item label="关键字">
+        <el-input v-model="formInline.article" placeholder="keyWord"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
@@ -14,7 +14,7 @@
       </el-form-item>
     </el-form>
     <el-table
-      :data="tagData"
+      :data="artcleList"
       border
       style="width: 100%">
       <el-table-column
@@ -97,7 +97,7 @@ export default {
       addTagForm: {
         article: ''
       },
-      tagData:[],
+      artcleList:[],
       dialogAddArticle: false,
       rules:{
         article: [
@@ -121,9 +121,9 @@ export default {
     getArticlelist() {
       this.http({method:'get',url:'/articleList'}).then(info => {
         if (info.code === 200) {
-          this.tagData = info.data.data
+          this.artcleList = info.data.data
         } else {
-          this.tagData = []
+          this.artcleList = []
         }
       })
     },
@@ -148,7 +148,12 @@ export default {
       })
     },
     onSubmit() {
-
+      this.http({
+        method: 'get',
+        url: `search/?keyword=${this.formInline.article}`
+      }).then(info => {
+        this.artcleList = info.data.docs
+      })
     }
   },
   components: {

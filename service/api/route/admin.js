@@ -3,6 +3,7 @@ import userControll from '../controller/user.controll';
 import tagControll from '../controller/tags.controll';
 import articleControll from '../controller/article.controll';
 import uploadControll from '../controller/upload.controll';
+import QNController from '../controller/qiniu.controll';
 import { responseClient } from '../util';
 
 
@@ -63,6 +64,16 @@ adminRouter.put('/article/:articleID', articleControll.updateArticle);
  * 删除文章
  */
 adminRouter.delete('/delArticle/:articleID', articleControll.delArticle);
+
+/**
+ * 搜索
+ */
+adminRouter.get('/search', articleControll.searchArticle);
+
+/**
+ * 七牛
+ */
+adminRouter.get('/getQN', QNController.getQN);
 
 /**
  * 搜索

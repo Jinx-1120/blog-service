@@ -119,19 +119,25 @@ export default {
     uploadCoverImg() {
       let files = this.$refs.file.files[0]
       var formdata = new FormData();
-      formdata.append('image', files);
+      formdata.append('file', files);
       this.http({
-        url: '/uploadImg',
-        method: 'post',
-        data: formdata,
-        headers: { 'Content-Type': 'multipart/form-data' },
-      }).then((info) => {
-        let data = info.data
-        if(info.code == 201) {
-          this.articleData.coverImg = data.baseImgUrl + data.path
-        }
+        url: '/getQN',
+        method: 'get'
+      }).then(res => {
+        formdata.append('token', res.data.token);
+        formdata.append('key', files.name);
+        this.http({
+          url: 'http://up.qiniup.com',
+          method: 'post',
+          data: formdata,
+          headers: { 'Content-Type': 'multipart/form-data' },
+        }).then((info) => {
+          if(info.hash) {
+            this.userInfo.headImg = 'http://qn.jinhaidi.cn/' + info.key
+          }
+        })
       })
-    }
+    },
   }
 }
 </script>
