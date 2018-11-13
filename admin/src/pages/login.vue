@@ -40,7 +40,7 @@
 </template>
 
 <script>
-
+import {setToken} from '../lib/util.js'
 export default {
   data() {
     return {
@@ -109,6 +109,7 @@ export default {
     submit () {
       this.http({method:'post',url:'/login', data: this.loginForm}).then(info => {
         if(info.code === 200) {
+          setToken(info.data.token)
           this.$router.push('/')
         }
       }).catch(err => {

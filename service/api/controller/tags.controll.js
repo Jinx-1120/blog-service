@@ -27,7 +27,7 @@ exports.addTag = async (req, res, next) => {
           tagName: tagName,
           description: description,
           time: new Date(),
-          author: req.session.userInfo.userName || '',
+          author: req.session.userName || '',
         });
         tag.save().then(saveInfo => {
           responseClient(res, 200, 201, '标签保存成功', saveInfo);
@@ -53,7 +53,7 @@ exports.tagList = async (req, res, next) => {
   let queryOptions = {};
   if (req.originalUrl.indexOf('/admin/') === 0) {
     queryOptions = {
-      author : req.session.userInfo.userName
+      author : req.session.userName
     }
   }
   let {

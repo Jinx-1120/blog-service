@@ -22,7 +22,7 @@ exports.addArticle = async (req, res, next) => {
       content,
       description,
       coverImg,
-      author: req.session.userInfo.userName,
+      author: req.session.userName,
       status,
       createTime: new Date(),
       viewCount: 0,
@@ -49,7 +49,7 @@ exports.addArticle = async (req, res, next) => {
  */
 exports.articleList = async (req, res, next) => {
   let userName = ''
-  req.originalUrl.indexOf('/admin/') === 0 ? userName = req.session.userInfo.userName : userName = 'admin'
+  req.originalUrl.indexOf('/admin/') === 0 ? userName = req.session.userName : userName = 'admin'
   let {
     pageNum = 1, tag, isAll = false
   } = req.query;
@@ -220,16 +220,17 @@ exports.searchArticle = async (req, res, next)=> {
   const keywordReg = new RegExp(keyword);
   const query = {};
   query.$or = [
-    { 'title': keywordReg },
-    { 'description': keywordReg },
-    { 'content': keywordReg },
+    {title: {$regex: keyword, $options: '$i'}},
+    {description: {$regex: keyword, $options: '$i'}}, //  $options: '$i' 忽略大小写
+    {content: {$regex: keyword, $options: '$i'}}
   ];
 
-  articleModel.paginate(query, {}).then(info => {
+  articleModel.find(query).then(info => {
     responseClient(res, 200, 200, '成功', info);
     next();
   }).catch(err => {
     console.log(err)
-    responseClient(res, 500, 500, '服务器异常', err)
+    responseClient(res, 500, 500, '服务器异常', err);
+    next();
   })
 }

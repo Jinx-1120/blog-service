@@ -7,7 +7,8 @@ const app = {
       withoutAnimation: false
     },
     device: 'desktop',
-    language: Cookies.get('language') || 'en'
+    language: Cookies.get('language') || 'en',
+    user: ''
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {
@@ -30,6 +31,9 @@ const app = {
     SET_LANGUAGE: (state, language) => {
       state.language = language
       Cookies.set('language', language)
+    },
+    SET_USER: (state, name) => {
+      state.user = name
     }
   },
   actions: {

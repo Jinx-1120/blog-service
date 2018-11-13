@@ -2,24 +2,31 @@ import axios from 'axios';
 import {Loading, Message} from 'element-ui';
 import _ from 'lodash';
 import router from '../router/index';
+import {
+  getToken
+} from './util';
+
 // import Vue from 'vue';
 // Vue.component(Message);
 // Vue.component(Loading);
 // axios 配置
 const ajaxconfig = {
-  baseURL: process.env.NODE_ENV === 'production' ? 'https://api.jinhaidi.cn/admin/' : '/admin/',
+  baseURL: process.env.NODE_ENV === 'production' ? 'https://api.jinhaidi.cn/admin/' : 'http://localhost:3000/admin/',
   timeout: 5000,
   isRetryRequest: false
 }
-// let loadinginstace = Loading.service({
-//   lock: true,
-//   text: 'Loading',
-//   spinner: 'el-icon-loading',
-//   background: 'rgba(0, 0, 0, 0.5)'
-// });
-axios.interceptors.request.use(function (config) {
+let instance = axios.create(ajaxconfig);
+
+instance.interceptors.request.use(function (config) {
   // 在发送请求显示加载动画
   // loadinginstace
+  config.params = {
+    'token': getToken()
+  }
+  if(config.url.indexOf('getQN') > 0) {
+    config.params = {}
+  }
+  console.log(config.url.indexOf('getQN'))
   return config;
 }, function (error) {
   // 取消加载动画 并提示消息
@@ -29,7 +36,6 @@ axios.interceptors.request.use(function (config) {
   });
   return Promise.reject(error);
 });
-let instance = axios.create(ajaxconfig);
 
 
 export default {

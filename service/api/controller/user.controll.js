@@ -1,5 +1,8 @@
 import UserModel from '../models/users.model';
 import { responseClient, md5, MD5_SUFFIXSTR } from '../util';
+const jwt = require("jsonwebtoken");
+
+
 /**
  * 注册
  * @param {*} req  request
@@ -66,20 +69,15 @@ exports.Login = async (req, res, next) => {
     passWord: md5(passWord + MD5_SUFFIXSTR)
   }).then(userInfo => {
     if (userInfo) {
-      let data = {};
-      data.userName = userInfo.userName;
-      data.userType = userInfo.type;
-      data.userId = userInfo._id;
-      // 设置登陆成功cookie
-      // res.cookie("user", userInfo._id, {
-      //   maxAge: 9000000,
-      //   httpOnly: false
-      // });
+      const token = jwt.sign({
+        name: userInfo.userName,
+        password: passWord,
+        exp: Math.floor(Date.now() / 1000) + (60*60)
+      }, 'blog');
 
-      req.session.userInfo = data;
-      console.log(req.session.userInfo);
+      console.log(token);
 
-      responseClient(res, 200, 200, '登陆成功', data);
+      responseClient(res, 200, 200, '登陆成功', {token: token});
       next();
     } else {
       responseClient(res, 200, 202, '用户名与密码不匹配');
@@ -99,7 +97,7 @@ exports.Login = async (req, res, next) => {
 exports.Logout = async (req, res, next) => {
   try {
     req.session.userInfo = null;
-      responseClient(res, 200, 201, '退出成功', req.session.userInfo)
+      responseClient(res, 200, 201, '退出成功', null)
       next();
   } catch (err) {
     responseClient(res, 400, 500, '退出失败', err);
@@ -108,22 +106,18 @@ exports.Logout = async (req, res, next) => {
 }
 
 exports.userInfo = async (req, res, next) => {
-  console.log(req.session.userInfo);
-
-  let userName = req.session.userInfo.userName
-  if (userName) {
-    UserModel.findOne({
-      userName
-    }).then(userInfo => {
-      userInfo.passWord = ''
-      responseClient(res, 200, 200, 'success', userInfo);
+  console.log('name' + req.session.userName)
+  const info = await UserModel.findOne({
+      userName: req.session.userName
+    }, 'userName type headImg description likes').catch(err => {
+    responseClient(res, 400, 500, 'error', err);
+  })
+  // let userName = req.session.userName
+  if (info) {
+      responseClient(res, 200, 200, 'success', info);
       next();
-    }).catch(err => {
-      responseClient(res, 400, 500, 'error', err);
-      next();
-    })
   } else {
-    responseClient(res, 200, -1, '登陆超时，请重新登陆', req.session.userInfo);
+    responseClient(res, 200, -1, '查询失败', '');
     next();
   }
 }

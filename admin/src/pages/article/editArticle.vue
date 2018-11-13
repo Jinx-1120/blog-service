@@ -29,6 +29,7 @@
       </el-form-item>
       <el-form-item label="文章封面">
         <div class="add">
+          <el-input style="width:50%" v-model="articleData.coverImg" clearable></el-input>
           <img v-if="articleData.coverImg" :src="articleData.coverImg" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           <input type="file" multiple accept="image/*"
@@ -144,7 +145,7 @@ export default {
           headers: { 'Content-Type': 'multipart/form-data' },
         }).then((info) => {
           if(info.hash) {
-            this.userInfo.headImg = 'http://qn.jinhaidi.cn/' + info.key
+            this.articleData.coverImg = 'http://qn.jinhaidi.cn/' + info.key
           }
         })
       })

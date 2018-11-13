@@ -1,5 +1,6 @@
 
 import crypto from 'crypto';
+const jwt = require('jsonwebtoken');
 
 module.exports = {
   md5: (pwd) => {
@@ -19,5 +20,13 @@ module.exports = {
     responseData.message = message;
     responseData.data = data;
     res.status(httpCode).json(responseData)
+  },
+  authIsVerified: function authIsVerified(token) {
+    const decodedToken = jwt.verify(token, 'blog')
+    if (decodedToken.exp > Math.floor(Date.now() /1000)) {
+      return true
+    } else {
+      return false
+    }
   }
 };

@@ -29,6 +29,7 @@
 
 <script>
 import Hamburger from './hamburger.vue'
+import {removeToken} from '../lib/util.js'
 
 export default {
   components: {
@@ -41,6 +42,7 @@ export default {
     logout() {
       this.http({method:'post',url:'/logout'}).then(info => {
         if(info.code == 201) {
+          removeToken()
           this.$router.push('/login')
         }
       })

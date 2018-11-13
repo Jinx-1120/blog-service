@@ -152,7 +152,7 @@ export default {
         method: 'get',
         url: `search/?keyword=${this.formInline.article}`
       }).then(info => {
-        this.artcleList = info.data.docs
+        this.artcleList = info.data
       })
     }
   },

@@ -13,6 +13,7 @@
       center>
       <div class="dialog-content">
         <div class="add">
+          <el-input style="width:50%" v-model="userInfo.headImg" clearable></el-input>
           <img v-if="userInfo.headImg" :src="userInfo.headImg" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           <input type="file" multiple accept="image/*"

@@ -48,7 +48,7 @@ export default {
   created () {
     this.http({
       method: 'get',
-      url: '/userInfo'
+      url: `/userInfo`,
     }).then(res => {
       this.userInfo = res.data
     })
