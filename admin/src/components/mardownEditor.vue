@@ -14,6 +14,7 @@
 
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import * as qiniu from 'qiniu-js'
 
 export default {
   components: {
@@ -62,12 +63,21 @@ export default {
       //   let url = info.data.data.baseImgUrl + info.data.data.path
       //   this.$refs.md.$img2Url(pos, url);
       // })
+      const putExtra = {
+        params: {},
+        fname: $file.name,
+        mimeType: ['image/png', 'image/jpeg', 'image/jpg', 'image/gif']
+      };
+      const upOptions = {
+        useCdnDomain: true
+      }
       this.http({
         url:  `/getQN?${Math.random(1) * 10000}`,
         method: 'get'
       }).then(res => {
         console.log(res.data.token)
-        const observable = qiniu.upload(files, files.name, res.data.token, putExtra, upOptions)
+
+        const observable = qiniu.upload($file, $file.name, res.data.token, putExtra, upOptions)
         const subscription = observable.subscribe({
           error: err => {
             console.error('失败', err)

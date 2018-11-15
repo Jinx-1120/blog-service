@@ -51,6 +51,7 @@
 <script>
 import MarkdownEditor from '../../components/mardownEditor'
 import articleVue from './article.vue';
+import * as qiniu from 'qiniu-js'
 
 const content = ''
 
@@ -128,24 +129,32 @@ export default {
       }
       this.articleData.tags = this.choiceTags
     },
+
     uploadCoverImg() {
       let files = this.$refs.file.files[0]
-      var formdata = new FormData();
-      formdata.append('file', files);
+      const putExtra = {
+        params: {},
+        fname: files.name,
+        mimeType: ['image/png', 'image/jpeg', 'image/jpg', 'image/gif']
+      };
+      const upOptions = {
+        useCdnDomain: true
+      }
       this.http({
-        url: '/getQN',
+        url:  `/getQN?${Math.random(1) * 10000}`,
         method: 'get'
       }).then(res => {
-        formdata.append('token', res.data.token);
-        formdata.append('key', files.name);
-        this.http({
-          url: 'http://up.qiniup.com',
-          method: 'post',
-          data: formdata,
-          headers: { 'Content-Type': 'multipart/form-data' },
-        }).then((info) => {
-          if(info.hash) {
-            this.articleData.coverImg = 'http://qn.jinhaidi.cn/' + info.key
+        console.log(res.data.token)
+        const observable = qiniu.upload(files, files.name, res.data.token, putExtra, upOptions)
+        const subscription = observable.subscribe({
+          error: err => {
+            console.error('失败', err)
+          },
+          complete: res => {
+            console.log(res)
+            if(res.hash) {
+              this.articleData.coverImg = 'http://qn.jinhaidi.cn/' + res.key;
+            }
           }
         })
       })
