@@ -13,7 +13,6 @@
       center>
       <div class="dialog-content">
         <div class="add">
-          <el-input style="width:50%" v-model="userInfo.headImg" clearable></el-input>
           <img v-if="userInfo.headImg" :src="userInfo.headImg" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           <input type="file" multiple accept="image/*"
@@ -21,6 +20,9 @@
           >
         </div>
         <el-form class="info" :model="userInfo" label-width="180px">
+          <el-form-item label="头像地址">
+            <el-input v-model="userInfo.headImg" clearable></el-input>
+          </el-form-item>
           <el-form-item label="花名">
             <el-input v-model="userInfo.name"></el-input>
           </el-form-item>
@@ -89,6 +91,8 @@
 </template>
 
 <script>
+import * as qiniu from 'qiniu-js'
+
 export default {
   props: ['infoDialogVisible'],
   data () {
@@ -153,22 +157,32 @@ export default {
     },
     uploadCoverImg() {
       let files = this.$refs.file.files[0]
-      var formdata = new FormData();
-      formdata.append('file', files);
+      // var formdata = new FormData();
+      // formdata.append('file', files);
+      console.log(files)
+      const putExtra = {
+        params: {},
+        fname: files.name,
+        mimeType: ['image/png', 'image/jpeg', 'image/jpg', 'image/gif']
+      };
+      const upOptions = {
+        useCdnDomain: true
+      }
       this.http({
-        url: '/getQN',
+        url:  `/getQN?${Math.random(10000)}`,
         method: 'get'
       }).then(res => {
-        formdata.append('token', res.data.token);
-        formdata.append('key', files.name);
-        this.http({
-          url: 'http://up.qiniup.com',
-          method: 'post',
-          data: formdata,
-          headers: { 'Content-Type': 'multipart/form-data' },
-        }).then((info) => {
-          if(info.hash) {
-            this.userInfo.headImg = 'http://qn.jinhaidi.cn/' + info.key
+        console.log(res.data.token)
+        const observable = qiniu.upload(files, files.name, res.data.token, putExtra, upOptions)
+        const subscription = observable.subscribe({
+          error: err => {
+            console.error('失败', err)
+          },
+          complete: res => {
+            console.log(res)
+            if(res.hash) {
+              this.userInfo.headImg = 'http://qn.jinhaidi.cn/' + res.key
+            }
           }
         })
       })

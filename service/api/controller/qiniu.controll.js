@@ -16,11 +16,12 @@ const mac = new qiniu.auth.digest.Mac(config.accessKey, config.secretKey);
 
 const options = {
   scope: 'blogimg',
+  expires: 100
 };
 const putPolicy = new qiniu.rs.PutPolicy(options);
-const uploadToken = putPolicy.uploadToken(mac);
 
 exports.getQN = async (req, res, next) => {
+  const uploadToken = new qiniu.rs.PutPolicy(options).uploadToken(mac);
   responseClient(res, 200, 200, 'success', {
     token: uploadToken
   })

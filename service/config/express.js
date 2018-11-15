@@ -51,17 +51,21 @@ app.use(session({
 // 设置全局登陆验证
 app.use((req, res, next) => {
   if(req.originalUrl.indexOf('/admin/') === 0) {
-    if (req.query.token) {
-      const decodedToken = jwt.verify(req.query.token, 'blog')
-      if (decodedToken.exp > Math.floor(Date.now() / 1000)) {
-        req.session.userName = decodedToken.name
-        next();
-      } else {
-        responseClient(res, 200, -1, '登陆超时，请重新登陆', null);
-      }
-    } else if (req.originalUrl.indexOf('login') > 0 || req.originalUrl.indexOf('register') > 0 || req.originalUrl.indexOf('getQN') > 0) {
+    if (req.originalUrl.indexOf('login') > 0 || req.originalUrl.indexOf('register') > 0 || req.originalUrl.indexOf('getQN') > 0) {
       next()
-    } else {
+    } else if(req.query.token) {
+      try {
+        const decodedToken = jwt.verify(req.query.token, 'blog')
+        if (decodedToken.exp > Math.floor(Date.now() / 1000)) {
+          req.session.userName = decodedToken.name
+          next();
+        } else {
+          responseClient(res, 200, -1, '登陆超时，请重新登陆', null);
+        }
+      } catch (err) {
+        responseClient(res, 200, -1, 'token失效，请重新登陆', null);
+      }
+    } else  {
       responseClient(res, 200, -1, '来者何人', null);
     }
   } else {

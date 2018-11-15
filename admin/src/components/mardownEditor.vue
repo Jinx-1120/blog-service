@@ -49,18 +49,36 @@ export default {
     },
     $imgAdd(pos, $file){
       // 第一步.将图片上传到服务器.
-      var formdata = new FormData();
-      formdata.append('image', $file);
+      // var formdata = new FormData();
+      // formdata.append('image', $file);
+      // this.http({
+      //   url: '/uploadImg',
+      //   method: 'post',
+      //   data: formdata,
+      //   headers: { 'Content-Type': 'multipart/form-data' },
+      // }).then((info) => {
+      //   // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
+      //   // $vm.$img2Url 详情见本页末尾
+      //   let url = info.data.data.baseImgUrl + info.data.data.path
+      //   this.$refs.md.$img2Url(pos, url);
+      // })
       this.http({
-        url: '/uploadImg',
-        method: 'post',
-        data: formdata,
-        headers: { 'Content-Type': 'multipart/form-data' },
-      }).then((info) => {
-        // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
-        // $vm.$img2Url 详情见本页末尾
-        let url = info.data.data.baseImgUrl + info.data.data.path
-        this.$refs.md.$img2Url(pos, url);
+        url:  `/getQN?${Math.random(1) * 10000}`,
+        method: 'get'
+      }).then(res => {
+        console.log(res.data.token)
+        const observable = qiniu.upload(files, files.name, res.data.token, putExtra, upOptions)
+        const subscription = observable.subscribe({
+          error: err => {
+            console.error('失败', err)
+          },
+          complete: res => {
+            console.log(res)
+            if(res.hash) {
+              this.$refs.md.$img2Url(pos, 'http://qn.jinhaidi.cn/' + res.key);
+            }
+          }
+        })
       })
     },
   },
