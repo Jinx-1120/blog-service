@@ -1,10 +1,16 @@
 {
   "apps": [{
-    "name": "blogservice",
+    "name": "service",
     "script": "./app.js",
     "log_date_format": "YYYY-MM-DD HH:mm Z",
-    "error_file": "./node-service.err.log",
-    "out_file": "./node-service.out.log",
-    "instances": 1
+    "error_file": "/var/log/node-service/node-service.err.log",
+    "out_file": "/var/log/node-service/node-service.out.log",
+    "instances": 1,
+    "env": {
+      "NODE_ENV": "production"
+    },
+    "env_production": {
+      "NODE_ENV": "production"
+    }
   }]
 }
