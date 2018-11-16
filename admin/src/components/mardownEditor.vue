@@ -85,7 +85,7 @@ export default {
           complete: res => {
             console.log(res)
             if(res.hash) {
-              this.$refs.md.$img2Url(pos, 'http://qn.jinhaidi.cn/' + res.key);
+              this.$refs.md.$img2Url(pos, 'https://static.jinhaidi.cn/' + res.key);
             }
           }
         })

@@ -8,7 +8,7 @@ const config = {
   accessKey: 'MhOv5O079qyo0pgRWc-l3x1LwJCBtCpI9n_AnChp',
   secretKey: 'AdQhdj8UdxQp3ZJSeK_vBPE5CLoW7y82UJdH8w93',
   bucket: 'blogimg',
-  origin: 'qn.jinhaidi.cn.qiniudns.com'
+  origin: 'static.jinhaidi.cn.qiniudns.com'
   // uploadURL: argv.qn_uploadURL || 'http://up.qiniu.com/'
 }
 

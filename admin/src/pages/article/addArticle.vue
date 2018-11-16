@@ -141,7 +141,7 @@ export default {
           complete: res => {
             console.log(res)
             if(res.hash) {
-              this.articleData.coverImg = 'http://qn.jinhaidi.cn/' + res.key;
+              this.articleData.coverImg = 'https://static.jinhaidi.cn/' + res.key;
             }
           }
         })
@@ -161,7 +161,7 @@ export default {
       //     headers: { 'Content-Type': 'multipart/form-data' },
       //   }).then((info) => {
       //     if(info.hash) {
-      //       this.articleData.coverImg = 'http://qn.jinhaidi.cn/' + info.key
+      //       this.articleData.coverImg = 'https://static.jinhaidi.cn' + info.key
       //     }
       //   })
       // })

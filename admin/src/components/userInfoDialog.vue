@@ -181,7 +181,7 @@ export default {
           complete: res => {
             console.log(res)
             if(res.hash) {
-              this.userInfo.headImg = 'http://qn.jinhaidi.cn/' + res.key
+              this.userInfo.headImg = 'https://static.jinhaidi.cn/' + res.key
             }
           }
         })

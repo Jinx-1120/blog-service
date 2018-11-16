@@ -153,7 +153,7 @@ export default {
           complete: res => {
             console.log(res)
             if(res.hash) {
-              this.articleData.coverImg = 'http://qn.jinhaidi.cn/' + res.key;
+              this.articleData.coverImg = 'https://static.jinhaidi.cn/' + res.key;
             }
           }
         })
