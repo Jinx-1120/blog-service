@@ -54,6 +54,9 @@ exports.articleList = async (req, res, next) => {
     pageNum = 1, tag, isAll = false
   } = req.query;
   let option = {
+    // sort: {
+    //   createTime: -1
+    // },
     author: userName
   };
   tag ? option.tags = tag : '';
@@ -62,9 +65,13 @@ exports.articleList = async (req, res, next) => {
     articleModel.count({}, (errmsg, num) => {
       let articles;
       if (isAll) {
-        articles = articleModel.find(option);
+        articles = articleModel.find(option).sort({
+          createTime: 1
+        });
       } else {
-        articles = articleModel.find(option).limit(10).skip((pageNum - 1) * 10);
+        articles = articleModel.find(option).sort({
+          createTime: 1
+        }).limit(10).skip((pageNum - 1) * 10);
       }
       let pageTotal;
       let data = {};
