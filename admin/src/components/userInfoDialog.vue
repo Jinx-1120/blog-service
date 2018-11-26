@@ -20,9 +20,9 @@
           >
         </div>
         <el-form class="info" :model="userInfo" label-width="180px">
-          <el-form-item label="头像地址">
+          <!-- <el-form-item label="头像地址">
             <el-input v-model="userInfo.headImg" clearable></el-input>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="花名">
             <el-input v-model="userInfo.name"></el-input>
           </el-form-item>

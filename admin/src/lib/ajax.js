@@ -26,7 +26,6 @@ instance.interceptors.request.use(function (config) {
   if(config.url.indexOf('getQN') > 0) {
     config.params = {}
   }
-  console.log(config.url.indexOf('getQN'))
   return config;
 }, function (error) {
   // 取消加载动画 并提示消息

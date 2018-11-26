@@ -1,5 +1,7 @@
 import articleModel from '../models/article.model';
 import { responseClient } from '../util';
+import request from 'request';
+import config from '../../config/config';
 /**
  * 添加文章
  * @param {*} req
@@ -31,6 +33,15 @@ exports.addArticle = async (req, res, next) => {
     })
     article.save().then(data => {
       responseClient(res, 200, 201, '保存成功！');
+      request.post({
+        url: `http://data.zz.baidu.com/urls?site=${config.baidu.site}&token=${config.baidu.token}`,
+        headers: {
+          'Content-Type': 'text/plain'
+        },
+        body: `${config.baidu.site}/article/${data._id}`
+      }, (error, response, body) => {
+          console.log('推送结果：', body)
+      })
       next();
     }).catch(err => {
       responseClient(res, 500, 500, '系统异常！', err);
@@ -54,40 +65,22 @@ exports.articleList = async (req, res, next) => {
     pageNum = 1, tag, isAll = false
   } = req.query;
   let option = {
-    // sort: {
-    //   createTime: -1
-    // },
     author: userName
   };
   tag ? option.tags = tag : '';
-
-  try {
-    articleModel.count({}, (errmsg, num) => {
-      let articles;
-      if (isAll) {
-        articles = articleModel.find(option).sort({
-          createTime: 1
-        });
-      } else {
-        articles = articleModel.find(option).sort({
-          createTime: 1
-        }).limit(10).skip((pageNum - 1) * 10);
-      }
-      let pageTotal;
-      let data = {};
-      pageTotal = Math.ceil(num / 10);
-      let more = pageTotal - pageNum > 0 ? true : false;
-      articles.exec((err, result) => {
-        data.data = result;
-        data.pageTotal = pageTotal;
-        data.more = more;
-        data.totalNum = num;
-        responseClient(res, 200, 200, errmsg, data);
-      })
-    })
-  } catch (err) {
-    next(err);
-  }
+  let articleList = await articleModel.paginate(option, {
+    sort:{
+      createTime: 1
+    },
+    page: pageNum
+  }).catch(err => responseClient(res, 500, 202, '服务器内部错误！', err))
+  let data = {
+    data: articleList.docs,
+    pageTotal: articleList.pages,
+    more: articleList.pages - articleList.page > 1 ? true : false,
+    totalNum: articleList.page
+  };
+  responseClient(res, 200, 200, 'success', data);
 };
 /**
  * 获取文章详情
@@ -142,6 +135,15 @@ exports.updateArticle = async (req, res, next) => {
     updateTime
   }).then(updateInfo => {
     responseClient(res, 200, 201, '更新成功!', updateInfo);
+    request.post({
+      url: `http://data.zz.baidu.com/update?site=${config.baidu.site}&token=${config.baidu.token}`,
+      headers: {
+        'Content-Type': 'text/plain'
+      },
+      body: `${config.baidu.site}/article/${articleID}`
+    }, (error, response, body) => {
+      console.log('百度更新结果：', body)
+    })
   }).catch(err => {
     responseClient(res, 500, 202, '更新失败！', err)
   })
@@ -154,7 +156,6 @@ exports.updateArticle = async (req, res, next) => {
  * @param {*} next
  */
 exports.delArticle = async (req, res, next) => {
-  console.log(req.params);
   let { articleID } = req.params;
   try {
     if (!articleID) {
@@ -165,7 +166,16 @@ exports.delArticle = async (req, res, next) => {
         _id: articleID
       }).then(result => {
         if (result.n === 1) {
-          responseClient(res, 200, 201, '删除成功!')
+          responseClient(res, 200, 201, '删除成功!');
+          request.post({
+            url: `http://data.zz.baidu.com/del?site=${config.baidu.site}&token=${config.baidu.token}`,
+            headers: {
+              'Content-Type': 'text/plain'
+            },
+            body: `${config.baidu.site}/article/${articleID}`
+          }, (error, response, body) => {
+            console.log('百度删除结果：', body)
+          })
         } else {
           responseClient(res, 200, 202, '文章不存在！!')
         }
@@ -203,7 +213,6 @@ exports.likeArticle = async (req, res, next) => {
           responseClient(res, 200, 200, '成功', info);
           next();
         }).catch(err => {
-          console.log(err)
           responseClient(res, 500, 500, '服务器异常', err)
         })
       }).catch(err => {
@@ -236,7 +245,6 @@ exports.searchArticle = async (req, res, next)=> {
     responseClient(res, 200, 200, '成功', info);
     next();
   }).catch(err => {
-    console.log(err)
     responseClient(res, 500, 500, '服务器异常', err);
     next();
   })

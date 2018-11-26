@@ -48,6 +48,15 @@
         </template>
       </el-table-column>
       <el-table-column
+        prop="createTime"
+        label="发布时间"
+        align="center"
+        width="260">
+        <template slot-scope="scope">
+          <span>{{scope.row.createTime | moment("YYYY-MM-DD hh:mm:ss A")}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
         prop="updateTime"
         label="更新时间"
         align="center"
