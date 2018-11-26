@@ -106,7 +106,6 @@ exports.Logout = async (req, res, next) => {
 }
 
 exports.userInfo = async (req, res, next) => {
-  console.log('name' + req.session.userName)
   const info = await UserModel.findOne({
       userName: req.session.userName
     }, 'userName type headImg description likes').catch(err => {

@@ -1,5 +1,6 @@
 
 import crypto from 'crypto';
+import config from '../config/config';
 const jwt = require('jsonwebtoken');
 
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
     let md5 = crypto.createHash('md5');
     return md5.update(pwd).digest('hex');
   },
-  MD5_SUFFIXSTR: 'gcksaw@#mknjhb$%^$@!(dvftewa)_{}',
+  MD5_SUFFIXSTR: config.MD5_SUFFIXSTR,
   /**
    * response
    * @param {Object} res response
