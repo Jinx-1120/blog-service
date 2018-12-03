@@ -17,7 +17,10 @@ const tag = new mongoose.Schema({
     trim: true,
     required: true
   },
-
+  count: {
+    type: Number,
+    default: 0
+  }
 });
 const tagModel = mongoose.model('tags', tag);
 module.exports = tagModel;

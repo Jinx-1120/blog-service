@@ -62,16 +62,20 @@ exports.articleList = async (req, res, next) => {
   let userName = ''
   req.originalUrl.indexOf('/admin/') === 0 ? userName = req.session.userName : userName = 'admin'
   let {
-    pageNum = 1, tag, isAll = false
+    pageNum = 1, tag, isAll = false, hot = false
   } = req.query;
   let option = {
     author: userName
   };
+  let sort = {};
   tag ? option.tags = tag : '';
+  hot ? sort = {
+    fabulous: -1
+  } : sort = {
+    createTime: 1
+  }
   let articleList = await articleModel.paginate(option, {
-    sort:{
-      createTime: 1
-    },
+    sort,
     page: pageNum
   }).catch(err => responseClient(res, 500, 202, '服务器内部错误！', err))
   let data = {
