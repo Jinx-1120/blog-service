@@ -20,6 +20,10 @@ const config = {
   baidu: {
     site: process.env.SITE,
     token: process.env.BAIDUTOKEN
+  },
+  emial: {
+    account: process.env.EMAIL_ACCOUNT,
+    pwd: process.env.EMAIL_PWD
   }
 };
 function getIPAdress() {

@@ -61,8 +61,8 @@ const article = new mongoose.Schema({
     default: 0
   },
   reviewArea: {
-    // 评论区
-    type: Array
+    // 评论区数量
+    type: Number
   },
   fabulous: {
     type: Number

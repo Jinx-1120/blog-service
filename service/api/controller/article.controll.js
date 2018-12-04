@@ -1,5 +1,5 @@
 import articleModel from '../models/article.model';
-import { responseClient } from '../util';
+import { responseClient } from '../../util/util.js';
 import request from 'request';
 import config from '../../config/config';
 /**

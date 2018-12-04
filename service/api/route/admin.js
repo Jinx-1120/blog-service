@@ -4,7 +4,7 @@ import tagControll from '../controller/tags.controll';
 import articleControll from '../controller/article.controll';
 import uploadControll from '../controller/upload.controll';
 import QNController from '../controller/qiniu.controll';
-import { responseClient } from '../util';
+import { responseClient } from '../../util/util.js';
 
 
 let adminRouter = express.Router({

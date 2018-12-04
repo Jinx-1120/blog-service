@@ -1,7 +1,7 @@
 
 import {
   responseClient
-} from '../util';
+} from '../../util/util.js';
 import qiniu from 'qiniu';
 import config from '../../config/config';
 

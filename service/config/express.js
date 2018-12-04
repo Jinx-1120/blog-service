@@ -16,7 +16,7 @@ import { logs } from './config';
 import {
   responseClient,
   authIsVerified
-} from '../api/util';
+} from '../util/util';
 const jwt = require('jsonwebtoken');
 
 const app = new express();

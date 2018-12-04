@@ -1,5 +1,5 @@
 import UserModel from '../models/users.model';
-import { responseClient, md5, MD5_SUFFIXSTR } from '../util';
+import { responseClient, md5, MD5_SUFFIXSTR } from '../../util/util.js';
 const jwt = require("jsonwebtoken");
 
 

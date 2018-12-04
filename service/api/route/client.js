@@ -3,7 +3,7 @@ import userControll from '../controller/user.controll';
 import tagControll from '../controller/tags.controll';
 import articleControll from '../controller/article.controll';
 import uploadControll from '../controller/upload.controll';
-
+import commentControll from '../controller/comment.controll';
 
 let clientRouter = express.Router({
   mergeParams: true
@@ -38,5 +38,16 @@ clientRouter.get('/search', articleControll.searchArticle);
 
 // uploadControll.upload.single('file')
 clientRouter.post('/uploadImg', uploadControll.upload.single('image'), uploadControll.uploadImg);
+
+/***
+ * 评论
+ */
+clientRouter.get('/comments', commentControll.getComments);
+
+clientRouter.post('/comment', commentControll.postComment);
+
+clientRouter.put('/comment/:id', commentControll.putComment);
+
+clientRouter.delete('/comment/:id', commentControll.deleteComment);
 
 module.exports = clientRouter;
