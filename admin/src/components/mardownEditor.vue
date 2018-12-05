@@ -49,20 +49,6 @@ export default {
       this.$emit('getContent', val)
     },
     $imgAdd(pos, $file){
-      // 第一步.将图片上传到服务器.
-      // var formdata = new FormData();
-      // formdata.append('image', $file);
-      // this.http({
-      //   url: '/uploadImg',
-      //   method: 'post',
-      //   data: formdata,
-      //   headers: { 'Content-Type': 'multipart/form-data' },
-      // }).then((info) => {
-      //   // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
-      //   // $vm.$img2Url 详情见本页末尾
-      //   let url = info.data.data.baseImgUrl + info.data.data.path
-      //   this.$refs.md.$img2Url(pos, url);
-      // })
       const putExtra = {
         params: {},
         fname: $file.name,

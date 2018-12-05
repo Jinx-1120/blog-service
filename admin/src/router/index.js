@@ -58,6 +58,17 @@ const router = new Router({
             import ('../pages/article/article.vue')
         },
         {
+          path: '/comment',
+          name: 'comment',
+          meta: {
+            // 添加该字段，表示进入这个路由是需要登录的
+            requireAuth: true,
+            name: 'comment'
+          },
+          component: () =>
+            import('../pages/comment.vue')
+        },
+        {
           path: '/addArticle',
           name: 'addArticle',
           meta: {

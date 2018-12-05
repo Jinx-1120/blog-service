@@ -4,6 +4,7 @@ import tagControll from '../controller/tags.controll';
 import articleControll from '../controller/article.controll';
 import uploadControll from '../controller/upload.controll';
 import QNController from '../controller/qiniu.controll';
+import commentControll from '../controller/comment.controll';
 import { responseClient } from '../../util/util.js';
 
 
@@ -81,7 +82,18 @@ adminRouter.get('/getQN', QNController.getQN);
 adminRouter.get('/search', articleControll.searchArticle);
 
 // uploadControll.upload.single('file')
-adminRouter.post('/uploadImg', uploadControll.upload.single('image'), uploadControll.uploadImg);
+// adminRouter.post('/uploadImg', uploadControll.upload.single('image'), uploadControll.uploadImg);
+
+/***
+ * 评论
+ */
+adminRouter.get('/comments', commentControll.getComments);
+
+adminRouter.post('/comment', commentControll.postComment);
+
+adminRouter.put('/comment/:id', commentControll.putComment);
+
+adminRouter.delete('/comment/:id', commentControll.deleteComment);
 
 module.exports = adminRouter;
 

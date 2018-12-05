@@ -79,7 +79,8 @@
       <el-table-column
         prop="btn"
         label="操作"
-        align="center">
+        align="center"
+        width="200">
         <template slot-scope="scope">
           <router-link :to="{name:'showArticle', params: {id : scope.row._id } }">
             <el-button type="success" icon="el-icon-search" circle></el-button>

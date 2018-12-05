@@ -88,6 +88,13 @@ const sendMailToAdminAndTargetUser = (comment, permalink) => {
   }
 }
 
+const getClientIp = (req) => {
+  return req.headers['x-forwarded-for'] ||
+    req.connection.remoteAddress ||
+    req.socket.remoteAddress ||
+    req.connection.socket.remoteAddress || '';
+}
+
 exports.getComments = async (req, res, next) => {
     let {
       sort = -1, current_page = 1, page_size = 20, keyword = '', post_id, state
@@ -144,7 +151,6 @@ exports.getComments = async (req, res, next) => {
     }
 
     // 请求评论
-    console.log(options.sort)
     const comments = await Comment
       .paginate(querys, options)
       .catch(err =>{
@@ -166,15 +172,11 @@ exports.getComments = async (req, res, next) => {
 exports.postComment = async (req, res, next) => {
   let comment = req.body
   // 获取ip地址以及物理地理地址
-  const ip = (req.headers['x-forwarded-for'] ||
-    req.headers['x-real-ip'] ||
-    req.connection.remoteAddress ||
-    req.socket.remoteAddress ||
-    req.connection.socket.remoteAddress ||
-    req.ip ||
-    req.ips[0]).replace('::ffff:', '');
+  const ip = getClientIp(req);
   comment.ip = ip
   comment.agent = req.headers['user-agent'] || comment.agent
+
+  console.log('ip    ' + getClientIp(req))
 
   const ip_location = geoip.lookup(ip)
 
@@ -233,14 +235,14 @@ exports.putComment = async (req, res, next) => {
   post_ids = Array.of(Number(post_ids))
 
   const result = await Comment
-    .findByIdAndUpdate(_id, { ...ctx.request.body,
+    .findByIdAndUpdate(_id, { ...req.request.body,
       author
     })
-    .catch(err => ctx.throw(500, '服务器内部错误'))
+    .catch(err => req.throw(500, '服务器内部错误'))
   if (result) {
-    responseClient(ctx, 200, 200, '评论状态修改成功', result)
+    responseClient(res, 200, 200, '评论状态修改成功', result)
     updateArticleCommentCount(post_ids)
-  } else responseClient(ctx, 200, 202, '评论状态修改失败', null)
+  } else responseClient(res, 200, 202, '评论状态修改失败', null)
 }
 
 exports.deleteComment = async (req, res, next) => {
@@ -249,12 +251,14 @@ exports.deleteComment = async (req, res, next) => {
   const post_ids = Array.of(Number(req.query.post_ids))
 
   const result = await Comment
-    .findByIdAndRemove(_id)
-    .catch(err => req.throw(500, '服务器内部错误'))
+    .findOneAndDelete(_id)
+    .catch(err => responseClient(res, 500, 202, '服务器内部错误', err))
+
+  console.log(result)
   if (result) {
-    responseClient(req, 200, 200, '删除成功', result)
+    responseClient(res, 200, 201, '删除成功', result)
 
     updateArticleCommentCount(post_ids)
   } else
-    responseClient(req, 200, 202, '删除评论失败', null)
+    responseClient(res, 200, 202, '删除评论失败', null)
 }

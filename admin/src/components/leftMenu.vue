@@ -25,25 +25,17 @@ export default {
           path: '/home',
           icon: 'home'
         },
-        // {
-        //   title: '用户管理',
-        //   path: '/user',
-        //   icon: 'usermanager',
-        //   children: [{
-        //     title: '系统用户',
-        //     path: '/user/admin',
-        //     icon: 'superuser'
-        //   },{
-        //     title: '普通用户',
-        //     path: '/user/common',
-        //     icon: 'common'
-        //   }]
-        // },
+        {
+          title: '评论管理',
+          path: '/comment',
+          icon: 'comment'
+        },
         {
           title: '分类标签',
           path: '/tag',
           icon: 'tag'
-        },{
+        },
+        {
           title: '文章管理',
           path: '/article',
           icon: 'article'

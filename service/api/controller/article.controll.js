@@ -235,7 +235,7 @@ exports.likeArticle = async (req, res, next) => {
 
 exports.searchArticle = async (req, res, next)=> {
   const {
-    keyword
+    keyword = ''
   } = req.query;
   const keywordReg = new RegExp(keyword);
   const query = {};

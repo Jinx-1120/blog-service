@@ -37,7 +37,7 @@ clientRouter.post('/article/likeArticle/:articleID', articleControll.likeArticle
 clientRouter.get('/search', articleControll.searchArticle);
 
 // uploadControll.upload.single('file')
-clientRouter.post('/uploadImg', uploadControll.upload.single('image'), uploadControll.uploadImg);
+// clientRouter.post('/uploadImg', uploadControll.upload.single('image'), uploadControll.uploadImg);
 
 /***
  * 评论
@@ -46,8 +46,5 @@ clientRouter.get('/comments', commentControll.getComments);
 
 clientRouter.post('/comment', commentControll.postComment);
 
-clientRouter.put('/comment/:id', commentControll.putComment);
-
-clientRouter.delete('/comment/:id', commentControll.deleteComment);
 
 module.exports = clientRouter;
