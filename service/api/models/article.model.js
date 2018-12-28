@@ -39,14 +39,16 @@ const article = new mongoose.Schema({
   },
   createTime: {
     // 文章创建时间
-    type: String,
+    type: Date,
     trim: false,
+    default: Date.now,
     required: true
   },
   updateTime: {
     // 文章更新时间
-    type: String,
+    type: Date,
     trim: true,
+    default: Date.now,
     required: false
   },
   status: {

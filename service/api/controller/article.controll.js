@@ -28,7 +28,7 @@ exports.addArticle = async (req, res, next) => {
       status,
       createTime: new Date(),
       viewCount: 0,
-      reviewArea: [],
+      reviewArea: 1,
       fabulous: 0
     })
     article.save().then(data => {
@@ -72,7 +72,7 @@ exports.articleList = async (req, res, next) => {
   hot ? sort = {
     fabulous: -1
   } : sort = {
-    createTime: 1
+    createTime: -1
   }
   let articleList = await articleModel.paginate(option, {
     sort,
