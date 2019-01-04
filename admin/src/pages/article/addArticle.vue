@@ -132,14 +132,12 @@ export default {
         url:  `/getQN?${Math.random(1) * 10000}`,
         method: 'get'
       }).then(res => {
-        console.log(res.data.token)
         const observable = qiniu.upload(files, files.name, res.data.token, putExtra, upOptions)
         const subscription = observable.subscribe({
           error: err => {
             console.error('失败', err)
           },
           complete: res => {
-            console.log(res)
             if(res.hash) {
               this.articleData.coverImg = 'https://static.jinhaidi.cn/' + res.key;
             }

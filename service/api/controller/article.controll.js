@@ -253,3 +253,60 @@ exports.searchArticle = async (req, res, next)=> {
     next();
   })
 }
+
+exports.getRecords = async (req, res, next) => {
+  const article = await articleModel.aggregate([
+    {
+      $project: {
+        year: {
+          $year: '$createTime'
+        },
+        month: {
+          $month: '$createTime'
+        },
+        title: 1,
+        createTime: 1
+      }
+    },
+    {
+      $group: {
+        _id: {
+          year: '$year',
+          month: '$month'
+        },
+        article: {
+          $push: {
+            title: '$title',
+            _id: '$_id',
+            createTime: '$createTime'
+          }
+        }
+      }
+    }
+  ])
+  if (article) {
+    let yearList = [...new Set(article.map(item => item._id.year))]
+      .sort((a, b) => b - a)
+      .map(item => {
+        let monthList = []
+        article.forEach(n => {
+          // 同一年
+          if (n._id.year === item) {
+            monthList.push({
+              month: n._id.month,
+              articleList: n.article.reverse()
+            })
+          }
+        })
+        return {
+          year: item,
+          monthList: monthList.sort((a, b) => b.month - a.month)
+        }
+      })
+    responseClient(res, 200, 200, '获取内容成功', yearList);
+  } else {
+    responseClient(res, 500, 201, '获取内容失败', []);
+  }
+}
+
+

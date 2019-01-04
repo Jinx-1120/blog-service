@@ -46,5 +46,9 @@ clientRouter.get('/comments', commentControll.getComments);
 
 clientRouter.post('/comment', commentControll.postComment);
 
+/**
+ * 归档
+ */
+clientRouter.get('/getrecords', articleControll.getRecords);
 
 module.exports = clientRouter;
