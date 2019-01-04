@@ -197,7 +197,7 @@ exports.postComment = async (req, res, next) => {
         '_id': comment.post_id
       })
       .catch(err => responseClient(res, 500, 202, '服务器内部异常', err))
-    permalink = `http://localhost:3001/article/${article._id}`
+    permalink = `https://jinhaidi.cn/article/${article._id}`
   } else permalink = 'https://jinhaidi.cn/about'
 
   // 发布评论
