@@ -1,31 +1,51 @@
 {
-  "name": "blog",
+  "name": "server",
   "version": "1.0.0",
-  "description": "JHaidi's personal blog",
-  "main": "index.js",
+  "description": "blog server",
+  "main": "app.js",
   "scripts": {
-    "service-dev": "NODE_ENV=development nodemon ./service/app.js",
-    "admin-dev": "webpack-dev-server --inline --progress --config ./admin/build/webpack.dev.conf.js",
-    "admin-start": "npm run admin-dev",
-    "admin-build": "node ./admin/build/build.js",
-    "lint": "eslint --ext .js,.vue src"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Jhaidi/blog.git"
+    "dev": "NODE_ENV=development nodemon app.js",
+    "start": "NODE_ENV=production forever start -l /var/log/node-service/node-service.out.log -e /var/log/node-service/node-service.err.log -w -a app.js",
+    "pm2": "pm2 start processes.json"
   },
   "keywords": [
     "blog",
-    "vue",
-    "ssr",
-    "node",
     "express",
-    "mongodb"
+    "node",
+    "javascript"
   ],
   "author": "JHaidi",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Jhaidi/blog/issues"
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "cors": "^2.8.4",
+    "dotenv-safe": "^6.1.0",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1",
+    "jsonwebtoken": "^7.4.3",
+    "method-override": "^2.3.8",
+    "mongoose": "^5.2.4",
+    "mongoose-auto-increment": "^5.0.1",
+    "morgan": "^1.9.0",
+    "nodemailer": "^4.7.0",
+    "nodemailer-smtp-transport": "^2.7.4",
+    "nodemon": "^1.18.3",
+    "passport": "^0.4.0",
+    "qiniu": "^7.2.1",
+    "qn": "^1.3.0",
+    "request": "^2.88.0",
+    "geoip-lite": "^1.2.1"
   },
-  "homepage": "https://github.com/Jhaidi/blog#readme"
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "connect-multiparty": "^2.1.1",
+    "cookie-parser": "^1.4.3",
+    "express-session": "^1.15.6",
+    "mongoose-paginate": "^5.0.3",
+    "multer": "^1.3.1"
+  }
 }

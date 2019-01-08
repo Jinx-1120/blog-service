@@ -1,2 +1,2 @@
-# blog
-JHaidi's personal blog
+# Blog API Services
+
