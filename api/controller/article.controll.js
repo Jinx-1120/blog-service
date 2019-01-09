@@ -62,22 +62,24 @@ exports.articleList = async (req, res, next) => {
   let userName = ''
   req.originalUrl.indexOf('/admin/') === 0 ? userName = req.session.userName : userName = 'admin'
   let {
-    pageNum = 1, tag, isAll = false, hot = false
+    pageNum = 1, tag, isAll = false, hot = false, page_size = 20
   } = req.query;
-  let option = {
-    author: userName
-  };
+  let query = {};
+  let options = {
+    sort: {
+      createTime: -1
+    },
+    page: Number(pageNum),
+    limit: Number(page_size)
+  }
   let sort = {};
-  tag ? option.tags = tag : '';
-  hot ? sort = {
+  if(tag) query.tags = tag ;
+  hot ? options.sort = {
     fabulous: -1
-  } : sort = {
+  }: options.sort = {
     createTime: -1
   }
-  let articleList = await articleModel.paginate(option, {
-    sort,
-    page: pageNum
-  }).catch(err => responseClient(res, 500, 202, '服务器内部错误！', err))
+  let articleList = await articleModel.paginate(query, options).catch(err => responseClient(res, 500, 202, '服务器内部错误！', err))
   let data = {
     data: articleList.docs,
     pageTotal: articleList.pages,
