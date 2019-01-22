@@ -14,11 +14,16 @@ mongoose.connection.on('error', (err) => {
  * @returns {object} Mongoose connection
  * @public
  */
+const options = {
+  useNewUrlParser: true,
+  server: {
+    auto_reconnect: true,
+    poolSize: 10
+  }
+};
 exports.connect = () => {
   console.log(`Connecting to mongo @: ${config.uri}`);
-  mongoose.connect(config.uri, {
-    useNewUrlParser: true
-  });
+  mongoose.connect(config.uri, options);
   return mongoose.connection;
 };
 

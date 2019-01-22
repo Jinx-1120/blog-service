@@ -75,8 +75,6 @@ exports.Login = async (req, res, next) => {
         exp: Math.floor(Date.now() / 1000) + (60*60)
       }, 'blog');
 
-      console.log(token);
-
       responseClient(res, 200, 200, '登陆成功', {token: token});
       next();
     } else {
