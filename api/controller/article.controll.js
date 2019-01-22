@@ -62,14 +62,14 @@ exports.articleList = async (req, res, next) => {
   let userName = ''
   req.originalUrl.indexOf('/admin/') === 0 ? userName = req.session.userName : userName = 'admin'
   let {
-    pageNum = 1, tag, isAll = false, hot = false, page_size = 20
+    page_num = 1, tag, hot = false, page_size = 20
   } = req.query;
   let query = {};
   let options = {
     sort: {
       createTime: -1
     },
-    page: Number(pageNum),
+    page: Number(page_num),
     limit: Number(page_size)
   }
   let sort = {};
@@ -83,8 +83,9 @@ exports.articleList = async (req, res, next) => {
   let data = {
     data: articleList.docs,
     pageTotal: articleList.pages,
-    more: articleList.pages - articleList.page > 1 ? true : false,
-    totalNum: articleList.page
+    more: articleList.pages - articleList.page > 0 ? true : false,
+    page: articleList.page,
+    totalNum: articleList.total
   };
   responseClient(res, 200, 200, 'success', data);
 };
@@ -247,13 +248,17 @@ exports.searchArticle = async (req, res, next)=> {
     {content: {$regex: keyword, $options: '$i'}}
   ];
 
-  articleModel.find(query).then(info => {
-    responseClient(res, 200, 200, '成功', info);
-    next();
-  }).catch(err => {
+  const list = await articleModel.paginate(query,{}).catch(err => {
     responseClient(res, 500, 500, '服务器异常', err);
-    next();
   })
+  let data = {
+    data: list.docs,
+    pageTotal: list.pages,
+    more: list.pages - list.page > 0 ? true : false,
+    page: list.page,
+    totalNum: list.total
+  };
+  responseClient(res, 200, 200, '成功', data);
 }
 
 exports.getRecords = async (req, res, next) => {

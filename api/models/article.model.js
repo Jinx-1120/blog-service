@@ -48,7 +48,6 @@ const article = new mongoose.Schema({
     // 文章更新时间
     type: Date,
     trim: true,
-    default: Date.now,
     required: false
   },
   status: {
