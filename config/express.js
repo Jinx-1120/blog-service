@@ -53,9 +53,9 @@ app.use((req, res, next) => {
   if(req.originalUrl.indexOf('/admin/') === 0) {
     if (req.originalUrl.indexOf('login') > 0 || req.originalUrl.indexOf('register') > 0 || req.originalUrl.indexOf('getQN') > 0) {
       next()
-    } else if(req.query.token) {
+    } else if (req.headers.token) {
       try {
-        const decodedToken = jwt.verify(req.query.token, 'blog')
+        const decodedToken = jwt.verify(req.headers.token, 'blog')
         if (decodedToken.exp > Math.floor(Date.now() / 1000)) {
           req.session.userName = decodedToken.name
           next();
@@ -63,7 +63,7 @@ app.use((req, res, next) => {
           responseClient(res, 200, -1, '登陆超时，请重新登陆', null);
         }
       } catch (err) {
-        responseClient(res, 200, -1, 'token失效，请重新登陆', null);
+        responseClient(res, 200, -1, 'token失效，请重新登陆', err);
       }
     } else  {
       responseClient(res, 200, -1, '来者何人', null);

@@ -12,7 +12,7 @@ exports.addTag = async (req, res, next) => {
     description
   } = req.body;
   if (!tagName) {
-    responseClient(res, 200, 202, '标签名不可为空');
+    responseClient(res, 200, 201, '标签名不可为空');
     next();
   };
   try {
@@ -20,7 +20,7 @@ exports.addTag = async (req, res, next) => {
       tagName: tagName
     }).then(data => {
       if (data) {
-        responseClient(res, 200, 202, '标签已存在');
+        responseClient(res, 200, 201, '标签已存在');
         next();
       } else {
         let tag = new tagsModel({
@@ -30,7 +30,7 @@ exports.addTag = async (req, res, next) => {
           author: req.session.userName || '',
         });
         tag.save().then(saveInfo => {
-          responseClient(res, 200, 201, '标签保存成功', saveInfo);
+          responseClient(res, 200, 200, '标签保存成功', saveInfo);
           next();
         }).catch(err => {
           responseClient(res, 500, 500, '系统异常', err);
@@ -39,7 +39,7 @@ exports.addTag = async (req, res, next) => {
       };
     });
   } catch (err) {
-    responseClient(res, 200, 202, '标签保存失败', err);
+    responseClient(res, 200, 201, '标签保存失败', err);
     next();
   };
 };
@@ -68,7 +68,7 @@ exports.tagList = async (req, res, next) => {
       next();
     });
   } catch (err) {
-    responseClient(res, 200, 202, '查询失败', err);
+    responseClient(res, 200, 201, '查询失败', err);
     next();
   };
 };
@@ -79,18 +79,18 @@ exports.tagList = async (req, res, next) => {
  * @param {*} next
  */
 exports.delTag = async (req, res, next) => {
-  let { tagName } = req.body;
-  if (!tagName) {
-    responseClient(res, 200, 202, '标签名不可为空');
+  let { tagId } = req.params;
+  if (!tagId) {
+    responseClient(res, 200, 201, '标签名不可为空');
     next();
   } else {
     try {
-      tagsModel.remove({ tagName }).then(tagResult => {
+      tagsModel.remove({ _id: tagId }).then(tagResult => {
         if (tagResult.n === 1) {
-          responseClient(res, 200, 201, '删除标签成功！');
+          responseClient(res, 200, 200, '删除标签成功！');
           next();
         } else {
-          responseClient(res, 200, 202, '标签不存在！');
+          responseClient(res, 200, 201, '标签不存在！');
           next();
         };
       }).catch(err => {

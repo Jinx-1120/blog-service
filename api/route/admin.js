@@ -42,7 +42,7 @@ adminRouter.get('/tagList', tagControll.tagList);
 /**
  * 删除标签
  */
-adminRouter.delete('/delTag', tagControll.delTag);
+adminRouter.delete('/delTag/:tagId', tagControll.delTag);
 /**
  * 添加文章
  */

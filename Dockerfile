@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:8.10.0-alpine
 
 EXPOSE 3000
 
@@ -10,6 +10,6 @@ RUN mkdir /app
 ADD . /app
 WORKDIR /app
 RUN npm install pm2 -g
-RUN yarn
+RUN npm install
 
-CMD ["npm", "run", "dev"]
+ENTRYPOINT /bin/sh -c "npm run pm2;tail -f /dev/null"

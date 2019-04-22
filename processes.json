@@ -3,8 +3,8 @@
     "name": "service",
     "script": "./app.js",
     "log_date_format": "YYYY-MM-DD HH:mm Z",
-    "error_file": "/var/log/node-service/node-service.err.log",
-    "out_file": "/var/log/node-service/node-service.out.log",
+    "error_file": "./log/node-service/node-service.err.log",
+    "out_file": "./log/node-service/node-service.out.log",
     "instances": 1,
     "env": {
       "NODE_ENV": "production"

@@ -32,7 +32,7 @@ exports.addArticle = async (req, res, next) => {
       fabulous: 0
     })
     article.save().then(data => {
-      responseClient(res, 200, 201, '保存成功！');
+      responseClient(res, 200, 200, '保存成功！');
       request.post({
         url: `http://data.zz.baidu.com/urls?site=${config.baidu.site}&token=${config.baidu.token}`,
         headers: {
@@ -173,7 +173,7 @@ exports.delArticle = async (req, res, next) => {
         _id: articleID
       }).then(result => {
         if (result.n === 1) {
-          responseClient(res, 200, 201, '删除成功!');
+          responseClient(res, 200, 200, '删除成功!');
           request.post({
             url: `http://data.zz.baidu.com/del?site=${config.baidu.site}&token=${config.baidu.token}`,
             headers: {
