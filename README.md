@@ -94,3 +94,7 @@ Server has startup warnings:
 - [User](https://github.com/Jhaidi/blog_server/blob/master/api/controller/user.controll.js)
 - [Tag](https://github.com/Jhaidi/blog_server/blob/master/api/controller/tags.controll.js)
 - [Article](https://github.com/Jhaidi/blog_server/blob/master/api/controller/article.controll.js)
+
+### Action
+
+[Action](https://github.com/Jhaidi/blog-service/blob/master/.github/workflows/server.yml)
