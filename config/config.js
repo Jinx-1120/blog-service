@@ -1,3 +1,9 @@
+/*
+ * @Author: jinhaidi
+ * @Date: 2019-07-31 14:00:41
+ * @Description: file content
+ * @LastEditTime: 2020-01-25 18:49:01
+ */
 const path = require('path');
 
 require('dotenv-safe').load({

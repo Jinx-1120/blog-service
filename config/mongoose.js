@@ -18,10 +18,14 @@ const options = {
   useNewUrlParser: true,
   server: {
     auto_reconnect: true,
-    poolSize: 10
+    poolSize: 10,
+    // useMongoClient: true,
+    useUnifiedTopology: true
   }
 };
 exports.connect = () => {
+  console.log('========')
+
   console.log(`Connecting to mongo @: ${config.uri}`);
   mongoose.connect(config.uri, options);
   return mongoose.connection;
@@ -29,6 +33,7 @@ exports.connect = () => {
 
 exports.disconnect = () => {
   mongoose.disconnect(() => {
+    console.log('========')
     console.log(`disconnect : ${config.uri}`);
   });
 }

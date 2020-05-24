@@ -4,9 +4,8 @@
   "description": "blog server",
   "main": "app.js",
   "scripts": {
-    "dev": "NODE_ENV=production nodemon app.js",
-    "start": "NODE_ENV=production forever start -l /var/log/node-service/node-service.out.log -e /var/log/node-service/node-service.err.log -w -a app.js",
-    "pm2": "pm2 start processes.json"
+    "dev": "nodemon app.js",
+    "deploy": "pm2 start processes.json"
   },
   "keywords": [
     "blog",
