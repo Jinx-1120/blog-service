@@ -12,4 +12,4 @@ WORKDIR /app
 RUN npm install pm2 -g
 RUN npm install --registry https://registry.npm.taobao.org
 
-CMD ["pm2-runtime",".app.js","-i","4", "--watch", "--name", "blog-service"]
+CMD ["pm2-runtime","app.js","-i","4", "--watch", "--name", "blog-service"]
