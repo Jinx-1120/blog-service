@@ -2,6 +2,8 @@ version: '3'
 services:
   blog-server:
     image: blog-server:v1.1
+    container_name: blog-server
+    restart: always
     build: .
     ports:
       - 3000:3000
