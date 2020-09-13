@@ -1,4 +1,4 @@
-FROM node:8.10.0-alpine
+FROM node:12.15.0-alpine
 
 EXPOSE 3000
 
@@ -12,4 +12,4 @@ WORKDIR /app
 RUN npm install pm2 -g
 RUN npm install
 
-CMD [ "npm", "run", "deploy" ]
+CMD ["pm2-runtime",".app.js","-i","4", "--watch", "--name", "blog-service"]
