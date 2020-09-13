@@ -12,4 +12,4 @@ WORKDIR /app
 RUN npm install pm2 -g
 RUN npm install
 
-ENTRYPOINT /bin/sh -c "npm run pm2;tail -f /dev/null"
+CMD [ "npm", "run", "deploy" ]
