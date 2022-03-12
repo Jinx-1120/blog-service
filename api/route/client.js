@@ -1,40 +1,43 @@
-import express from 'express';
-import userControll from '../controller/user.controll';
-import tagControll from '../controller/tags.controll';
-import articleControll from '../controller/article.controll';
-import uploadControll from '../controller/upload.controll';
-import commentControll from '../controller/comment.controll';
+import express from "express";
+import userControll from "../controller/user.controll";
+import tagControll from "../controller/tags.controll";
+import articleControll from "../controller/article.controll";
+import uploadControll from "../controller/upload.controll";
+import commentControll from "../controller/comment.controll";
 
 let clientRouter = express.Router({
-  mergeParams: true
+  mergeParams: true,
 });
 
 /**
  * 用户验证
  */
-clientRouter.get('/userInfo', userControll.userInfo);
+clientRouter.get("/userInfo", userControll.userInfo);
 
 /**
  * 查询标签列表
  */
-clientRouter.get('/tagList', tagControll.tagList);
+clientRouter.get("/tagList", tagControll.tagList);
 /**
  * 获取文章列表
  */
-clientRouter.get('/articleList', articleControll.articleList);
+clientRouter.get("/articleList", articleControll.articleList);
 /**
  * 获取文章详情
  */
-clientRouter.get('/article/:articleID', articleControll.getArticle);
+clientRouter.get("/article/:articleID", articleControll.getArticle);
 /**
  * 点赞
  */
-clientRouter.post('/article/likeArticle/:articleID', articleControll.likeArticle);
+clientRouter.post(
+  "/article/likeArticle/:articleID",
+  articleControll.likeArticle
+);
 
 /**
  * 搜索
  */
-clientRouter.get('/search', articleControll.searchArticle);
+clientRouter.get("/search", articleControll.searchArticle);
 
 // uploadControll.upload.single('file')
 // clientRouter.post('/uploadImg', uploadControll.upload.single('image'), uploadControll.uploadImg);
@@ -42,13 +45,20 @@ clientRouter.get('/search', articleControll.searchArticle);
 /***
  * 评论
  */
-clientRouter.get('/comments', commentControll.getComments);
+clientRouter.get("/comments", commentControll.getComments);
 
-clientRouter.post('/comment', commentControll.postComment);
+clientRouter.post("/comment", commentControll.postComment);
 
 /**
  * 归档
  */
-clientRouter.get('/getrecords', articleControll.getRecords);
+clientRouter.get("/getrecords", articleControll.getRecords);
+
+clientRouter.get("/wechat/callback", (req, res) => {
+  console.log("/wechat/callback=====", req.params);
+  console.log("/wechat/callback=====", req.body);
+
+  res.status(200).json({});
+});
 
 module.exports = clientRouter;
