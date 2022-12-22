@@ -21,7 +21,7 @@
     "dotenv-safe": "^6.1.0",
     "express": "^4.16.3",
     "helmet": "^3.12.1",
-    "jsonwebtoken": "^7.4.3",
+    "jsonwebtoken": "^9.0.0",
     "method-override": "^2.3.8",
     "mongoose": "^5.2.4",
     "mongoose-auto-increment": "^5.0.1",
